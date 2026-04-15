@@ -141,6 +141,33 @@ python agents/crew.py
 
 This executes the built-in test block and prints the full committee output for `region="India"`.
 
+## Split Frontend / Backend Setup
+
+The repository now keeps backend and frontend as separate sibling apps:
+
+- Backend (FastAPI + core logic): `ai-credit-system/`
+- Frontend (React + Vite): `frontend/`
+
+Run backend:
+
+```bash
+cd ai-credit-system
+./run_api.sh
+```
+
+Run frontend (from repo root):
+
+```bash
+./run_frontend.sh
+```
+
+Optional frontend env override:
+
+```bash
+cp frontend/.env.example frontend/.env
+# edit VITE_API_BASE_URL if your backend URL differs
+```
+
 ## Project Structure
 
 - `app/main.py`: End-to-end CLI pipeline runner.
