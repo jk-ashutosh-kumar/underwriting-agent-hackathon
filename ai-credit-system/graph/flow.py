@@ -108,12 +108,18 @@ def router_node(state: UnderwritingState) -> str:
     return "review"
 
 
-def hitl_node(state: UnderwritingState) -> UnderwritingState:
+def hitl_node(
+    state: UnderwritingState, interactive: bool = True, human_response: str = ""
+) -> UnderwritingState:
     """Node C: pause for human clarification and persist checkpoint."""
     print("⚠️ Action Required: Suspicious transaction detected")
     print("Found large transaction with no description")
     save_checkpoint(state)
-    user_response = input("Explain this transaction: ").strip()
+    if interactive:
+        user_response = input("Explain this transaction: ").strip()
+    else:
+        # UI-safe mode: do not block; consume provided response.
+        user_response = human_response.strip() or "No clarification provided"
     state["human_input"] = user_response
     state["agent_logs"].append(f"HITL: User explanation captured -> {user_response}")
     return state
@@ -143,7 +149,12 @@ def decision_node(state: UnderwritingState) -> UnderwritingState:
     return state
 
 
-def run_underwriting_flow(data: Dict[str, Any], region: str) -> UnderwritingState:
+def run_underwriting_flow(
+    data: Dict[str, Any],
+    region: str,
+    interactive: bool = True,
+    human_response: str = "",
+) -> UnderwritingState:
     """Flow controller orchestrating all nodes with conditional routing."""
     state = create_initial_state(data, region)
     state = run_analysis_node(state)
@@ -152,7 +163,7 @@ def run_underwriting_flow(data: Dict[str, Any], region: str) -> UnderwritingStat
     if next_step == "approve":
         state = decision_node(state)
     elif next_step == "hitl":
-        state = hitl_node(state)
+        state = hitl_node(state, interactive=interactive, human_response=human_response)
         state = resume_node(state)
         state = decision_node(state)
     else:  # review

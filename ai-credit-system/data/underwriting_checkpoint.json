@@ -1,0 +1,69 @@
+{
+  "applicant_data": {
+    "applicant_id": "SME-1029",
+    "statement_month": "2026-03",
+    "transactions": [
+      {
+        "date": "2026-03-01",
+        "description": "Retail Sales Deposit",
+        "amount": 95000,
+        "type": "credit"
+      },
+      {
+        "date": "2026-03-03",
+        "description": "Raw Material Purchase",
+        "amount": 38000,
+        "type": "debit"
+      },
+      {
+        "date": "2026-03-06",
+        "description": "Enterprise Contract Payment",
+        "amount": 135000,
+        "type": "credit"
+      },
+      {
+        "date": "2026-03-08",
+        "description": "Salary Payout",
+        "amount": 52000,
+        "type": "debit"
+      },
+      {
+        "date": "2026-03-12",
+        "description": "Utility Bills",
+        "amount": 12000,
+        "type": "debit"
+      },
+      {
+        "date": "2026-03-14",
+        "description": "Online Sales Deposit",
+        "amount": 73000,
+        "type": "credit"
+      },
+      {
+        "date": "2026-03-20",
+        "description": "Vendor Repayment",
+        "amount": 28000,
+        "type": "debit"
+      },
+      {
+        "date": "2026-03-24",
+        "description": "Channel Partner Collection",
+        "amount": 62000,
+        "type": "credit"
+      }
+    ],
+    "total_inflow": 365000,
+    "total_outflow": 130000
+  },
+  "region": "India",
+  "risk_score": 25,
+  "agent_logs": [
+    "Auditor: I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+    "Trend: In India, inflow is 365000.00 and outflow is 130000.00, so estimated profit is 235000.00. Growth ratio is 2.81, which I classify as 'growing' for this demo.",
+    "Benchmark: I reviewed 13 memory cases; 0 were high risk. This suggests the current case aligns with 'Risk profile is closer to historically stable partners'.",
+    "Committee: Committee Summary (India): audit risk score is 25/100; growth trend is 'growing' with profit 235000.00; benchmark view: Risk profile is closer to historically stable partners. Accounting signal used: Partner has 95% on-time payments.",
+    "Router: Large transaction 95000.00 above threshold 50000.00 -> FLAGGED."
+  ],
+  "human_input": "",
+  "decision_status": "FLAGGED"
+}
