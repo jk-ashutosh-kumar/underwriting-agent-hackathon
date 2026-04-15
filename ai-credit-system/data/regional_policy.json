@@ -1,0 +1,10 @@
+{
+  "India": {
+    "cash_threshold": 50000,
+    "flag_keywords": ["UPI", "GST"]
+  },
+  "Philippines": {
+    "cash_threshold": 40000,
+    "flag_keywords": ["Peso", "Check"]
+  }
+}
