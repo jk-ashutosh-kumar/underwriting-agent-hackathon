@@ -1,0 +1,12 @@
+{
+  "India": {
+    "dscr_threshold": 1.2,
+    "large_txn_threshold": 100000,
+    "keywords": ["UPI", "GST"]
+  },
+  "Philippines": {
+    "dscr_threshold": 1.5,
+    "large_txn_threshold": 80000,
+    "keywords": ["Peso", "Check"]
+  }
+}

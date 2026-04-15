@@ -1,64 +1,165 @@
 # AI Credit Underwriting System
 
-A hackathon-friendly, production-style monorepo scaffold for an AI-powered credit underwriting pipeline.
+Hackathon-ready multi-agent credit underwriting demo built with simple, explainable logic.
 
-## Project Overview
+## Latest Developments (Phase 2)
 
-This project is organized in clear modular phases:
+The system now includes a **Multi-Agent Credit Committee** with clear personas, regional context, memory-backed comparison, and explainable outputs.
 
-1. **Ingestion**: Parse a statement document into normalized JSON.
-2. **Multi-Agent Analysis**: Run Auditor, Trend Analyst, and Benchmarker logic via a CrewAI-style crew module.
-3. **Decision Flow**: Make a simple underwriting decision from risk score.
-4. **Memory**: Save case results in a local JSON memory file.
-5. **UI**: Streamlit dashboard for uploading data and running analysis.
+### 1) Multi-Agent Credit Committee
 
-The system is intentionally simple and uses mock logic where useful, so it can run quickly in a hackathon.
+Three distinct agent personas are orchestrated in `agents/crew.py`:
 
-## How to Run
+- **Auditor Agent** (`Fraud Detection Specialist`)
+  - Persona: skeptical forensic accountant who trusts no one.
+  - Flags:
+    - Large transactions above region threshold.
+    - Repeated identical transaction amounts (possible round-tripping).
+  - Output: `risk_score`, `flags`, and "why" explanation.
 
-1. Run the app with one script:
+- **Trend Agent** (`Growth Analyst`)
+  - Persona: data-driven strategist focused on growth.
+  - Computes:
+    - `profit = inflow - outflow`
+    - Simple growth indicator (`growing`, `stable`, `shrinking`)
+  - Output: `profit`, `trend`, and explainable insight.
 
-```bash
-./run_app.sh
+- **Benchmark Agent** (`Portfolio Manager`)
+  - Persona: experienced portfolio manager.
+  - Compares current case with historical memory entries.
+  - Fallback if memory unavailable: `"No historical comparison"`.
+
+### 2) Regional Rules + Context Injection
+
+Regional decision context is stored in `data/regional_rules.json` and injected into task descriptions and agent logic:
+
+- Country-specific large transaction threshold
+- DSCR threshold (future use)
+- Regional keywords (for contextual interpretation)
+
+Supported examples:
+
+- `India`: large transaction threshold `100000`, keywords `UPI`, `GST`
+- `Philippines`: large transaction threshold `80000`, keywords `Peso`, `Check`
+
+### 3) Custom Accounting Tool
+
+`tools/accounting_tool.py` now exposes `AccountingModuleTool` with:
+
+- `_run(query: str)` -> mock deterministic output:
+  - `"Partner has 95% on-time payments"`
+- Comments showing future extension path:
+  - Pandas ingestion
+  - SQL conversion
+  - Data warehouse querying
+
+### 4) Simple Memory System
+
+`memory/store.py` now includes:
+
+- `load_memory()`
+- `save_memory(entry)`
+
+Memory is JSON-file based for reliability and speed in demos.  
+Backward-compatible aliases are also preserved:
+
+- `load_cases()` -> `load_memory()`
+- `save_case(data)` -> `save_memory(data)`
+
+### 5) Explainable Final Output
+
+`run_crew(data, region)` returns:
+
+```python
+{
+  "audit": ...,
+  "trend": ...,
+  "benchmark": ...,
+  "final_summary": "...",
+  "crew_status": "..."
+}
 ```
 
-This script will:
+`final_summary` combines:
 
-- Create `.venv` if missing
-- Install dependencies from `requirements.txt`
-- Launch Streamlit UI
+- fraud risk
+- growth/profit signal
+- benchmark insight
+- accounting tool signal
 
-2. Optional manual setup:
+## Environment Setup (Secrets)
+
+This project supports `.env`-based secrets loaded via `python-dotenv`.
+
+1. Create/activate virtual environment:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-streamlit run ui/app.py
 ```
 
-## Folder Structure
+2. Install dependencies:
 
-- `app/main.py`: End-to-end CLI pipeline runner.
-- `ingestion/parser.py`: Mock parser (`parse_document`).
-- `agents/`: Individual agent logic and crew orchestrator.
-  - `auditor.py`: Flags high-value transactions and outputs risk score.
-  - `trend.py`: Computes inflow/outflow profit trend.
-  - `benchmark.py`: Returns mock benchmark result.
-  - `crew.py`: Builds CrewAI objects (if available) and combines outputs.
-- `graph/flow.py`: Simple decision state function (`APPROVED` or `HUMAN_REVIEW`).
-- `memory/store.py`: JSON file-based memory save/load.
-- `tools/accounting_tool.py`: Mock accounting query tool.
-- `ui/app.py`: Streamlit dashboard.
-- `data/sample_statement.json`: Dummy financial transaction data.
-- `requirements.txt`: Minimal dependencies.
+```bash
+pip install -r requirements.txt
+```
 
-## Single-Command End-to-End
+3. Configure secrets:
 
-For the full user flow (upload/sample + analysis + decision + memory), use:
+- Copy `.env.example` to `.env` and fill values:
+  - `OPENAI_API_KEY`
+  - `DB_URL`
+
+`.env` is ignored by git through `.gitignore`.
+
+## How to Run
+
+### Option A: One-command app run
 
 ```bash
 ./run_app.sh
 ```
 
-Click **Run Analysis** in the UI to execute the complete pipeline.
+This script:
+
+- creates `.venv` if missing
+- installs dependencies
+- launches Streamlit UI
+
+### Option B: Manual run
+
+```bash
+source .venv/bin/activate
+streamlit run ui/app.py
+```
+
+### Option C: Run committee directly (CLI test)
+
+```bash
+python agents/crew.py
+```
+
+This executes the built-in test block and prints the full committee output for `region="India"`.
+
+## Project Structure
+
+- `app/main.py`: End-to-end CLI pipeline runner.
+- `ingestion/parser.py`: Mock parser.
+- `agents/`
+  - `auditor.py`: Fraud/anomaly checks + explainable risk rationale.
+  - `trend.py`: Profit + growth trend logic + explanation.
+  - `benchmark.py`: Historical comparison using memory.
+  - `crew.py`: CrewAI committee setup + region-aware orchestration.
+- `tools/accounting_tool.py`: Custom accounting query tool (`AccountingModuleTool`).
+- `memory/store.py`: JSON memory load/save (`load_memory`, `save_memory`).
+- `graph/flow.py`: Final underwriting decision helper.
+- `ui/app.py`: Streamlit UI.
+- `data/sample_statement.json`: Sample financial input.
+- `data/regional_rules.json`: Region-specific policy context.
+- `data/cases_memory.json`: Stored historical cases.
+
+## Demo Notes
+
+- Prioritize **explainability**: each agent includes a clear "why".
+- Prioritize **reliability**: deterministic logic, minimal dependencies.
+- Prioritize **clarity**: visible agent personalities and chained outputs.
