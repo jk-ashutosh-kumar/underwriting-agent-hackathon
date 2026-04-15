@@ -1,0 +1,270 @@
+[
+  {
+    "input_source": "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/data/sample_statement.json",
+    "parsed_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000,
+      "total_outflow": 130000
+    },
+    "agent_outputs": {
+      "crew_status": "Crew configured.",
+      "auditor": {
+        "agent": "auditor",
+        "threshold": 100000,
+        "flagged_transactions": [
+          {
+            "date": "2026-03-06",
+            "description": "Enterprise Contract Payment",
+            "amount": 135000,
+            "type": "credit"
+          }
+        ],
+        "risk_score": 4,
+        "summary": "Found 1 high-value transaction(s)."
+      },
+      "trend": {
+        "agent": "trend_analyst",
+        "inflow": 365000.0,
+        "outflow": 130000.0,
+        "profit": 235000.0,
+        "trend_summary": "Business shows positive cashflow with net 235000.00."
+      },
+      "benchmark": {
+        "agent": "benchmarker",
+        "segment": "SME Lending",
+        "performance_band": "average performer",
+        "summary": "Applicant is comparable to peer median on liquidity and repayment behavior."
+      }
+    },
+    "decision": "APPROVED"
+  },
+  {
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000,
+      "total_outflow": 130000
+    },
+    "agent_outputs": {
+      "crew_status": "Crew configured.",
+      "auditor": {
+        "agent": "auditor",
+        "threshold": 100000,
+        "flagged_transactions": [
+          {
+            "date": "2026-03-06",
+            "description": "Enterprise Contract Payment",
+            "amount": 135000,
+            "type": "credit"
+          }
+        ],
+        "risk_score": 4,
+        "summary": "Found 1 high-value transaction(s)."
+      },
+      "trend": {
+        "agent": "trend_analyst",
+        "inflow": 365000.0,
+        "outflow": 130000.0,
+        "profit": 235000.0,
+        "trend_summary": "Business shows positive cashflow with net 235000.00."
+      },
+      "benchmark": {
+        "agent": "benchmarker",
+        "segment": "SME Lending",
+        "performance_band": "average performer",
+        "summary": "Applicant is comparable to peer median on liquidity and repayment behavior."
+      }
+    },
+    "decision": "APPROVED"
+  },
+  {
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000,
+      "total_outflow": 130000
+    },
+    "agent_outputs": {
+      "crew_status": "Crew configured.",
+      "auditor": {
+        "agent": "auditor",
+        "threshold": 100000,
+        "flagged_transactions": [
+          {
+            "date": "2026-03-06",
+            "description": "Enterprise Contract Payment",
+            "amount": 135000,
+            "type": "credit"
+          }
+        ],
+        "risk_score": 4,
+        "summary": "Found 1 high-value transaction(s)."
+      },
+      "trend": {
+        "agent": "trend_analyst",
+        "inflow": 365000.0,
+        "outflow": 130000.0,
+        "profit": 235000.0,
+        "trend_summary": "Business shows positive cashflow with net 235000.00."
+      },
+      "benchmark": {
+        "agent": "benchmarker",
+        "segment": "SME Lending",
+        "performance_band": "average performer",
+        "summary": "Applicant is comparable to peer median on liquidity and repayment behavior."
+      }
+    },
+    "decision": "APPROVED"
+  }
+]
