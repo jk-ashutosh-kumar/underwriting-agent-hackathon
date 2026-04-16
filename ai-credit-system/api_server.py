@@ -43,7 +43,7 @@ logging.basicConfig(
     force=True,
 )
 
-from fastapi import FastAPI, HTTPException
+from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -57,7 +57,15 @@ except Exception as exc:  # pragma: no cover - safe fallback when langgraph deps
     LANGGRAPH_IMPORT_ERROR = f"{type(exc).__name__}: {exc}"
     iter_langgraph_flow_events = None  # type: ignore[assignment]
     run_langgraph_flow = None  # type: ignore[assignment]
-from ingestion.parser import parse_document
+from ingestion.parser import parse_document  # legacy mock fallback
+from ingestion.db import (
+    get_case_documents_by_type,
+    get_or_create_case,
+    list_companies_with_cases,
+    list_schemas,
+)
+from ingestion.models import CaseDocumentsResponse, CompanyCaseSummary, IngestResponse
+from ingestion.pipeline import run_pipeline
 from memory.checkpoint import load_checkpoint
 from memory.store import load_memory
 from memory.store import save_case
@@ -312,24 +320,79 @@ def get_persistence_debug() -> PersistenceDebugResponse:
     )
 
 
-@app.post("/api/parse-document")
-def parse_uploaded_document(request: ParseDocumentRequest) -> Dict[str, Any]:
-    """Normalize uploaded document metadata into financial data.
+ALLOWED_UPLOAD_TYPES = {
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+}
 
-    NOTE: current parser is mock-based and deterministic for hackathon speed.
+
+@app.post("/api/parse-document", response_model=IngestResponse)
+async def parse_uploaded_document(
+    background_tasks: BackgroundTasks,
+    company_id: str = Form(...),
+    files: list[UploadFile] = File(...),
+) -> IngestResponse:
+    """Accept document uploads and run the ingestion pipeline in the background.
+
+    Returns a case_id immediately. Poll GET /api/case/{case_id} for results.
     """
-    normalized_type = request.file_type.lower().strip()
-    if normalized_type not in {"pdf", "json"}:
-        raise HTTPException(status_code=400, detail="Unsupported document type")
+    for f in files:
+        if f.content_type not in ALLOWED_UPLOAD_TYPES:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Unsupported file type: {f.filename} ({f.content_type})",
+            )
 
-    parsed = parse_document(request.file_name)
-    return {
-        "applicant_id": None,
-        "statement_month": None,
-        "transactions": parsed.get("transactions", []),
-        "total_inflow": parsed.get("total_inflow", 0),
-        "total_outflow": parsed.get("total_outflow", 0),
-    }
+    case_id = get_or_create_case(company_id)
+
+    # Read file bytes eagerly (stream closes after request ends)
+    payloads = []
+    for f in files:
+        raw = await f.read()
+        payloads.append({
+            "filename": f.filename,
+            "content_type": f.content_type,
+            "bytes": raw,
+        })
+
+    background_tasks.add_task(run_pipeline, case_id, company_id, payloads)
+
+    return IngestResponse(
+        case_id=case_id,
+        company_id=company_id,
+        status="processing",
+        files_received=len(payloads),
+        message=f"{len(payloads)} file(s) queued for processing.",
+    )
+
+
+@app.get("/api/companies", response_model=List[CompanyCaseSummary])
+def get_companies() -> List[CompanyCaseSummary]:
+    """List all companies with their associated case ID, status, and ingested doc types."""
+    rows = list_companies_with_cases()
+    return [CompanyCaseSummary(**r) for r in rows]
+
+
+@app.get("/api/case/{case_id}/documents/{doc_type}", response_model=CaseDocumentsResponse)
+def get_documents_by_type(case_id: str, doc_type: str) -> CaseDocumentsResponse:
+    """List all extracted documents of a specific type within a case."""
+    docs = get_case_documents_by_type(case_id, doc_type)
+    if docs is None:
+        raise HTTPException(status_code=404, detail="Case not found")
+    return CaseDocumentsResponse(
+        case_id=case_id,
+        doc_type=doc_type,
+        count=len(docs),
+        documents=docs,
+    )
+
+
+@app.get("/api/schemas")
+def get_schemas() -> list[dict]:
+    """List all registered document schemas."""
+    return list_schemas()
 
 
 @app.post("/api/underwrite", response_model=UnderwritingResponse)

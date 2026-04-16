@@ -76,3 +76,7 @@ typing_extensions==4.15.0
 tzdata==2026.1
 urllib3==2.6.3
 yarl==1.22.0
+pdf2image
+supabase
+python-multipart
+openpyxl

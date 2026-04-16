@@ -1503,5 +1503,139 @@
     "decision": "REJECTED",
     "region": "India",
     "risk_score": 90
+  },
+  {
+    "case_id": "case-1776327023",
+    "created_at": "2026-04-16T08:10:23.243249+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 75,
+        "flags": [
+          "Large transaction detected: 135000.0",
+          "Multiple transactions around the large transaction threshold"
+        ],
+        "explanation": "The analysis reveals a large credit transaction of 135000.0, which exceeds the defined threshold. Additionally, there are multiple transactions close to this threshold, indicating potential manipulation or unusual activity.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The business is experiencing a growing trend due to significantly higher inflows compared to outflows, indicating strong cash generation.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case has a risk score that aligns with previous rejected cases, indicating a higher likelihood of rejection based on historical data.",
+        "comparison_insight": "Historically, cases with risk scores above 70 have been predominantly rejected, while those with scores below 30 have been approved. The current case's risk score is above this threshold.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 75,
+        "flags": [
+          "Large transaction detected: 135000.0",
+          "Multiple transactions around the large transaction threshold"
+        ],
+        "explanation": "The analysis reveals a large credit transaction of 135000.0, which exceeds the defined threshold. Additionally, there are multiple transactions close to this threshold, indicating potential manipulation or unusual activity.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "final_summary": "The underwriting committee recommends a review of the case due to a high risk score and historical rejection trends associated with similar cases.",
+      "committee_chair": {
+        "final_summary": "The underwriting committee recommends a review of the case due to a high risk score and historical rejection trends associated with similar cases.",
+        "final_verdict_rationale": "The case presents a significant risk due to a large transaction of 135000.0 and multiple transactions near the threshold, which raises concerns about potential manipulation. Additionally, the risk score aligns with previously rejected cases, suggesting a higher likelihood of rejection based on historical data.",
+        "key_supporting_points": [
+          "Large transaction detected: 135000.0",
+          "Multiple transactions around the large transaction threshold",
+          "Growing trend in profit with inflows significantly exceeding outflows"
+        ],
+        "key_risks": [
+          "Potential manipulation or unusual activity indicated by large transactions",
+          "Historical rejection trends for similar risk scores"
+        ],
+        "confidence": 70,
+        "conditions_if_approved": [
+          "Further investigation into the nature of the large transaction",
+          "Monitoring of future transactions for unusual patterns"
+        ],
+        "mode": "llm",
+        "accounting_signal": "Partner has 95% on-time payments"
+      },
+      "crew_kickoff_summary": null,
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 73
   }
 ]

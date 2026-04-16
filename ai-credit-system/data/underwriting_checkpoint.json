@@ -58,13 +58,13 @@
   "region": "India",
   "risk_score": 75,
   "agent_logs": [
-    "Auditor: The analysis identified a large transaction of 135000.0 which exceeds the threshold of 100000.0, raising concerns about its legitimacy. Additionally, there are multiple transactions close to this threshold, indicating potential structuring.",
-    "Trend: The significant difference between total inflow and outflow indicates a strong cash flow position, suggesting growth potential.",
-    "Benchmark: Historically, cases with risk scores above 70 have been consistently rejected, while those with scores below 30 have been approved. The current case's risk score suggests a high likelihood of rejection based on past decisions.",
-    "Committee: The underwriting case presents significant concerns primarily due to a high risk score of 75, driven by a large transaction and multiple transactions near the threshold. Despite a strong cash flow trend indicating growth potential, historical data suggests a high likelihood of rejection for similar risk profiles.",
+    "Auditor: The analysis reveals a large credit transaction of 135000.0, which exceeds the defined threshold. Additionally, there are multiple transactions close to this threshold, indicating potential manipulation or unusual activity.",
+    "Trend: The business is experiencing a growing trend due to significantly higher inflows compared to outflows, indicating strong cash generation.",
+    "Benchmark: Historically, cases with risk scores above 70 have been predominantly rejected, while those with scores below 30 have been approved. The current case's risk score is above this threshold.",
+    "Committee: The underwriting committee recommends a review of the case due to a high risk score and historical rejection trends associated with similar cases.",
     "Router: Large transaction 95000.00 above threshold 50000.00 -> FLAGGED."
   ],
-  "human_input": "fraud",
+  "human_input": "bulk order payment",
   "decision_status": "FLAGGED",
   "committee_output": {
     "audit": {
@@ -73,7 +73,7 @@
         "Large transaction detected: 135000.0",
         "Multiple transactions around the large transaction threshold"
       ],
-      "explanation": "The analysis identified a large transaction of 135000.0 which exceeds the threshold of 100000.0, raising concerns about its legitimacy. Additionally, there are multiple transactions close to this threshold, indicating potential structuring.",
+      "explanation": "The analysis reveals a large credit transaction of 135000.0, which exceeds the defined threshold. Additionally, there are multiple transactions close to this threshold, indicating potential manipulation or unusual activity.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
@@ -83,7 +83,7 @@
     "trend": {
       "profit": 235000.0,
       "trend": "growing",
-      "insight": "The significant difference between total inflow and outflow indicates a strong cash flow position, suggesting growth potential.",
+      "insight": "The business is experiencing a growing trend due to significantly higher inflows compared to outflows, indicating strong cash generation.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
@@ -91,8 +91,8 @@
       "mode": "llm"
     },
     "benchmark": {
-      "benchmark_result": "The current underwriting case has a risk score significantly higher than the majority of historical entries, which have mostly been rejected at similar or higher risk scores.",
-      "comparison_insight": "Historically, cases with risk scores above 70 have been consistently rejected, while those with scores below 30 have been approved. The current case's risk score suggests a high likelihood of rejection based on past decisions.",
+      "benchmark_result": "The current underwriting case has a risk score that aligns with previous rejected cases, indicating a higher likelihood of rejection based on historical data.",
+      "comparison_insight": "Historically, cases with risk scores above 70 have been predominantly rejected, while those with scores below 30 have been approved. The current case's risk score is above this threshold.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
@@ -105,32 +105,30 @@
         "Large transaction detected: 135000.0",
         "Multiple transactions around the large transaction threshold"
       ],
-      "explanation": "The analysis identified a large transaction of 135000.0 which exceeds the threshold of 100000.0, raising concerns about its legitimacy. Additionally, there are multiple transactions close to this threshold, indicating potential structuring.",
+      "explanation": "The analysis reveals a large credit transaction of 135000.0, which exceeds the defined threshold. Additionally, there are multiple transactions close to this threshold, indicating potential manipulation or unusual activity.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
       "recommendation": "review",
       "mode": "llm"
     },
-    "final_summary": "The underwriting case presents significant concerns primarily due to a high risk score of 75, driven by a large transaction and multiple transactions near the threshold. Despite a strong cash flow trend indicating growth potential, historical data suggests a high likelihood of rejection for similar risk profiles.",
+    "final_summary": "The underwriting committee recommends a review of the case due to a high risk score and historical rejection trends associated with similar cases.",
     "committee_chair": {
-      "final_summary": "The underwriting case presents significant concerns primarily due to a high risk score of 75, driven by a large transaction and multiple transactions near the threshold. Despite a strong cash flow trend indicating growth potential, historical data suggests a high likelihood of rejection for similar risk profiles.",
-      "final_verdict_rationale": "The combination of a large transaction exceeding the threshold and multiple transactions close to that threshold raises red flags about the legitimacy of the financial activities. Historical benchmarks indicate that cases with risk scores above 70 have been consistently rejected, leading to a cautious approach in this instance.",
+      "final_summary": "The underwriting committee recommends a review of the case due to a high risk score and historical rejection trends associated with similar cases.",
+      "final_verdict_rationale": "The case presents a significant risk due to a large transaction of 135000.0 and multiple transactions near the threshold, which raises concerns about potential manipulation. Additionally, the risk score aligns with previously rejected cases, suggesting a higher likelihood of rejection based on historical data.",
       "key_supporting_points": [
         "Large transaction detected: 135000.0",
         "Multiple transactions around the large transaction threshold",
-        "Strong cash flow position with a profit of 235000.0"
+        "Growing trend in profit with inflows significantly exceeding outflows"
       ],
       "key_risks": [
-        "Legitimacy concerns regarding large transactions",
-        "Potential structuring of transactions",
-        "High risk score compared to historical data"
+        "Potential manipulation or unusual activity indicated by large transactions",
+        "Historical rejection trends for similar risk scores"
       ],
       "confidence": 70,
       "conditions_if_approved": [
-        "Further investigation into the legitimacy of the large transaction",
-        "Monitoring of future transaction patterns",
-        "Enhanced due diligence on the financial activities"
+        "Further investigation into the nature of the large transaction",
+        "Monitoring of future transactions for unusual patterns"
       ],
       "mode": "llm",
       "accounting_signal": "Partner has 95% on-time payments"
