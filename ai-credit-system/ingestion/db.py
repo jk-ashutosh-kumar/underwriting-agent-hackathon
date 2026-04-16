@@ -141,6 +141,31 @@ def update_document(
     client.table("documents").update(payload).eq("id", document_id).execute()
 
 
+def get_document(case_id: str, document_id: str) -> dict | None:
+    """Fetch a single document by case_id + document_id."""
+    client = get_client()
+    result = (
+        client.table("documents")
+        .select("id, document_name, doc_type, metadata, extracted_data, status, created_at")
+        .eq("case_id", case_id)
+        .eq("id", document_id)
+        .limit(1)
+        .execute()
+    )
+    if not result.data:
+        return None
+    r = result.data[0]
+    return {
+        "document_id": str(r["id"]),
+        "document_name": r["document_name"],
+        "doc_type": r["doc_type"],
+        "metadata": r["metadata"] or {},
+        "extracted_data": r["extracted_data"] or {},
+        "status": r["status"],
+        "created_at": r["created_at"],
+    }
+
+
 def get_documents_by_case(
     case_id: str, doc_types: list[str] | None = None
 ) -> list[dict]:
@@ -176,6 +201,41 @@ def list_schemas() -> list[dict]:
         {"document_type": r["document_type"], "output_format": r["output_format"]}
         for r in result.data
     ]
+
+
+def create_company(name: str) -> dict:
+    """Insert a new company row and return it."""
+    client = get_client()
+    result = client.table("companies").insert({"name": name}).execute()
+    row = result.data[0]
+    return {"company_id": str(row["id"]), "company_name": row["name"]}
+
+
+def update_company(company_id: str, name: str) -> dict | None:
+    """Update a company's name. Returns the updated row or None if not found."""
+    client = get_client()
+    result = (
+        client.table("companies")
+        .update({"name": name})
+        .eq("id", company_id)
+        .execute()
+    )
+    if not result.data:
+        return None
+    row = result.data[0]
+    return {"company_id": str(row["id"]), "company_name": row["name"]}
+
+
+def delete_company(company_id: str) -> bool:
+    """Delete a company by ID. Returns True if deleted, False if not found."""
+    client = get_client()
+    result = (
+        client.table("companies")
+        .delete()
+        .eq("id", company_id)
+        .execute()
+    )
+    return bool(result.data)
 
 
 def list_companies_with_cases() -> list[dict]:
