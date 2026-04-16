@@ -1,4 +1,4 @@
-import type { AnalyzeRequest, FinancialData, UnderwritingResult } from '@/types';
+import type { AnalyzeRequest, FinancialData, PersistenceDebug, UnderwritingResult } from '@/types';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8010';
 
@@ -36,4 +36,9 @@ export async function parseDocument(fileName: string, fileType: 'pdf' | 'json'):
     body: JSON.stringify({ file_name: fileName, file_type: fileType }),
   });
   return handleResponse<FinancialData>(res);
+}
+
+export async function getPersistenceDebug(): Promise<PersistenceDebug> {
+  const res = await fetch(`${API_BASE}/api/debug/persistence`);
+  return handleResponse<PersistenceDebug>(res);
 }

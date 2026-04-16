@@ -4,9 +4,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { Spinner } from '@/components/ui/spinner';
 import { cn } from '@/lib/utils';
-import { parseDocument } from '@/lib/api';
-import type { FinancialData } from '@/types';
-import { UploadCloud, FlaskConical, Play, RotateCcw, FileJson, FileText } from 'lucide-react';
+import { getPersistenceDebug, parseDocument } from '@/lib/api';
+import type { FinancialData, PersistenceDebug } from '@/types';
+import { UploadCloud, FlaskConical, Play, RotateCcw, FileJson, FileText, Database } from 'lucide-react';
 import { DocumentParseWorkflow } from '@/components/DocumentParseWorkflow';
 
 const REGIONS = ['India', 'Philippines'];
@@ -28,6 +28,9 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
   const [parsing, setParsing] = useState(false);
   const [parseStep, setParseStep] = useState(0);
   const [parseComplete, setParseComplete] = useState(false);
+  const [persistenceInfo, setPersistenceInfo] = useState<PersistenceDebug | null>(null);
+  const [persistenceLoading, setPersistenceLoading] = useState(false);
+  const [persistenceError, setPersistenceError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const workflowTimerRef = useRef<number | null>(null);
 
@@ -154,7 +157,23 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
     setParseError(null);
     setParseStep(0);
     setParseComplete(false);
+    setPersistenceInfo(null);
+    setPersistenceError(null);
     onReset();
+  }
+
+  async function handleCheckPersistence() {
+    setPersistenceLoading(true);
+    setPersistenceError(null);
+    try {
+      const info = await getPersistenceDebug();
+      setPersistenceInfo(info);
+    } catch (err) {
+      setPersistenceError(err instanceof Error ? err.message : 'Failed to fetch persistence debug data.');
+      setPersistenceInfo(null);
+    } finally {
+      setPersistenceLoading(false);
+    }
   }
 
   return (
@@ -277,7 +296,65 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
             Reset
           </Button>
         )}
+
+        <Button
+          variant="outline"
+          size="sm"
+          className="w-full gap-2 border-border/60 text-muted-foreground hover:text-foreground hover:border-primary/40"
+          onClick={handleCheckPersistence}
+          disabled={loading || parsing || persistenceLoading}
+        >
+          {persistenceLoading ? (
+            <>
+              <Spinner className="w-3.5 h-3.5" />
+              Checking Persistence...
+            </>
+          ) : (
+            <>
+              <Database className="w-3.5 h-3.5" />
+              Check Persistence
+            </>
+          )}
+        </Button>
       </div>
+
+      {persistenceError && (
+        <p className="text-xs text-destructive bg-destructive/5 border border-destructive/20 rounded-md px-2.5 py-1.5">
+          {persistenceError}
+        </p>
+      )}
+
+      {persistenceInfo && (
+        <div className="rounded-xl border border-border/60 bg-elevated p-4 space-y-2">
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground/60">Persistence Snapshot</p>
+          <div className="flex justify-between">
+            <span className="text-xs text-muted-foreground">Cases Count</span>
+            <span className="text-xs font-mono text-foreground">{persistenceInfo.cases_count}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-xs text-muted-foreground">Last Case ID</span>
+            <span className="text-xs font-mono text-foreground">{persistenceInfo.last_case_id ?? 'N/A'}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-xs text-muted-foreground">Last Case Time</span>
+            <span className="text-xs font-mono text-foreground">
+              {persistenceInfo.last_case_timestamp ? new Date(persistenceInfo.last_case_timestamp).toLocaleString() : 'N/A'}
+            </span>
+          </div>
+          <div className="flex justify-between border-t border-border/40 pt-2">
+            <span className="text-xs text-muted-foreground">Checkpoint Decision</span>
+            <span className="text-xs font-mono text-foreground">
+              {persistenceInfo.last_checkpoint_decision_status ?? 'N/A'}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-xs text-muted-foreground">Checkpoint Risk</span>
+            <span className="text-xs font-mono text-foreground">
+              {persistenceInfo.last_checkpoint_risk_score ?? 'N/A'}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Financial summary preview */}
       {financialData && (

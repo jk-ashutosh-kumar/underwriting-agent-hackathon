@@ -169,6 +169,8 @@ def run_underwriting_flow(
     else:  # review
         state = decision_node(state)
 
+    # Persist final state snapshot so latest flow status is always recoverable.
+    save_checkpoint(state)
     return state
 
 

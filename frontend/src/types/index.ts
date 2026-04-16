@@ -17,17 +17,23 @@ export interface AuditResult {
   risk_score: number;
   flags: string[];
   explanation: string;
+  mode?: 'llm' | 'deterministic_fallback' | 'deterministic';
+  llm_error?: string | null;
 }
 
 export interface TrendResult {
   profit: number;
   trend: 'growing' | 'stable' | 'shrinking';
   insight: string;
+  mode?: 'llm' | 'deterministic_fallback' | 'deterministic';
+  llm_error?: string | null;
 }
 
 export interface BenchmarkResult {
   benchmark_result: string;
   comparison_insight: string;
+  mode?: 'llm' | 'deterministic_fallback' | 'deterministic';
+  llm_error?: string | null;
 }
 
 export type DecisionStatus = 'APPROVED' | 'REJECTED' | 'FLAGGED' | 'PENDING';
@@ -41,6 +47,7 @@ export interface UnderwritingResult {
   benchmark: BenchmarkResult;
   final_summary: string;
   crew_status: string;
+  crew_mode?: 'llm' | 'deterministic';
   needs_hitl: boolean;
 }
 
@@ -48,4 +55,12 @@ export interface AnalyzeRequest {
   data: FinancialData;
   region: string;
   human_response?: string;
+}
+
+export interface PersistenceDebug {
+  cases_count: number;
+  last_case_id?: string | null;
+  last_case_timestamp?: string | null;
+  last_checkpoint_decision_status?: string | null;
+  last_checkpoint_risk_score?: number | null;
 }

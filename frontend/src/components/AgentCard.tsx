@@ -4,6 +4,14 @@ import { cn } from '@/lib/utils';
 import type { AuditResult, TrendResult, BenchmarkResult } from '@/types';
 import { ShieldAlert, TrendingUp, BarChart3, AlertTriangle } from 'lucide-react';
 
+function getSourceLabel(mode?: string) {
+  if (mode === 'llm') return { text: 'Source: LLM', className: 'bg-primary/10 border-primary/25 text-primary' };
+  if (mode === 'deterministic_fallback') {
+    return { text: 'Source: Rules (LLM fallback)', className: 'bg-warning/10 border-warning/25 text-warning' };
+  }
+  return { text: 'Source: Rules', className: 'bg-muted/40 border-border/60 text-muted-foreground' };
+}
+
 /* ──────────────────────────── Auditor Card ──────────────────────────── */
 interface AuditorCardProps {
   data: AuditResult;
@@ -12,6 +20,7 @@ interface AuditorCardProps {
 export function AuditorCard({ data }: AuditorCardProps) {
   const riskColor =
     data.risk_score < 30 ? 'text-success' : data.risk_score < 60 ? 'text-warning' : 'text-destructive';
+  const source = getSourceLabel(data.mode);
 
   return (
     <Card className="bg-elevated border-border/60 hover:border-primary/30 transition-colors">
@@ -26,7 +35,10 @@ export function AuditorCard({ data }: AuditorCardProps) {
               <p className="text-sm font-semibold text-foreground">Auditor Agent</p>
             </div>
           </div>
-          <span className={cn('font-mono text-2xl font-bold', riskColor)}>{data.risk_score}</span>
+          <div className="flex flex-col items-end gap-1">
+            <Badge className={cn('text-[10px] border', source.className)}>{source.text}</Badge>
+            <span className={cn('font-mono text-2xl font-bold', riskColor)}>{data.risk_score}</span>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -66,6 +78,7 @@ const TREND_STYLE = {
 export function TrendCard({ data }: TrendCardProps) {
   const style = TREND_STYLE[data.trend];
   const profitPositive = data.profit >= 0;
+  const source = getSourceLabel(data.mode);
 
   return (
     <Card className="bg-elevated border-border/60 hover:border-primary/30 transition-colors">
@@ -80,9 +93,12 @@ export function TrendCard({ data }: TrendCardProps) {
               <p className="text-sm font-semibold text-foreground">Trend Agent</p>
             </div>
           </div>
-          <Badge className={cn('text-[10px] border', style.bg, style.color)}>
-            {style.badge}
-          </Badge>
+          <div className="flex flex-col items-end gap-1">
+            <Badge className={cn('text-[10px] border', source.className)}>{source.text}</Badge>
+            <Badge className={cn('text-[10px] border', style.bg, style.color)}>
+              {style.badge}
+            </Badge>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -111,18 +127,22 @@ interface BenchmarkCardProps {
 
 export function BenchmarkCard({ data }: BenchmarkCardProps) {
   const isHighRisk = data.benchmark_result.toLowerCase().includes('high');
+  const source = getSourceLabel(data.mode);
 
   return (
     <Card className="bg-elevated border-border/60 hover:border-primary/30 transition-colors">
       <CardHeader className="pb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
-            <BarChart3 className="w-4 h-4 text-accent" />
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 text-accent" />
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Portfolio Manager</p>
+              <p className="text-sm font-semibold text-foreground">Benchmark Agent</p>
+            </div>
           </div>
-          <div>
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Portfolio Manager</p>
-            <p className="text-sm font-semibold text-foreground">Benchmark Agent</p>
-          </div>
+          <Badge className={cn('text-[10px] border', source.className)}>{source.text}</Badge>
         </div>
       </CardHeader>
       <CardContent className="space-y-3">

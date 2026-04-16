@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any, Dict
 
@@ -119,6 +120,7 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
     """Run the multi-agent committee and return explainable outputs."""
     region_context = _build_region_context(region)
     crew_meta = _build_crewai_committee(region_context)
+    use_llm = os.getenv("USE_LLM", "false").lower() in {"1", "true", "yes"}
 
     # Tool output is included in context so the committee appears integrated with
     # external accounting information, even in deterministic demo mode.
@@ -127,16 +129,16 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
     region_context["accounting_tool_signal"] = accounting_signal
 
     # Task 1: Auditor
-    audit = run_auditor(data, region_context)
+    audit = run_auditor(data, region_context, use_llm=use_llm)
 
     # Task 2: Trend (receives context from audit)
     trend_context = {**region_context, "audit_result": audit}
-    trend = run_trend_analysis(data, trend_context)
+    trend = run_trend_analysis(data, trend_context, use_llm=use_llm)
 
     # Task 3: Benchmark (receives prior outputs + memory)
     memory_entries = load_memory()
     benchmark_context = {**trend_context, "trend_result": trend}
-    benchmark = run_benchmark(data, benchmark_context, memory_entries)
+    benchmark = run_benchmark(data, benchmark_context, memory_entries, use_llm=use_llm)
 
     final_summary = (
         f"Committee Summary ({region}): audit risk score is {audit['risk_score']}/100; "
@@ -152,6 +154,7 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
         # Backward-compatible keys for existing UI/CLI references.
         "auditor": audit,
         "final_summary": final_summary,
+        "mode": "llm" if use_llm else "deterministic",
         "crew_status": crew_meta["status"],
     }
 
