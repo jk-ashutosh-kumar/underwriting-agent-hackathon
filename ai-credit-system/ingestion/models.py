@@ -23,6 +23,19 @@ class CompanyCaseSummary(BaseModel):
     doc_types: List[str]
 
 
+class CompanyResponse(BaseModel):
+    company_id: str
+    company_name: str
+
+
+class CreateCompanyRequest(BaseModel):
+    name: str
+
+
+class UpdateCompanyRequest(BaseModel):
+    name: str
+
+
 class CaseDocumentsResponse(BaseModel):
     case_id: str
     doc_type: str

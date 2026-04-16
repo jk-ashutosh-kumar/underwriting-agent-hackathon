@@ -45,7 +45,7 @@ logging.basicConfig(
 
 from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel
 
 from graph.flow import iter_underwriting_flow_events, run_underwriting_flow
@@ -59,12 +59,23 @@ except Exception as exc:  # pragma: no cover - safe fallback when langgraph deps
     run_langgraph_flow = None  # type: ignore[assignment]
 from ingestion.parser import parse_document  # legacy mock fallback
 from ingestion.db import (
+    create_company,
+    delete_company,
+    get_document,
     get_documents_by_case,
     get_or_create_case,
     list_companies_with_cases,
     list_schemas,
+    update_company,
 )
-from ingestion.models import CompanyCaseSummary, DocumentSummary, IngestResponse
+from ingestion.models import (
+    CompanyCaseSummary,
+    CompanyResponse,
+    CreateCompanyRequest,
+    DocumentSummary,
+    IngestResponse,
+    UpdateCompanyRequest,
+)
 from ingestion.pipeline import run_pipeline
 from webhooks import list_webhooks, register, unregister
 from memory.checkpoint import load_checkpoint
@@ -433,6 +444,43 @@ def get_companies() -> List[CompanyCaseSummary]:
     return [CompanyCaseSummary(**r) for r in rows]
 
 
+@app.post("/api/companies", response_model=CompanyResponse, status_code=201)
+def add_company(body: CreateCompanyRequest) -> CompanyResponse:
+    """Create a new company."""
+    try:
+        row = create_company(body.name)
+        return CompanyResponse(**row)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.patch("/api/companies/{company_id}", response_model=CompanyResponse)
+def edit_company(company_id: str, body: UpdateCompanyRequest) -> CompanyResponse:
+    """Update a company's name."""
+    row = update_company(company_id, body.name)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Company not found")
+    return CompanyResponse(**row)
+
+
+@app.delete("/api/companies/{company_id}")
+def remove_company(company_id: str) -> Response:
+    """Delete a company by ID."""
+    deleted = delete_company(company_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Company not found")
+    return Response(status_code=204)
+
+
+
+
+@app.get("/api/case/{case_id}/documents/{document_id}", response_model=DocumentSummary)
+def get_document_output(case_id: str, document_id: str) -> DocumentSummary:
+    """Return the extracted JSON output for a single document."""
+    doc = get_document(case_id, document_id)
+    if doc is None:
+        raise HTTPException(status_code=404, detail="Document not found")
+    return DocumentSummary(**doc)
 
 
 @app.get("/api/case/{case_id}/documents", response_model=List[DocumentSummary])
