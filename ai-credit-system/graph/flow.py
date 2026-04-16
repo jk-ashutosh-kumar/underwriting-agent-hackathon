@@ -56,9 +56,11 @@ def _normalized_risk_for_rules(risk_score: int) -> int:
     Phase 2 currently returns up to 100. For router thresholds (<4, >7),
     we scale down if needed.
     """
-    if risk_score <= 10:
-        return risk_score
-    return int(round(risk_score / 10))
+    # Treat incoming score as 0-100, then map to 0-10 for router/decision rules.
+    # This avoids ambiguous behavior where a low raw value like "8" was treated as
+    # high risk on a 0-10 scale instead of 8/100.
+    bounded = max(0, min(100, int(risk_score)))
+    return int(round(bounded / 10))
 
 
 def run_analysis_node(state: UnderwritingState) -> UnderwritingState:
@@ -97,6 +99,8 @@ def router_node(state: UnderwritingState) -> str:
     - "Transfer 00921" style trigger
     """
     policy = _load_regional_policy()
+    # Reset per-run HITL context. When set, UI can show flagged transaction details.
+    state["hitl_context"] = None  # type: ignore[assignment]
     region_policy = policy.get(state["region"], policy.get("India", {}))
     amount_threshold = float(region_policy.get("cash_threshold", 50000))
     transactions: List[Dict[str, Any]] = state["applicant_data"].get("transactions", [])
@@ -106,16 +110,32 @@ def router_node(state: UnderwritingState) -> str:
         amount = float(txn.get("amount", 0))
         if not description:
             state["decision_status"] = "FLAGGED"
+            state["hitl_context"] = {  # type: ignore[assignment]
+                "reason": "missing_description",
+                "transaction": txn,
+                "message": "Transaction description is missing.",
+            }
             state["agent_logs"].append("Router: Missing transaction description detected -> FLAGGED.")
             return "hitl"
         if amount > amount_threshold:
             state["decision_status"] = "FLAGGED"
+            state["hitl_context"] = {  # type: ignore[assignment]
+                "reason": "large_transaction",
+                "transaction": txn,
+                "threshold": amount_threshold,
+                "message": f"Amount {amount:.2f} exceeds threshold {amount_threshold:.2f}.",
+            }
             state["agent_logs"].append(
                 f"Router: Large transaction {amount:.2f} above threshold {amount_threshold:.2f} -> FLAGGED."
             )
             return "hitl"
         if "Transfer 00921" in description:
             state["decision_status"] = "FLAGGED"
+            state["hitl_context"] = {  # type: ignore[assignment]
+                "reason": "aha_trigger",
+                "transaction": txn,
+                "message": "Suspicious transfer pattern matched (Transfer 00921).",
+            }
             state["agent_logs"].append(
                 "Router: Aha trigger matched ('Transfer 00921') -> FLAGGED for HITL."
             )
@@ -127,9 +147,13 @@ def router_node(state: UnderwritingState) -> str:
         state["agent_logs"].append(f"Router: Normalized risk {normalized_risk} < 4 -> APPROVE path.")
         return "approve"
     if normalized_risk > 7:
-        state["decision_status"] = "FLAGGED"
-        state["agent_logs"].append(f"Router: Normalized risk {normalized_risk} > 7 -> HITL path.")
-        return "hitl"
+        # High risk alone should not always trigger HITL popup.
+        # Keep it in review path unless an explicit transaction flag was found above.
+        state["decision_status"] = "PENDING"
+        state["agent_logs"].append(
+            f"Router: Normalized risk {normalized_risk} > 7 -> REVIEW path (no explicit flagged transaction)."
+        )
+        return "review"
 
     state["decision_status"] = "PENDING"
     state["agent_logs"].append(f"Router: Normalized risk {normalized_risk} in [4..7] -> REVIEW path.")

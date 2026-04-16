@@ -58,28 +58,28 @@
   "region": "India",
   "risk_score": 75,
   "agent_logs": [
-    "Auditor: A large transaction of 135000.0 was recorded, exceeding the threshold of 100000.0. Additionally, the transaction amounts of 95000.0 and 73000.0 are close to the threshold, indicating potential manipulation or structuring to avoid detection.",
-    "Trend: The significant difference between total inflow and outflow indicates a strong positive cash flow, suggesting that the business is expanding and effectively managing its expenses.",
+    "Auditor: The transaction on 2026-03-06 for 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential risk. No repeated exact amounts were identified.",
+    "Trend: The significant difference between total inflow and outflow indicates strong cash flow management and increasing profitability.",
     "Benchmark: Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
     "Committee: Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
     "Router: Large transaction 95000.00 above threshold 50000.00 -> FLAGGED."
   ],
-  "human_input": "approved because that transaction is related to a vendor invoice dated 23 march",
+  "human_input": "approved because it is for invoice INV001",
   "decision_status": "FLAGGED",
   "committee_output": {
     "audit": {
       "risk_score": 75,
       "flags": [
         "large transaction detected",
-        "repeated exact amounts detected"
+        "repeated exact amounts not found"
       ],
-      "explanation": "A large transaction of 135000.0 was recorded, exceeding the threshold of 100000.0. Additionally, the transaction amounts of 95000.0 and 73000.0 are close to the threshold, indicating potential manipulation or structuring to avoid detection.",
+      "explanation": "The transaction on 2026-03-06 for 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential risk. No repeated exact amounts were identified.",
       "mode": "llm"
     },
     "trend": {
       "profit": 235000.0,
       "trend": "growing",
-      "insight": "The significant difference between total inflow and outflow indicates a strong positive cash flow, suggesting that the business is expanding and effectively managing its expenses.",
+      "insight": "The significant difference between total inflow and outflow indicates strong cash flow management and increasing profitability.",
       "mode": "llm"
     },
     "benchmark": {
@@ -91,14 +91,25 @@
       "risk_score": 75,
       "flags": [
         "large transaction detected",
-        "repeated exact amounts detected"
+        "repeated exact amounts not found"
       ],
-      "explanation": "A large transaction of 135000.0 was recorded, exceeding the threshold of 100000.0. Additionally, the transaction amounts of 95000.0 and 73000.0 are close to the threshold, indicating potential manipulation or structuring to avoid detection.",
+      "explanation": "The transaction on 2026-03-06 for 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential risk. No repeated exact amounts were identified.",
       "mode": "llm"
     },
     "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
     "mode": "llm",
-    "crew_status": "CrewAI import unavailable; running deterministic local committee logic."
+    "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+  },
+  "hitl_context": {
+    "reason": "large_transaction",
+    "transaction": {
+      "date": "2026-03-01",
+      "description": "Retail Sales Deposit",
+      "amount": 95000.0,
+      "type": "credit"
+    },
+    "threshold": 50000.0,
+    "message": "Amount 95000.00 exceeds threshold 50000.00."
   },
   "route": "hitl"
 }

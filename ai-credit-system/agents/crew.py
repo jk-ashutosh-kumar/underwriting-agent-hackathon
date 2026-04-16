@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any, Dict
+
+logger = logging.getLogger(__name__)
 
 from agents.auditor import run_auditor
 from agents.benchmark import run_benchmark
@@ -48,8 +51,16 @@ def _build_crewai_committee(region_context: Dict[str, Any]) -> Dict[str, str]:
     """
     try:
         from crewai import Agent, Crew, Task
-    except Exception:
-        return {"status": "CrewAI import unavailable; running deterministic local committee logic."}
+    except Exception as exc:
+        # Import failure only skips CrewAI wiring. run_crew() still calls auditor/trend/benchmark
+        # directly; those honor USE_LLM independently — do not label the whole run "deterministic".
+        logger.warning("crewai_import_failed: %s", exc)
+        return {
+            "status": (
+                "CrewAI package import failed (orchestration skipped); "
+                "auditor/trend/benchmark still run via direct calls — see each agent's mode from USE_LLM."
+            )
+        }
 
     accounting_tool = AccountingModuleTool()
     region = region_context["region"]
@@ -57,13 +68,25 @@ def _build_crewai_committee(region_context: Dict[str, Any]) -> Dict[str, str]:
     keywords = ", ".join(region_context["keywords"]) or "N/A"
 
     # Distinct personas requested by the prompt.
-    auditor_agent = Agent(
-        role="Fraud Detection Specialist",
-        goal="Detect anomalies and suspicious transaction behavior",
-        backstory="Skeptical forensic accountant who trusts no one.",
-        verbose=False,
-        tools=[accounting_tool],
-    )
+    # Some CrewAI + tool combinations raise KeyError 'tools' if the tool is not a real BaseTool
+    # instance for that version — fall back to no tools rather than failing the whole API.
+    try:
+        auditor_agent = Agent(
+            role="Fraud Detection Specialist",
+            goal="Detect anomalies and suspicious transaction behavior",
+            backstory="Skeptical forensic accountant who trusts no one.",
+            verbose=False,
+            tools=[accounting_tool],
+        )
+    except Exception as exc:
+        logger.warning("crewai_auditor_tools_skipped: %s", exc)
+        auditor_agent = Agent(
+            role="Fraud Detection Specialist",
+            goal="Detect anomalies and suspicious transaction behavior",
+            backstory="Skeptical forensic accountant who trusts no one.",
+            verbose=False,
+            tools=[],
+        )
     trend_agent = Agent(
         role="Growth Analyst",
         goal="Analyze financial trends and profitability direction",
@@ -121,6 +144,7 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
     region_context = _build_region_context(region)
     crew_meta = _build_crewai_committee(region_context)
     use_llm = os.getenv("USE_LLM", "false").lower() in {"1", "true", "yes"}
+    committee_mode = "LLM (USE_LLM)" if use_llm else "rules (USE_LLM off)"
 
     # Tool output is included in context so the committee appears integrated with
     # external accounting information, even in deterministic demo mode.
@@ -147,6 +171,10 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
         f"Accounting signal used: {accounting_signal}."
     )
 
+    crew_status = crew_meta["status"]
+    if "import failed" in crew_status or "import unavailable" in crew_status:
+        crew_status = f"{crew_status} Active committee path: {committee_mode}."
+
     return {
         "audit": audit,
         "trend": trend,
@@ -155,7 +183,7 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
         "auditor": audit,
         "final_summary": final_summary,
         "mode": "llm" if use_llm else "deterministic",
-        "crew_status": crew_meta["status"],
+        "crew_status": crew_status,
     }
 
 

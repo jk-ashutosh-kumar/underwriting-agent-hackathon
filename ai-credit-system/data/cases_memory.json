@@ -100,5 +100,1438 @@
     "decision": "REJECTED",
     "region": "India",
     "risk_score": 69
+  },
+  {
+    "case_id": "case-1776316059",
+    "created_at": "2026-04-16T05:07:39.902964+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions around the large transaction date"
+        ],
+        "explanation": "The transaction of 135000.0 is significantly above the large transaction threshold of 100000.0, indicating potential suspicious activity. Additionally, the timing of transactions around this large credit raises concerns about the legitimacy of the funds.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant difference between total inflow and outflow indicates strong cash flow management and increasing profitability.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions around the large transaction date"
+        ],
+        "explanation": "The transaction of 135000.0 is significantly above the large transaction threshold of 100000.0, indicating potential suspicious activity. Additionally, the timing of transactions around this large credit raises concerns about the legitimacy of the funds.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 71
+  },
+  {
+    "case_id": "case-1776316567",
+    "created_at": "2026-04-16T05:16:07.666311+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2025-2026",
+      "transactions": [
+        {
+          "date": "2025-04-10",
+          "description": "Retail Sales",
+          "amount": 180000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-04-20",
+          "description": "Inventory Restock",
+          "amount": 90000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-05-15",
+          "description": "Contract A Payment",
+          "amount": 200000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-05-28",
+          "description": "Staff Salaries",
+          "amount": 60000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-06-05",
+          "description": "Online Sales",
+          "amount": 150000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-06-30",
+          "description": "Quarterly Tax Payment",
+          "amount": 45000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-07-12",
+          "description": "Retail Revenue",
+          "amount": 275000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-07-25",
+          "description": "Warehouse Rent",
+          "amount": 30000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-08-08",
+          "description": "Partner Settlement",
+          "amount": 220000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-08-20",
+          "description": "Equipment Leasing",
+          "amount": 50000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-09-14",
+          "description": "Misc Sales",
+          "amount": 305000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-09-28",
+          "description": "Bulk Raw Material",
+          "amount": 110000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-10-05",
+          "description": "Festive Advance",
+          "amount": 140000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-10-25",
+          "description": "Marketing Spend",
+          "amount": 40000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-11-15",
+          "description": "Export Order 1",
+          "amount": 360000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-11-20",
+          "description": "Logistics Fees",
+          "amount": 55000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-12-24",
+          "description": "Holiday Peak Sales",
+          "amount": 450000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-12-30",
+          "description": "Annual Bonuses",
+          "amount": 100000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-01-10",
+          "description": "Subscription Renewals",
+          "amount": 200000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-01-20",
+          "description": "Debt Service Payment",
+          "amount": 65000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-02-14",
+          "description": "Direct Client Pay",
+          "amount": 275000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-02-25",
+          "description": "Utility/Maintenance",
+          "amount": 25000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-31",
+          "description": "Year-End Audit Fee",
+          "amount": 70000.0,
+          "type": "debit"
+        }
+      ],
+      "total_inflow": 3845000.0,
+      "total_outflow": 2155000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 85,
+        "flags": [
+          "multiple large credit transactions",
+          "large debit transactions",
+          "repeated large amounts"
+        ],
+        "explanation": "The analysis reveals multiple large credit transactions exceeding the threshold of 100,000, including amounts of 360,000 and 450,000. Additionally, there are significant debit transactions, such as 110,000 and 100,000. The presence of these large amounts, especially in a short time frame, raises concerns about potential financial irregularities.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 1690000.0,
+        "trend": "growing",
+        "insight": "The positive cash flow indicates that inflows significantly exceed outflows, suggesting a healthy financial position and potential for reinvestment and expansion.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 85,
+        "flags": [
+          "multiple large credit transactions",
+          "large debit transactions",
+          "repeated large amounts"
+        ],
+        "explanation": "The analysis reveals multiple large credit transactions exceeding the threshold of 100,000, including amounts of 360,000 and 450,000. Additionally, there are significant debit transactions, such as 110,000 and 100,000. The presence of these large amounts, especially in a short time frame, raises concerns about potential financial irregularities.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 85/100; growth trend is 'growing' with profit 1690000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 85
+  },
+  {
+    "case_id": "case-1776316623",
+    "created_at": "2026-04-16T05:17:03.199521+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 70,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions close to large threshold"
+        ],
+        "explanation": "A large credit transaction of 135000.0 exceeds the threshold of 100000.0, indicating potential irregularities. Additionally, the presence of multiple transactions near the threshold raises concerns about possible structuring or manipulation.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant positive cash flow indicates strong financial health, suggesting effective revenue generation and cost management.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 70,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions close to large threshold"
+        ],
+        "explanation": "A large credit transaction of 135000.0 exceeds the threshold of 100000.0, indicating potential irregularities. Additionally, the presence of multiple transactions near the threshold raises concerns about possible structuring or manipulation.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 70/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 68
+  },
+  {
+    "case_id": "case-1776316711",
+    "created_at": "2026-04-16T05:18:31.148290+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions close to large threshold"
+        ],
+        "explanation": "The transaction on 2026-03-06 exceeds the large transaction threshold of 100000.0, indicating potential suspicious activity. Additionally, there are multiple transactions that are close to this threshold, which could suggest attempts to avoid detection.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant positive cash flow indicates strong financial health, suggesting effective revenue generation and cost management.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions close to large threshold"
+        ],
+        "explanation": "The transaction on 2026-03-06 exceeds the large transaction threshold of 100000.0, indicating potential suspicious activity. Additionally, there are multiple transactions that are close to this threshold, which could suggest attempts to avoid detection.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 73
+  },
+  {
+    "case_id": "case-1776317019",
+    "created_at": "2026-04-16T05:23:39.424387+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2025-2026",
+      "transactions": [
+        {
+          "date": "2025-04-10",
+          "description": "Retail Sales",
+          "amount": 180000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-04-20",
+          "description": "Inventory Restock",
+          "amount": 90000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-05-15",
+          "description": "Contract A Payment",
+          "amount": 200000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-05-28",
+          "description": "Staff Salaries",
+          "amount": 60000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-06-05",
+          "description": "Online Sales",
+          "amount": 150000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-06-30",
+          "description": "Quarterly Tax Payment",
+          "amount": 45000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-07-12",
+          "description": "Retail Revenue",
+          "amount": 275000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-07-25",
+          "description": "Warehouse Rent",
+          "amount": 30000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-08-08",
+          "description": "Partner Settlement",
+          "amount": 220000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-08-20",
+          "description": "Equipment Leasing",
+          "amount": 50000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-09-14",
+          "description": "Misc Sales",
+          "amount": 305000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-09-28",
+          "description": "Bulk Raw Material",
+          "amount": 110000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-10-05",
+          "description": "Festive Advance",
+          "amount": 140000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-10-25",
+          "description": "Marketing Spend",
+          "amount": 40000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-11-15",
+          "description": "Export Order 1",
+          "amount": 360000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-11-20",
+          "description": "Logistics Fees",
+          "amount": 55000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-12-24",
+          "description": "Holiday Peak Sales",
+          "amount": 450000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-12-30",
+          "description": "Annual Bonuses",
+          "amount": 100000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-01-10",
+          "description": "Subscription Renewals",
+          "amount": 200000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-01-20",
+          "description": "Debt Service Payment",
+          "amount": 65000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-02-14",
+          "description": "Direct Client Pay",
+          "amount": 275000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-02-25",
+          "description": "Utility/Maintenance",
+          "amount": 25000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-31",
+          "description": "Year-End Audit Fee",
+          "amount": 70000.0,
+          "type": "debit"
+        }
+      ],
+      "total_inflow": 3845000.0,
+      "total_outflow": 2155000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 85,
+        "flags": [
+          "multiple large credit transactions exceeding threshold",
+          "repeated large amounts in credits",
+          "high frequency of large transactions"
+        ],
+        "explanation": "The analysis reveals multiple credit transactions exceeding the large transaction threshold of 100,000, including amounts of 360,000 and 450,000. Additionally, there are repeated large amounts such as 200,000 and 275,000, indicating potential irregularities or patterns of manipulation.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 1690000.0,
+        "trend": "growing",
+        "insight": "The cash flow is positive with a significant inflow exceeding outflow, indicating a growing trend in business performance.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 85,
+        "flags": [
+          "multiple large credit transactions exceeding threshold",
+          "repeated large amounts in credits",
+          "high frequency of large transactions"
+        ],
+        "explanation": "The analysis reveals multiple credit transactions exceeding the large transaction threshold of 100,000, including amounts of 360,000 and 450,000. Additionally, there are repeated large amounts such as 200,000 and 275,000, indicating potential irregularities or patterns of manipulation.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 85/100; growth trend is 'growing' with profit 1690000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 81
+  },
+  {
+    "case_id": "case-1776317072",
+    "created_at": "2026-04-16T05:24:32.375631+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 70,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions near large threshold"
+        ],
+        "explanation": "A large transaction of 135000.0 exceeds the threshold of 100000.0, indicating potential irregularity. Additionally, there are multiple transactions close to the threshold, suggesting possible structuring to avoid detection.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant difference between total inflow and outflow indicates strong profitability, suggesting a growing cash flow trend.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 70,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions near large threshold"
+        ],
+        "explanation": "A large transaction of 135000.0 exceeds the threshold of 100000.0, indicating potential irregularity. Additionally, there are multiple transactions close to the threshold, suggesting possible structuring to avoid detection.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 70/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 68
+  },
+  {
+    "case_id": "case-1776317109",
+    "created_at": "2026-04-16T05:25:09.963900+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 10,
+        "flags": [],
+        "explanation": "No transactions exceed the large transaction threshold of 1,000,000. There are no repeated exact amounts in the transactions.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant difference between total inflow and outflow indicates strong profitability, suggesting a growing cash flow trend.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 10,
+        "flags": [],
+        "explanation": "No transactions exceed the large transaction threshold of 1,000,000. There are no repeated exact amounts in the transactions.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 10/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 8
+  },
+  {
+    "case_id": "case-1776317410",
+    "created_at": "2026-04-16T05:30:10.100413+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 10,
+        "flags": [],
+        "explanation": "No transactions exceed the large transaction threshold of 1,000,000. There are no repeated exact amounts in the transactions.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant difference between total inflow and outflow indicates strong profitability, suggesting a growing cash flow trend.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 10,
+        "flags": [],
+        "explanation": "No transactions exceed the large transaction threshold of 1,000,000. There are no repeated exact amounts in the transactions.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 10/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "APPROVED",
+    "region": "India",
+    "risk_score": 8
+  },
+  {
+    "case_id": "case-1776317454",
+    "created_at": "2026-04-16T05:30:54.495643+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions around large amounts"
+        ],
+        "explanation": "The transaction of 135000.0 is significantly above the large transaction threshold of 100000.0, indicating potential suspicious activity. Additionally, the presence of multiple transactions close to large amounts raises concerns about the legitimacy of these transactions.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant positive cash flow indicates strong revenue generation relative to expenses, suggesting a healthy growth trajectory.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions around large amounts"
+        ],
+        "explanation": "The transaction of 135000.0 is significantly above the large transaction threshold of 100000.0, indicating potential suspicious activity. Additionally, the presence of multiple transactions close to large amounts raises concerns about the legitimacy of these transactions.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 73
+  },
+  {
+    "case_id": "case-1776317669",
+    "created_at": "2026-04-16T05:34:29.228706+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions close to large threshold"
+        ],
+        "explanation": "The transaction of 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential suspicious activity. Additionally, there are multiple transactions that are close to the threshold, which may suggest attempts to avoid detection.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant positive cash flow indicates strong financial health and increasing profitability, suggesting effective revenue generation and cost management.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected: 135000.0",
+          "multiple transactions close to large threshold"
+        ],
+        "explanation": "The transaction of 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential suspicious activity. Additionally, there are multiple transactions that are close to the threshold, which may suggest attempts to avoid detection.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 71
+  },
+  {
+    "case_id": "case-1776317819",
+    "created_at": "2026-04-16T05:36:59.148942+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 10,
+        "flags": [],
+        "explanation": "No transactions exceed the large transaction threshold of 1,000,000. There are no repeated exact amounts in the transaction list.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant difference between total inflow and outflow indicates strong profitability, suggesting a growing cash flow trend.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 10,
+        "flags": [],
+        "explanation": "No transactions exceed the large transaction threshold of 1,000,000. There are no repeated exact amounts in the transaction list.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 10/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "APPROVED",
+    "region": "India",
+    "risk_score": 10
+  },
+  {
+    "case_id": "case-1776317858",
+    "created_at": "2026-04-16T05:37:38.353507+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 10,
+        "flags": [],
+        "explanation": "No transactions exceed the large transaction threshold of 1,000,000. No repeated exact amounts found.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant positive cash flow indicates strong financial health and increasing profitability, suggesting effective revenue generation relative to expenses.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 10,
+        "flags": [],
+        "explanation": "No transactions exceed the large transaction threshold of 1,000,000. No repeated exact amounts found.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 10/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "APPROVED",
+    "region": "India",
+    "risk_score": 10
+  },
+  {
+    "case_id": "case-1776317911",
+    "created_at": "2026-04-16T05:38:31.396585+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected",
+          "repeated exact amounts not found"
+        ],
+        "explanation": "The transaction on 2026-03-06 for 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential risk. No repeated exact amounts were identified.",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "insight": "The significant difference between total inflow and outflow indicates strong cash flow management and increasing profitability.",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
+      },
+      "auditor": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction detected",
+          "repeated exact amounts not found"
+        ],
+        "explanation": "The transaction on 2026-03-06 for 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential risk. No repeated exact amounts were identified.",
+        "mode": "llm"
+      },
+      "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 71
   }
 ]

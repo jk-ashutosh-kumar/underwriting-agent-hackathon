@@ -222,6 +222,7 @@ class LangGraphFlowResponse(BaseModel):
     label: str
     logs: List[str]
     decision: str
+    hitl_context: Optional[Dict[str, Any]] = None
     result: Optional[UnderwritingResponse] = None
 
 
@@ -424,6 +425,7 @@ def underwrite_langgraph_start(request: AnalyzeRequest) -> LangGraphFlowResponse
             label="Completed via legacy flow fallback",
             logs=state.get("agent_logs", []),
             decision=str(state.get("decision_status", "PENDING")),
+            hitl_context=state.get("hitl_context"),
             result=result,
         )
 
@@ -454,6 +456,7 @@ def underwrite_langgraph_start(request: AnalyzeRequest) -> LangGraphFlowResponse
             label=str(payload.get("label", "LangGraph execution")),
             logs=list(payload.get("logs", [])),
             decision=str(payload.get("decision", "PENDING")),
+            hitl_context=state.get("hitl_context"),
             result=result,
         )
     except Exception as exc:
@@ -485,6 +488,7 @@ def underwrite_langgraph_resume(request: AnalyzeRequest) -> LangGraphFlowRespons
             label="Completed via legacy flow fallback",
             logs=state.get("agent_logs", []),
             decision=str(state.get("decision_status", "PENDING")),
+            hitl_context=state.get("hitl_context"),
             result=result,
         )
     if not request.thread_id:
@@ -520,6 +524,7 @@ def underwrite_langgraph_resume(request: AnalyzeRequest) -> LangGraphFlowRespons
             label=str(payload.get("label", "LangGraph execution")),
             logs=list(payload.get("logs", [])),
             decision=str(payload.get("decision", "PENDING")),
+            hitl_context=state.get("hitl_context"),
             result=result,
         )
     except Exception as exc:

@@ -330,3 +330,369 @@ AttributeError: 'NoneType' object has no attribute 'get'
 2026-04-16 10:14:06,817 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-f12b8fc0f2a0 route=hitl decision=REJECTED
 2026-04-16 10:14:06,817 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-f12b8fc0f2a0 decision=REJECTED
 2026-04-16 10:14:06,817 INFO [api_server] case_saved_to_memory_store
+2026-04-16 10:34:56,213 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:34:56,213 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-e27a9aaee625
+2026-04-16 10:34:56,213 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-e27a9aaee625 region=India
+2026-04-16 10:34:56,591 ERROR [api_server] langgraph_start_failed
+Traceback (most recent call last):
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/api_server.py", line 433, in underwrite_langgraph_start
+    payload = run_langgraph_flow(
+              ^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/adapter.py", line 38, in run_langgraph_flow
+    first = LANGGRAPH_RUNTIME.run(
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/langgraph_app.py", line 178, in run
+    state = run_analysis_node(initial_state)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/flow.py", line 66, in run_analysis_node
+    committee_output = run_crew(state["applicant_data"], region=state["region"])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/agents/crew.py", line 133, in run_crew
+    crew_meta = _build_crewai_committee(region_context)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/agents/crew.py", line 71, in _build_crewai_committee
+    auditor_agent = Agent(
+                    ^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 123, in check_agent_executor
+    self.set_cache_handler(self.cache_handler)
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 173, in set_cache_handler
+    self._create_agent_executor()
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 237, in _create_agent_executor
+    self.agent_executor = CrewAgentExecutor(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/langchain_core/load/serializable.py", line 107, in __init__
+    super().__init__(**kwargs)
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/v1/main.py", line 362, in __init__
+    values, fields_set, validation_error = validate_model(__pydantic_self__.__class__, data)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/v1/main.py", line 1123, in validate_model
+    values = validator(cls_, values)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/langchain/agents/agent.py", line 902, in validate_tools
+    tools = values["tools"]
+            ~~~~~~^^^^^^^^^
+KeyError: 'tools'
+2026-04-16 10:34:56,600 INFO [api_server] underwrite_stream_path mode=langgraph thread_id=None
+2026-04-16 10:34:56,601 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c46574656de9
+2026-04-16 10:34:56,601 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-c46574656de9 region=India
+2026-04-16 10:35:09,378 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:35:09,379 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-3bb70d7cf4e9
+2026-04-16 10:35:09,379 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-3bb70d7cf4e9 region=India
+2026-04-16 10:35:09,393 ERROR [api_server] langgraph_start_failed
+Traceback (most recent call last):
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/api_server.py", line 433, in underwrite_langgraph_start
+    payload = run_langgraph_flow(
+              ^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/adapter.py", line 38, in run_langgraph_flow
+    first = LANGGRAPH_RUNTIME.run(
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/langgraph_app.py", line 178, in run
+    state = run_analysis_node(initial_state)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/flow.py", line 66, in run_analysis_node
+    committee_output = run_crew(state["applicant_data"], region=state["region"])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/agents/crew.py", line 133, in run_crew
+    crew_meta = _build_crewai_committee(region_context)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/agents/crew.py", line 71, in _build_crewai_committee
+    auditor_agent = Agent(
+                    ^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 123, in check_agent_executor
+    self.set_cache_handler(self.cache_handler)
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 173, in set_cache_handler
+    self._create_agent_executor()
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 237, in _create_agent_executor
+    self.agent_executor = CrewAgentExecutor(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/langchain_core/load/serializable.py", line 107, in __init__
+    super().__init__(**kwargs)
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/v1/main.py", line 362, in __init__
+    values, fields_set, validation_error = validate_model(__pydantic_self__.__class__, data)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/v1/main.py", line 1123, in validate_model
+    values = validator(cls_, values)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/langchain/agents/agent.py", line 902, in validate_tools
+    tools = values["tools"]
+            ~~~~~~^^^^^^^^^
+KeyError: 'tools'
+2026-04-16 10:35:09,397 INFO [api_server] underwrite_stream_path mode=langgraph thread_id=None
+2026-04-16 10:35:09,398 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-9b35db1158a0
+2026-04-16 10:35:09,398 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-9b35db1158a0 region=India
+2026-04-16 10:35:15,461 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:35:15,461 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-526491499b5e
+2026-04-16 10:35:15,461 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-526491499b5e region=India
+2026-04-16 10:35:15,477 ERROR [api_server] langgraph_start_failed
+Traceback (most recent call last):
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/api_server.py", line 433, in underwrite_langgraph_start
+    payload = run_langgraph_flow(
+              ^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/adapter.py", line 38, in run_langgraph_flow
+    first = LANGGRAPH_RUNTIME.run(
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/langgraph_app.py", line 178, in run
+    state = run_analysis_node(initial_state)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/graph/flow.py", line 66, in run_analysis_node
+    committee_output = run_crew(state["applicant_data"], region=state["region"])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/agents/crew.py", line 133, in run_crew
+    crew_meta = _build_crewai_committee(region_context)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/agents/crew.py", line 71, in _build_crewai_committee
+    auditor_agent = Agent(
+                    ^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 123, in check_agent_executor
+    self.set_cache_handler(self.cache_handler)
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 173, in set_cache_handler
+    self._create_agent_executor()
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/crewai/agent.py", line 237, in _create_agent_executor
+    self.agent_executor = CrewAgentExecutor(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/langchain_core/load/serializable.py", line 107, in __init__
+    super().__init__(**kwargs)
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/v1/main.py", line 362, in __init__
+    values, fields_set, validation_error = validate_model(__pydantic_self__.__class__, data)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/pydantic/v1/main.py", line 1123, in validate_model
+    values = validator(cls_, values)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ashutoshkumar/Documents/work/hackathon/underwriting-agent-hackathon/ai-credit-system/.venv/lib/python3.12/site-packages/langchain/agents/agent.py", line 902, in validate_tools
+    tools = values["tools"]
+            ~~~~~~^^^^^^^^^
+KeyError: 'tools'
+2026-04-16 10:35:15,492 INFO [api_server] underwrite_stream_path mode=langgraph thread_id=None
+2026-04-16 10:35:15,495 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6a2931c9c9e0
+2026-04-16 10:35:15,495 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-6a2931c9c9e0 region=India
+2026-04-16 10:37:21,613 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:37:21,614 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-f6a2bb6dfd97
+2026-04-16 10:37:21,614 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-f6a2bb6dfd97 region=India
+2026-04-16 10:37:25,514 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:37:25,519 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 10:37:26,831 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:37:26,833 INFO [agents.trend] trend_llm_completed
+2026-04-16 10:37:29,096 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:37:29,098 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 10:37:29,098 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-f6a2bb6dfd97
+2026-04-16 10:37:29,099 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-f6a2bb6dfd97 decision=FLAGGED
+2026-04-16 10:37:39,892 INFO [api_server] langgraph_resume_received thread_id=lg-f6a2bb6dfd97
+2026-04-16 10:37:39,896 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-f6a2bb6dfd97
+2026-04-16 10:37:39,898 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-f6a2bb6dfd97
+2026-04-16 10:37:39,902 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-f6a2bb6dfd97 route=hitl decision=REJECTED
+2026-04-16 10:37:39,902 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-f6a2bb6dfd97 decision=REJECTED
+2026-04-16 10:37:39,904 INFO [api_server] case_saved_to_memory_store
+2026-04-16 10:45:56,694 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:45:56,721 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c64e64604398
+2026-04-16 10:45:56,724 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-c64e64604398 region=India
+2026-04-16 10:45:59,632 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:45:59,638 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 10:46:00,941 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:46:00,945 INFO [agents.trend] trend_llm_completed
+2026-04-16 10:46:02,741 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:46:02,741 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 10:46:02,742 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-c64e64604398
+2026-04-16 10:46:02,742 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-c64e64604398 decision=FLAGGED
+2026-04-16 10:46:07,663 INFO [api_server] langgraph_resume_received thread_id=lg-c64e64604398
+2026-04-16 10:46:07,663 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c64e64604398
+2026-04-16 10:46:07,663 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-c64e64604398
+2026-04-16 10:46:07,665 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-c64e64604398 route=hitl decision=REJECTED
+2026-04-16 10:46:07,666 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-c64e64604398 decision=REJECTED
+2026-04-16 10:46:07,668 INFO [api_server] case_saved_to_memory_store
+2026-04-16 10:46:51,409 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:46:51,410 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6d8d3d4dc756
+2026-04-16 10:46:51,410 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-6d8d3d4dc756 region=India
+2026-04-16 10:46:53,322 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:46:53,323 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 10:46:55,596 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:46:55,601 INFO [agents.trend] trend_llm_completed
+2026-04-16 10:46:58,785 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:46:58,786 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 10:46:58,787 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-6d8d3d4dc756
+2026-04-16 10:46:58,787 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-6d8d3d4dc756 decision=FLAGGED
+2026-04-16 10:47:03,195 INFO [api_server] langgraph_resume_received thread_id=lg-6d8d3d4dc756
+2026-04-16 10:47:03,195 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6d8d3d4dc756
+2026-04-16 10:47:03,196 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-6d8d3d4dc756
+2026-04-16 10:47:03,199 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-6d8d3d4dc756 route=hitl decision=REJECTED
+2026-04-16 10:47:03,199 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-6d8d3d4dc756 decision=REJECTED
+2026-04-16 10:47:03,203 INFO [api_server] case_saved_to_memory_store
+2026-04-16 10:48:17,342 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:48:17,342 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-5ebd051a8080
+2026-04-16 10:48:17,342 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-5ebd051a8080 region=India
+2026-04-16 10:48:19,203 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:48:19,204 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 10:48:20,359 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:48:20,365 INFO [agents.trend] trend_llm_completed
+2026-04-16 10:48:22,289 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:48:22,292 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 10:48:22,293 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-5ebd051a8080
+2026-04-16 10:48:22,293 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-5ebd051a8080 decision=FLAGGED
+2026-04-16 10:48:31,146 INFO [api_server] langgraph_resume_received thread_id=lg-5ebd051a8080
+2026-04-16 10:48:31,146 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-5ebd051a8080
+2026-04-16 10:48:31,146 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-5ebd051a8080
+2026-04-16 10:48:31,148 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-5ebd051a8080 route=hitl decision=REJECTED
+2026-04-16 10:48:31,148 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-5ebd051a8080 decision=REJECTED
+2026-04-16 10:48:31,149 INFO [api_server] case_saved_to_memory_store
+2026-04-16 10:53:21,077 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:53:21,077 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-30240d203beb
+2026-04-16 10:53:21,077 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-30240d203beb region=India
+2026-04-16 10:53:24,070 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:53:24,071 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 10:53:25,672 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:53:25,672 INFO [agents.trend] trend_llm_completed
+2026-04-16 10:53:27,726 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:53:27,728 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 10:53:27,729 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-30240d203beb
+2026-04-16 10:53:27,729 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-30240d203beb decision=FLAGGED
+2026-04-16 10:53:39,421 INFO [api_server] langgraph_resume_received thread_id=lg-30240d203beb
+2026-04-16 10:53:39,422 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-30240d203beb
+2026-04-16 10:53:39,422 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-30240d203beb
+2026-04-16 10:53:39,424 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-30240d203beb route=hitl decision=REJECTED
+2026-04-16 10:53:39,424 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-30240d203beb decision=REJECTED
+2026-04-16 10:53:39,427 INFO [api_server] case_saved_to_memory_store
+2026-04-16 10:54:17,907 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:54:17,907 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-75b3ef89fad4
+2026-04-16 10:54:17,908 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-75b3ef89fad4 region=India
+2026-04-16 10:54:19,965 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:54:19,966 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 10:54:21,619 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:54:21,620 INFO [agents.trend] trend_llm_completed
+2026-04-16 10:54:24,045 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:54:24,047 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 10:54:24,048 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-75b3ef89fad4
+2026-04-16 10:54:24,049 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-75b3ef89fad4 decision=FLAGGED
+2026-04-16 10:54:32,374 INFO [api_server] langgraph_resume_received thread_id=lg-75b3ef89fad4
+2026-04-16 10:54:32,374 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-75b3ef89fad4
+2026-04-16 10:54:32,374 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-75b3ef89fad4
+2026-04-16 10:54:32,375 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-75b3ef89fad4 route=hitl decision=REJECTED
+2026-04-16 10:54:32,375 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-75b3ef89fad4 decision=REJECTED
+2026-04-16 10:54:32,376 INFO [api_server] case_saved_to_memory_store
+2026-04-16 10:54:58,688 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:54:58,689 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-f67f7d751804
+2026-04-16 10:54:58,689 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-f67f7d751804 region=India
+2026-04-16 10:55:00,156 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:55:00,157 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 10:55:01,437 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:55:01,439 INFO [agents.trend] trend_llm_completed
+2026-04-16 10:55:03,525 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:55:03,529 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 10:55:03,530 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-f67f7d751804
+2026-04-16 10:55:03,530 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-f67f7d751804 decision=FLAGGED
+2026-04-16 10:55:09,962 INFO [api_server] langgraph_resume_received thread_id=lg-f67f7d751804
+2026-04-16 10:55:09,962 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-f67f7d751804
+2026-04-16 10:55:09,962 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-f67f7d751804
+2026-04-16 10:55:09,963 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-f67f7d751804 route=hitl decision=REJECTED
+2026-04-16 10:55:09,963 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-f67f7d751804 decision=REJECTED
+2026-04-16 10:55:09,965 INFO [api_server] case_saved_to_memory_store
+2026-04-16 10:59:57,726 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 10:59:57,726 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c6e82fced051
+2026-04-16 10:59:57,726 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-c6e82fced051 region=India
+2026-04-16 10:59:59,405 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 10:59:59,409 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 11:00:01,313 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:00:01,314 INFO [agents.trend] trend_llm_completed
+2026-04-16 11:00:03,448 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:00:03,450 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 11:00:03,451 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-c6e82fced051
+2026-04-16 11:00:03,452 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-c6e82fced051 decision=FLAGGED
+2026-04-16 11:00:10,098 INFO [api_server] langgraph_resume_received thread_id=lg-c6e82fced051
+2026-04-16 11:00:10,099 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c6e82fced051
+2026-04-16 11:00:10,099 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-c6e82fced051
+2026-04-16 11:00:10,100 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-c6e82fced051 route=hitl decision=APPROVED
+2026-04-16 11:00:10,100 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-c6e82fced051 decision=APPROVED
+2026-04-16 11:00:10,104 INFO [api_server] case_saved_to_memory_store
+2026-04-16 11:00:42,272 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 11:00:42,274 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c03da91bb206
+2026-04-16 11:00:42,274 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-c03da91bb206 region=India
+2026-04-16 11:00:44,623 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:00:44,624 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 11:00:45,873 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:00:45,874 INFO [agents.trend] trend_llm_completed
+2026-04-16 11:00:47,884 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:00:47,890 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 11:00:47,892 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-c03da91bb206
+2026-04-16 11:00:47,892 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-c03da91bb206 decision=FLAGGED
+2026-04-16 11:00:54,494 INFO [api_server] langgraph_resume_received thread_id=lg-c03da91bb206
+2026-04-16 11:00:54,494 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c03da91bb206
+2026-04-16 11:00:54,494 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-c03da91bb206
+2026-04-16 11:00:54,495 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-c03da91bb206 route=hitl decision=REJECTED
+2026-04-16 11:00:54,495 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-c03da91bb206 decision=REJECTED
+2026-04-16 11:00:54,497 INFO [api_server] case_saved_to_memory_store
+2026-04-16 11:04:07,490 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 11:04:07,491 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-47048ab9f578
+2026-04-16 11:04:07,493 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-47048ab9f578 region=India
+2026-04-16 11:04:10,049 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:04:10,055 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 11:04:11,359 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:04:11,360 INFO [agents.trend] trend_llm_completed
+2026-04-16 11:04:13,855 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:04:13,855 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 11:04:13,856 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-47048ab9f578
+2026-04-16 11:04:13,856 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-47048ab9f578 decision=FLAGGED
+2026-04-16 11:04:29,226 INFO [api_server] langgraph_resume_received thread_id=lg-47048ab9f578
+2026-04-16 11:04:29,227 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-47048ab9f578
+2026-04-16 11:04:29,228 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-47048ab9f578
+2026-04-16 11:04:29,228 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-47048ab9f578 route=hitl decision=REJECTED
+2026-04-16 11:04:29,228 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-47048ab9f578 decision=REJECTED
+2026-04-16 11:04:29,230 INFO [api_server] case_saved_to_memory_store
+2026-04-16 11:05:28,007 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 11:05:28,008 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-3f7c5ee71489
+2026-04-16 11:05:28,008 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-3f7c5ee71489 region=India
+2026-04-16 11:05:29,425 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:05:29,427 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 11:05:31,158 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:05:31,158 INFO [agents.trend] trend_llm_completed
+2026-04-16 11:05:33,367 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:05:33,367 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 11:05:33,369 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-3f7c5ee71489
+2026-04-16 11:05:33,369 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-3f7c5ee71489 decision=FLAGGED
+2026-04-16 11:06:54,157 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 11:06:54,158 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c60646fb55bc
+2026-04-16 11:06:54,158 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-c60646fb55bc region=India
+2026-04-16 11:06:55,834 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:06:55,838 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 11:06:57,213 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:06:57,215 INFO [agents.trend] trend_llm_completed
+2026-04-16 11:06:59,147 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:06:59,147 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 11:06:59,148 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-c60646fb55bc route=approve decision=APPROVED
+2026-04-16 11:06:59,148 INFO [api_server] langgraph_start_executed status=COMPLETED thread_id=lg-c60646fb55bc decision=APPROVED
+2026-04-16 11:06:59,150 INFO [api_server] case_saved_to_memory_store
+2026-04-16 11:07:32,942 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 11:07:32,943 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-f53f5f5581c6
+2026-04-16 11:07:32,943 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-f53f5f5581c6 region=India
+2026-04-16 11:07:34,419 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:07:34,420 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 11:07:36,367 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:07:36,368 INFO [agents.trend] trend_llm_completed
+2026-04-16 11:07:38,352 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:07:38,352 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 11:07:38,353 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-f53f5f5581c6 route=approve decision=APPROVED
+2026-04-16 11:07:38,353 INFO [api_server] langgraph_start_executed status=COMPLETED thread_id=lg-f53f5f5581c6 decision=APPROVED
+2026-04-16 11:07:38,357 INFO [api_server] case_saved_to_memory_store
+2026-04-16 11:08:03,608 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 11:08:03,608 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-a79c213f5f66
+2026-04-16 11:08:03,608 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-a79c213f5f66 region=India
+2026-04-16 11:08:05,900 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:08:05,901 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 11:08:06,968 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:08:06,969 INFO [agents.trend] trend_llm_completed
+2026-04-16 11:08:09,463 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 11:08:09,464 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 11:08:09,465 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-a79c213f5f66
+2026-04-16 11:08:09,465 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-a79c213f5f66 decision=FLAGGED
+2026-04-16 11:08:31,394 INFO [api_server] langgraph_resume_received thread_id=lg-a79c213f5f66
+2026-04-16 11:08:31,395 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-a79c213f5f66
+2026-04-16 11:08:31,395 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-a79c213f5f66
+2026-04-16 11:08:31,396 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-a79c213f5f66 route=hitl decision=REJECTED
+2026-04-16 11:08:31,396 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-a79c213f5f66 decision=REJECTED
+2026-04-16 11:08:31,398 INFO [api_server] case_saved_to_memory_store

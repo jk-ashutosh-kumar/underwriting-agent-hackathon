@@ -2,13 +2,25 @@
 
 from __future__ import annotations
 
+# CrewAI versions differ on where BaseTool lives; try all known paths so
+# Agent(tools=[AccountingModuleTool()]) does not hit internal KeyError 'tools'.
 try:
-    # Optional import: if CrewAI BaseTool is available, we use it.
-    # This keeps the tool compatible with Agent(tools=[...]) in CrewAI.
-    from crewai.tools import BaseTool
-except Exception:  # pragma: no cover - fallback for lightweight environments
+    from crewai.tools import BaseTool as _CrewBaseTool  # type: ignore
+except Exception:  # pragma: no cover
+    try:
+        from crewai.tools.base_tool import BaseTool as _CrewBaseTool  # type: ignore
+    except Exception:  # pragma: no cover
+        try:
+            from langchain_core.tools import BaseTool as _CrewBaseTool  # type: ignore
+        except Exception:  # pragma: no cover
+            _CrewBaseTool = None  # type: ignore
+
+if _CrewBaseTool is not None:
+    BaseTool = _CrewBaseTool
+else:
+
     class BaseTool:  # type: ignore[override]
-        """Minimal fallback BaseTool for environments without CrewAI tools module."""
+        """Fallback when no real BaseTool import succeeded (Crew wiring will skip tools)."""
 
         name = "BaseTool"
         description = "Fallback tool class."

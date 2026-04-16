@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { Spinner } from '@/components/ui/spinner';
 import { cn } from '@/lib/utils';
 import { getPersistenceDebug, parseDocument } from '@/lib/api';
+import { normalizeFinancialData } from '@/lib/normalizeFinancialData';
 import type { FinancialData, PersistenceDebug } from '@/types';
 import { UploadCloud, FlaskConical, Play, RotateCcw, FileJson, FileText, Database } from 'lucide-react';
 import { DocumentParseWorkflow } from '@/components/DocumentParseWorkflow';
@@ -41,35 +42,6 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
       }
     };
   }, []);
-
-  function normalizeFinancialData(value: unknown): FinancialData | null {
-    if (!value || typeof value !== 'object') return null;
-    const obj = value as Record<string, unknown>;
-    if (!Array.isArray(obj.transactions)) return null;
-    if (typeof obj.total_inflow !== 'number' || Number.isNaN(obj.total_inflow)) return null;
-    if (typeof obj.total_outflow !== 'number' || Number.isNaN(obj.total_outflow)) return null;
-
-    const transactions = obj.transactions
-      .filter((t): t is Record<string, unknown> => !!t && typeof t === 'object')
-      .map((t) => {
-        const amount = typeof t.amount === 'number' ? t.amount : Number(t.amount ?? 0);
-        const transactionType: 'credit' | 'debit' = t.type === 'credit' ? 'credit' : 'debit';
-        return {
-          date: String(t.date ?? ''),
-          description: String(t.description ?? ''),
-          amount: Number.isFinite(amount) ? amount : 0,
-          type: transactionType,
-        };
-      });
-
-    return {
-      applicant_id: typeof obj.applicant_id === 'string' ? obj.applicant_id : undefined,
-      statement_month: typeof obj.statement_month === 'string' ? obj.statement_month : undefined,
-      transactions,
-      total_inflow: obj.total_inflow,
-      total_outflow: obj.total_outflow,
-    };
-  }
 
   async function parseFile(file: File) {
     setParseError(null);
@@ -384,7 +356,7 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
           </div>
           <div className="flex justify-between border-t border-border/40 pt-2">
             <span className="text-xs text-muted-foreground">Transactions</span>
-            <span className="text-xs font-mono text-foreground">{financialData.transactions.length}</span>
+            <span className="text-xs font-mono text-foreground">{financialData.transactions?.length ?? 0}</span>
           </div>
         </div>
       )}
