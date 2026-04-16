@@ -1,27 +1,37 @@
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, UserPlus, Users } from "lucide-react"
+import { ThemeToggle } from "./theme-toggle"
 
 export function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center px-6 border-b border-border/40 bg-background/80 backdrop-blur-md">
-      <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 border border-primary/20">
-          <ShieldCheck className="w-4 h-4 text-primary" />
+    <header className="fixed top-0 right-0 left-0 z-50 flex h-16 items-center border-b border-border/40 bg-card/80 px-6 backdrop-blur-md">
+      <div className="flex items-center gap-2.5">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
+          <ShieldCheck className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <span className="text-sm font-semibold tracking-tight text-foreground">
-            AI Credit Underwriting
+          <span className="-mb-1 block text-lg font-bold tracking-tight text-foreground">
+            CredServ
           </span>
-          <span className="ml-2 text-[10px] font-mono uppercase tracking-widest text-muted-foreground/60 border border-border px-1.5 py-0.5 rounded">
-            v2.0
+          <span className="text-[10px] font-medium tracking-[0.2em] text-muted-foreground/50 uppercase">
+            Underwriting Agent
           </span>
         </div>
       </div>
-      <div className="ml-auto flex items-center gap-2">
-        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-          API Online
-        </span>
+
+      <div className="ml-auto flex items-center gap-4">
+        <div className="hidden items-center gap-1.5 rounded-full border border-success/10 bg-success/5 px-3 py-1.5 md:flex">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
+          <span className="text-[11px] font-medium tracking-wider text-success uppercase">
+            API Online
+          </span>
+        </div>
+
+        <div className="mx-2 h-6 w-px bg-border/40" />
+
+        <ThemeToggle />
+
+       
       </div>
     </header>
-  );
+  )
 }
