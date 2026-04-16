@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { Binary, Check, FileSearch, FileText, ScanSearch, ShieldCheck } from 'lucide-react';
+import { Binary, FileSearch, FileText, ScanSearch, ShieldCheck } from 'lucide-react';
 
 const WORKFLOW_STEPS = [
   { label: 'Document pre-processing', icon: FileText },
