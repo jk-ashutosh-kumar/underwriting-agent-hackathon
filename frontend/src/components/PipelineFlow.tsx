@@ -72,14 +72,14 @@ function DocumentScannerScene() {
         ))}
         {/* Scanner beam */}
         <motion.div
-          className="absolute right-0 left-0 h-[3px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-80"
+          className="absolute right-0 left-0 h-[3px] bg-linear-to-r from-transparent via-primary to-transparent opacity-80"
           animate={{ top: ["8%", "90%", "8%"] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           style={{ position: "absolute" }}
         />
         {/* Highlight sweep */}
         <motion.div
-          className="pointer-events-none absolute right-0 left-0 h-8 bg-gradient-to-b from-primary/10 to-transparent"
+          className="pointer-events-none absolute right-0 left-0 h-8 bg-linear-to-b from-primary/10 to-transparent"
           animate={{ top: ["4%", "82%", "4%"] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -100,14 +100,14 @@ function DocumentScannerScene() {
 /** Agents communicating — a cluster of nodes with traveling data pulses */
 function CommitteeScene() {
   const agents = [
-    { label: "Auditor", color: "bg-red-500", angle: -120 },
-    { label: "Trend", color: "bg-emerald-600", angle: 0 },
-    { label: "Benchmark", color: "bg-[#013b2e]", angle: 120 },
+    { label: "Auditor", colorClass: "bg-red-300", angle: -120 },
+    { label: "Trend", colorClass: "bg-emerald-300", angle: 0 },
+    { label: "Benchmark", colorClass: "bg-[#76b5b0]", angle: 120 },
   ]
   const R = 100 // radius
 
   return (
-    <div className="relative mx-auto flex h-52 w-52 items-center justify-center">
+    <div className="relative mx-auto -mt-4 flex h-52 w-52 items-center justify-center">
       {/* Center hub */}
       <div className="absolute z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-accent/40 bg-accent/10">
         <motion.div
@@ -161,7 +161,7 @@ function CommitteeScene() {
             <motion.div
               className={cn(
                 "absolute flex items-center justify-center rounded-full border-2 border-white/20 px-1 text-center text-[10px] font-bold text-white",
-                agent.color + "/80"
+                agent.colorClass
               )}
               style={{
                 width: 70,
@@ -341,7 +341,7 @@ export function PipelineFlow({
           exit={{ opacity: 0, scale: 0.97 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
         >
-          <div className="flex w-full max-w-2xl flex-col items-center gap-8 px-6">
+          <div className="flex w-full max-w-5xl flex-col items-center gap-6 px-4 sm:px-6">
             {/* ── Creative scene ── */}
             <motion.div
               key={activeStep?.id}
@@ -354,10 +354,10 @@ export function PipelineFlow({
               <div className="flex h-56 items-center justify-center">
                 {activeStep && getSceneForStep(activeStep.id, activeStep.icon)}
               </div>
-              <div className="space-y-1 text-center">
-                <p className="text-[10px] font-semibold tracking-[0.25em] text-muted-foreground/50 uppercase">
+              <div className="space-y-3 text-center">
+                {/* <p className="text-[10px] font-semibold tracking-[0.25em] text-muted-foreground/50 uppercase">
                   Step {activeIndex + 1} of {PIPELINE_STEPS.length}
-                </p>
+                </p> */}
                 <h2 className="text-2xl font-bold text-foreground">
                   {activeStep?.sublabel ?? "Processing..."}
                 </h2>
@@ -376,25 +376,34 @@ export function PipelineFlow({
             </motion.div>
 
             {/* ── Step pills progress ── */}
-            <div className="flex flex-wrap items-center justify-center gap-y-3">
-              {PIPELINE_STEPS.map((step, idx) => {
-                const status = stepStatus(
-                  idx,
-                  activeIndex,
-                  done,
-                  skipped,
-                  step.id
-                )
-                const connectorActive = status === "done" || status === "active"
-                return (
-                  <div key={step.id} className="flex items-center">
-                    <StepPill step={step} status={status} index={idx} />
-                    {idx < PIPELINE_STEPS.length - 1 && (
-                      <FlowConnector active={connectorActive} />
-                    )}
-                  </div>
-                )
-              })}
+            <div className="relative w-full max-w-full">
+              {/* Subtle scroll indicators */}
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-linear-to-r from-background/95 to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-linear-to-l from-background/95 to-transparent" />
+
+              {/* Scroll container (never wraps) */}
+              <div className="w-full overflow-x-auto px-4 py-1 scroll-px-6 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-6">
+                <div className="mx-auto flex min-w-max flex-nowrap items-center justify-center gap-2 sm:gap-3">
+                  {PIPELINE_STEPS.map((step, idx) => {
+                    const status = stepStatus(
+                      idx,
+                      activeIndex,
+                      done,
+                      skipped,
+                      step.id
+                    )
+                    const connectorActive = status === "done" || status === "active"
+                    return (
+                      <div key={step.id} className="flex items-center">
+                        <StepPill step={step} status={status} index={idx} />
+                        {idx < PIPELINE_STEPS.length - 1 && (
+                          <FlowConnector active={connectorActive} />
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
