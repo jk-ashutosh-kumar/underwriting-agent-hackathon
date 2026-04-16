@@ -11,8 +11,8 @@ from PIL import Image, ImageDraw
 
 CLASSIFIER_DPI = 72
 CLASSIFIER_SIZE = (800, 1000)
-EXTRACTOR_DPI = 120
-EXTRACTOR_SIZE = (1200, 1600)
+EXTRACTOR_DPI = 150
+EXTRACTOR_SIZE = (1400, 1900)
 
 
 def pdf_to_images(file_bytes: bytes, dpi: int, max_pages: int | None = None) -> list[Image.Image]:

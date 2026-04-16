@@ -1,0 +1,411 @@
+{
+      "transactions": [
+        {
+          "date": "2019-06-17",
+          "flag": false,
+          "page": 1,
+          "amount": 1500,
+          "balance": 112953.65,
+          "flag_type": null,
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT NFS 10:54:54/916740200272 0000000015000/INR",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-18",
+          "flag": false,
+          "page": 1,
+          "amount": 1500,
+          "balance": 111453.65,
+          "flag_type": null,
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT NFS 15:30:43/91690089754 0000000015000/INR",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-18",
+          "flag": false,
+          "page": 1,
+          "amount": 966,
+          "balance": 110487.65,
+          "flag_type": null,
+          "description": "PURCHASE ANANDA VILAS HOTEL VIRUDHUNAGAR IN 134:46:369548 000000000966001/INR",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-19",
+          "flag": true,
+          "page": 1,
+          "amount": 2000,
+          "balance": 109523.14,
+          "flag_type": "amount_mismatch",
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT NFS 12:10:47/917120098764 0000000020000/INR",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-19",
+          "flag": false,
+          "page": 1,
+          "amount": 1500,
+          "balance": 108023.14,
+          "flag_type": null,
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT NFS 12:10:47/917120098764 0000000015000/INR",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-21",
+          "flag": false,
+          "page": 1,
+          "amount": 10.17,
+          "balance": 108012.97,
+          "flag_type": null,
+          "description": "UPI/917209458811/ PAYTM/ATM@ICICI/CIC000055/ 0103LOUMPAY/ID02190621050469885386@ONE9 7COMMUNIC",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-21",
+          "flag": false,
+          "page": 1,
+          "amount": 1235.49,
+          "balance": 106777.48,
+          "flag_type": null,
+          "description": "UPI/917221848564/ LE TRAVENUES TECHNOLOGY PRIVATE LTD/DIXI/AG AXISBANK 10002196114564/LE TRAVENUES TECHNOLOGY PRIVATE LIMI",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-24",
+          "flag": false,
+          "page": 1,
+          "amount": 1000,
+          "balance": 105777.48,
+          "flag_type": null,
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT NFS 22:21:27/7322019314 0000000010000/INR",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-24",
+          "flag": true,
+          "page": 2,
+          "amount": 300,
+          "balance": 105.87,
+          "flag_type": "amount_mismatch",
+          "description": "PAYTM-MAD-MONEY/PAYTMPMT0123456/1974241000007/0ID596807937@ONE97COMMUNICATIONS",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-25",
+          "flag": true,
+          "page": 2,
+          "amount": 1500,
+          "balance": 104.07,
+          "flag_type": "amount_mismatch",
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT NFS 20:10:24/172003617",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-25",
+          "flag": true,
+          "page": 2,
+          "amount": 449,
+          "balance": 103.86,
+          "flag_type": "amount_mismatch",
+          "description": "AMAZONPAY/AMAZONPAY@APL/UTIB0000000/100201901645/AMAZONPAY PURCHASE/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-25",
+          "flag": true,
+          "page": 2,
+          "amount": 500,
+          "balance": 103.35,
+          "flag_type": "amount_mismatch",
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT NFS 22:10:19/1722003978",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-27",
+          "flag": true,
+          "page": 2,
+          "amount": 120,
+          "balance": 102.24,
+          "flag_type": "amount_mismatch",
+          "description": "NON SOE ATM USAGE CHARGES MAY 19 CGST @ 9.00%",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-28",
+          "flag": true,
+          "page": 2,
+          "amount": 1800,
+          "balance": 100.02,
+          "flag_type": "amount_mismatch",
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT CASHMT 20:50:44/4944",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-29",
+          "flag": true,
+          "page": 2,
+          "amount": 14,
+          "balance": 86.77,
+          "flag_type": "amount_mismatch",
+          "description": "PURCHASE R THANGAMALIGAI CHENNAI IN 11:10:30/726630",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-06-30",
+          "flag": true,
+          "page": 2,
+          "amount": 797,
+          "balance": 86.91,
+          "flag_type": "amount_mismatch",
+          "description": "CREDIT OF INTEREST",
+          "transaction_type": "credit"
+        },
+        {
+          "date": "2019-07-01",
+          "flag": true,
+          "page": 2,
+          "amount": 100,
+          "balance": 86.71,
+          "flag_type": "amount_mismatch",
+          "description": "PAYTM-MAD-MONEY/PAYTMPMT0123456/1974241000007/0ID682127265@ONE97COMMUNICATIONS",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-01",
+          "flag": true,
+          "page": 2,
+          "amount": 700,
+          "balance": 86.03,
+          "flag_type": "amount_mismatch",
+          "description": "AMAZON/MANZON@APL/UTIB0000001/100201901145/REQUEST FROM AMAZON PAY/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-01",
+          "flag": true,
+          "page": 2,
+          "amount": 14,
+          "balance": 86.03,
+          "flag_type": "amount_mismatch",
+          "description": "GOOGS-PAYMENT@OKAXIS/GOOGLEPAY/PAYTMB000653/UPI",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-02",
+          "flag": true,
+          "page": 2,
+          "amount": 1000,
+          "balance": 84.72,
+          "flag_type": "amount_mismatch",
+          "description": "ATM WITHDRAWAL SELF-SWITCH AT NFS 21:21:03/18921005879",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-04",
+          "flag": true,
+          "page": 2,
+          "amount": 50,
+          "balance": 84.68,
+          "flag_type": "amount_mismatch",
+          "description": "PAYTM-MAD-MONEY/PAYTMPMT0123456/1974241000007/0ID682436149@ONE97COMMUNICATIONS",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-05",
+          "flag": true,
+          "page": 3,
+          "amount": 7800,
+          "balance": 76875.02,
+          "flag_type": "amount_mismatch",
+          "description": "DUMMY NAME/VIU003102/ 21071100110460/UPI/ 916186308948/",
+          "transaction_type": "credit"
+        },
+        {
+          "date": "2019-07-05",
+          "flag": false,
+          "page": 3,
+          "amount": 200,
+          "balance": 76675.02,
+          "flag_type": null,
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB866267120@ONE97COMMUNICATIONS/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-05",
+          "flag": false,
+          "page": 3,
+          "amount": 30,
+          "balance": 76645.02,
+          "flag_type": null,
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB866383616@ONE97COMMUNICATIONS/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-05",
+          "flag": false,
+          "page": 3,
+          "amount": 180,
+          "balance": 76465.02,
+          "flag_type": null,
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB8663760758@ONE97COMMUNICATIONS/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-06",
+          "flag": false,
+          "page": 3,
+          "amount": 100,
+          "balance": 76365.02,
+          "flag_type": null,
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB8663760793@ONE97COMMUNICATIONS/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-07",
+          "flag": false,
+          "page": 3,
+          "amount": 1500,
+          "balance": 74865.02,
+          "flag_type": null,
+          "description": "AT MFS 12:04:39/198180007071 000000015001INR",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-08",
+          "flag": false,
+          "page": 3,
+          "amount": 50,
+          "balance": 74815.02,
+          "flag_type": null,
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB8663836687@ONE97COMMUNICATIONS/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-08",
+          "flag": false,
+          "page": 3,
+          "amount": 50,
+          "balance": 74765.02,
+          "flag_type": null,
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB8960806707@ONE97COMMUNICATIONS/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-09",
+          "flag": true,
+          "page": 3,
+          "amount": 500,
+          "balance": 74215.02,
+          "flag_type": "amount_mismatch",
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB896504403@ONE97COMMUNICATIONS/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-09",
+          "flag": false,
+          "page": 3,
+          "amount": 2.34,
+          "balance": 74217.36,
+          "flag_type": null,
+          "description": "DISCOUNT ON FUEL BUI VISA POS ON 140",
+          "transaction_type": "credit"
+        },
+        {
+          "date": "2019-07-10",
+          "flag": true,
+          "page": 3,
+          "amount": 1500,
+          "balance": 139865.36,
+          "flag_type": "amount_mismatch",
+          "description": "AT MFS 11:57:20/192210094969 000000015001INR",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-15",
+          "flag": false,
+          "page": 3,
+          "amount": 3599,
+          "balance": 136266.36,
+          "flag_type": null,
+          "description": "PURCHASE LIFE STYLE CHENNAI IN 20.56 34/00950 0000000039000/IDB9145087373",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-15",
+          "flag": false,
+          "page": 3,
+          "amount": 100,
+          "balance": 136166.36,
+          "flag_type": null,
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB734696606@ONE97COMMUNICATIONS/",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-15",
+          "flag": true,
+          "page": 3,
+          "amount": 20000,
+          "balance": 116145.36,
+          "flag_type": "amount_mismatch",
+          "description": "PAYTM/MAD-MONEY@PAYTMPYTM0123456/ 1974241000007/IDB19390885/035001527074",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-16",
+          "flag": true,
+          "page": 4,
+          "amount": 1500,
+          "balance": 116155.36,
+          "flag_type": "amount_mismatch",
+          "description": "ATM WITHDRAWAL SELF-SWITCH",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-16",
+          "flag": true,
+          "page": 4,
+          "amount": 150,
+          "balance": 116149.36,
+          "flag_type": "amount_mismatch",
+          "description": "PAYTM/MAD-MONEY/PAYTM0123456/197404100000701DB76371358@ONE97COMMU",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-16",
+          "flag": false,
+          "page": 4,
+          "amount": 5,
+          "balance": 116144.36,
+          "flag_type": null,
+          "description": "IMPS P2A CHARGES 150719",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-16",
+          "flag": false,
+          "page": 4,
+          "amount": 0.45,
+          "balance": 116143.91,
+          "flag_type": null,
+          "description": "CGST @ 9.00%",
+          "transaction_type": "debit"
+        },
+        {
+          "date": "2019-07-16",
+          "flag": false,
+          "page": 4,
+          "amount": 0.45,
+          "balance": 116143.46,
+          "flag_type": null,
+          "description": "SGST @ 9.00%",
+          "transaction_type": "debit"
+        }
+      ],
+      "account_details": {
+        "bank_name": "Standard Chartered",
+        "branch_name": "Rajaji Salai",
+        "account_holder": "MR SEENIVASAN",
+        "account_number": "42710450422",
+        "statement_period": "16 Jul 2019"
+      }
+}

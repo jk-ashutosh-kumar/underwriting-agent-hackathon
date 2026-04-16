@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from ingestion.db import merge_doc_output
+from ingestion.parser.bank_statement_parser import validate_bank_statement
 from ingestion.state import DocumentState
 
 
@@ -32,6 +33,9 @@ async def merge_node(state: DocumentState) -> DocumentState:
 
     try:
         merged = deep_merge(state["page_outputs"])
+
+        if state["document_type"] == "bank_statement":
+            merged = validate_bank_statement(merged)
 
         merge_doc_output(
             state["case_id"],
