@@ -172,9 +172,8 @@ export function useCompanyIngestWorkflow() {
           continue;
         }
 
-        const failed = tracked.filter((doc) => isExtractionFailedStatus(doc.status));
-        if (failed.length > 0) {
-          const detail = failed
+        const formatFailedDetails = (docs: CaseDocument[]) =>
+          docs
             .map((d) => {
               const err =
                 d.extracted_data &&
@@ -186,27 +185,46 @@ export function useCompanyIngestWorkflow() {
               return err ? `${base}: ${err}` : base;
             })
             .join('; ');
-          throw new Error(`Extraction failed for: ${detail}`);
+
+        const stillRunning = tracked.some(
+          (doc) => !isExtractionSuccessStatus(doc.status) && !isExtractionFailedStatus(doc.status),
+        );
+        if (stillRunning) {
+          setWorkflowHint(
+            `Processing documents… (${tracked.filter((d) => isExtractionSuccessStatus(d.status)).length}/${tracked.length} ready)`,
+          );
+          await sleep(POLL_MS);
+          continue;
         }
 
-        const allDone = tracked.every((doc) => isExtractionSuccessStatus(doc.status));
-        if (allDone) {
-          setWorkflowHint('Extraction complete (backend webhooks delivered). Building statement…');
-          const parsed = tracked
-            .map((doc) => normalizeFinancialData(doc.extracted_data))
-            .filter((data): data is FinancialData => !!data);
-          if (parsed.length === 0) {
+        // Every tracked row is terminal (done/success or failed). Merge bank payloads from successes.
+        const failures = tracked.filter((doc) => isExtractionFailedStatus(doc.status));
+        const successes = tracked.filter((doc) => isExtractionSuccessStatus(doc.status));
+        const parsed = successes
+          .map((doc) => normalizeFinancialData(doc.extracted_data))
+          .filter((data): data is FinancialData => !!data);
+
+        if (parsed.length === 0) {
+          if (failures.length > 0) {
             throw new Error(
-              'Extraction finished but no underwriting-compatible statement fields were returned.',
+              failures.length === tracked.length
+                ? `Extraction failed for: ${formatFailedDetails(failures)}`
+                : `No bank-style statement could be built from successful documents. Failures: ${formatFailedDetails(failures)}`,
             );
           }
-          return mergeFinancialData(parsed);
+          throw new Error(
+            'Extraction finished but no underwriting-compatible statement fields were returned.',
+          );
         }
 
-        setWorkflowHint(
-          `Processing documents… (${tracked.filter((d) => isExtractionSuccessStatus(d.status)).length}/${tracked.length} ready)`,
-        );
-        await sleep(POLL_MS);
+        if (failures.length > 0) {
+          setWorkflowHint(
+            `Using ${parsed.length} successful document(s); skipped ${failures.length} failed: ${formatFailedDetails(failures)}`,
+          );
+        } else {
+          setWorkflowHint('Extraction complete (backend webhooks delivered). Building statement…');
+        }
+        return mergeFinancialData(parsed);
       }
       throw new Error('Timed out waiting for extraction to finish.');
     },
