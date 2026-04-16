@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react"
 import type { FinancialData, UnderwritingResult } from "@/types"
 import { AuditorCard, TrendCard, BenchmarkCard } from "./AgentCard"
 import { AgentLogs } from "./AgentLogs"
@@ -7,8 +8,16 @@ import { ParsedDataCharts } from "./ParsedDataCharts"
 import { Separator } from "@/components/ui/separator"
 import { AdvancedVisuals } from "./AdvancedVisuals"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 import { cn } from "@/lib/utils"
-import { Layers2, SlidersHorizontal } from "lucide-react"
+import {
+  downloadCommitteeChairSynthesisJson,
+  downloadCommitteeChairSynthesisPdf,
+  hasCommitteeChairExportData,
+} from "@/lib/exportCommitteeChairSynthesis"
+import { toast } from "sonner"
+import { FileDown, FileJson, Layers2, SlidersHorizontal } from "lucide-react"
 
 /** Plain amount: no symbol, no grouping; avoids float artifacts like trailing dots. */
 function formatPlainAmount(value: number): string {
@@ -33,6 +42,32 @@ export function ResultsDashboard({
   onHITLSubmit,
   loading,
 }: ResultsDashboardProps) {
+  const [pdfExporting, setPdfExporting] = useState(false)
+  const canExportSynthesis = hasCommitteeChairExportData(result)
+
+  const handleExportJson = useCallback(() => {
+    if (!canExportSynthesis) return
+    try {
+      downloadCommitteeChairSynthesisJson(result)
+      toast.success("Committee Chair synthesis exported as JSON.")
+    } catch {
+      toast.error("Could not export JSON.")
+    }
+  }, [result, canExportSynthesis])
+
+  const handleExportPdf = useCallback(async () => {
+    if (!canExportSynthesis) return
+    setPdfExporting(true)
+    try {
+      await downloadCommitteeChairSynthesisPdf(result)
+      toast.success("PDF downloaded.")
+    } catch {
+      toast.error("Could not generate PDF.")
+    } finally {
+      setPdfExporting(false)
+    }
+  }, [result, canExportSynthesis])
+
   const minLimit = Math.round(result.credit_limit?.min_limit ?? 0)
   const maxLimit = Math.round(result.credit_limit?.max_limit ?? 0)
   const econBase = Math.round(result.credit_limit?.economics_base_limit ?? 0)
@@ -159,13 +194,43 @@ export function ResultsDashboard({
           </CardContent>
         </Card>
       <div className="space-y-3 rounded-xl border border-border/60 bg-elevated p-4">
-        <div className="flex items-center justify-between">
-          <p className="text-[10px] font-semibold tracking-widest text-muted-foreground/60 uppercase">
-            Committee Chair Synthesis
-          </p>
-          <span className="font-mono text-xs text-muted-foreground">
-            Confidence {result.committee_chair?.confidence ?? 0}%
-          </span>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-semibold tracking-widest text-muted-foreground/60 uppercase">
+              Committee Chair Synthesis
+            </p>
+            <span className="mt-1 inline-block font-mono text-xs text-muted-foreground">
+              Confidence {result.committee_chair?.confidence ?? 0}%
+            </span>
+          </div>
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="h-8 gap-1.5 border-border/60 text-xs"
+              disabled={!canExportSynthesis || pdfExporting || loading}
+              onClick={() => void handleExportPdf()}
+            >
+              {pdfExporting ? (
+                <Spinner className="size-3.5" />
+              ) : (
+                <FileDown className="size-3.5" />
+              )}
+              Download PDF
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="h-8 gap-1.5 border-border/60 text-xs"
+              disabled={!canExportSynthesis || pdfExporting || loading}
+              onClick={handleExportJson}
+            >
+              <FileJson className="size-3.5" />
+              Export JSON
+            </Button>
+          </div>
         </div>
         {result.committee_chair?.final_verdict_rationale && (
           <p className="text-sm leading-relaxed text-foreground/90">

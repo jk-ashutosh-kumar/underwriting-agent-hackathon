@@ -168,6 +168,34 @@ export interface PersistenceDebug {
   last_checkpoint_risk_score?: number | null;
 }
 
+export interface CompanyCaseSummary {
+  company_id: string;
+  company_name: string;
+  case_id?: string | null;
+  case_status?: string | null;
+  doc_types: string[];
+}
+
+export interface IngestResponse {
+  case_id: string;
+  company_id: string;
+  status: string;
+  files_received: number;
+  message: string;
+  /** Present when the API creates document rows before queuing extraction. */
+  document_ids?: string[];
+}
+
+export interface CaseDocument {
+  document_id: string;
+  document_name: string;
+  doc_type?: string | null;
+  metadata: Record<string, unknown>;
+  extracted_data: Record<string, unknown>;
+  status: string;
+  created_at?: string | null;
+}
+
 /** NDJSON progress line from ``POST /api/underwrite/stream``. */
 export interface FlowProgressPayload {
   type: 'progress';

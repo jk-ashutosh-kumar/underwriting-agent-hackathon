@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
-import { analyzeApplicationStream, getSampleData, resumeLangGraphFlow, startLangGraphFlow } from '@/lib/api';
-import { normalizeFinancialData } from '@/lib/normalizeFinancialData';
+import { analyzeApplicationStream, resumeLangGraphFlow, startLangGraphFlow } from '@/lib/api';
 import type {
   FinancialData,
   UnderwritingResult,
@@ -38,6 +37,10 @@ export function useUnderwriting() {
     pipelineLabel: null,
     pipelineDone: false,
   });
+
+  // Keep HITL enabled by default so LangGraph can request clarification
+  // and the frontend opens the modal before resume.
+  const DISABLE_HITL = false;
 
   /** Sweep the pipeline indicator through steps startIdx → 6 with a per-step delay, then mark done. */
   const animateSweep = useCallback(
@@ -148,6 +151,34 @@ export function useUnderwriting() {
           applyLangGraphState(started);
 
           if (started.status === 'NEEDS_INPUT') {
+            if (DISABLE_HITL) {
+              setState((s) => ({
+                ...s,
+                pipelineActiveIndex: 4,
+                pipelineLabel: 'Resuming flow without human review…',
+              }));
+              const resumed = await resumeLangGraphFlow({
+                ...req,
+                thread_id: started.thread_id,
+                human_response: '',
+              });
+              applyLangGraphState(resumed);
+              if (!resumed.result) {
+                throw new Error('LangGraph resume finished without final result');
+              }
+              await animateSweep(5);
+              setState({
+                step: 'done',
+                result: resumed.result,
+                error: null,
+                loading: false,
+                pipelineActiveIndex: 6,
+                pipelineSkippedIds: [],
+                pipelineLabel: 'Complete',
+                pipelineDone: true,
+              });
+              return;
+            }
             setState((s) => ({
               ...s,
               pipelineActiveIndex: 3,
@@ -220,31 +251,13 @@ export function useUnderwriting() {
         let hitlTransitionTimer: number | null = null;
 
         const onProgress = (ev: FlowProgressPayload) => {
-          // If backend signals a HITL pause right after committee/decision,
-          // briefly show the router step so the UI "moves" into HITL.
-          if (ev.human_in_loop && !humanResponse && hitlTransitionTimer == null) {
-            setState((s) => ({
-              ...s,
-              pipelineActiveIndex: 2,
-              pipelineLabel: 'Routing to human review…',
-            }));
-            hitlTransitionTimer = window.setTimeout(() => {
-              setState((s) => ({
-                ...s,
-                pipelineActiveIndex: 3,
-                pipelineLabel: 'Human review required (HITL)',
-              }));
-            }, 900);
-          }
-
           setState((s) => {
             const merged = new Set(s.pipelineSkippedIds);
             for (const id of ev.skipped_steps ?? []) merged.add(id);
-            const shouldPauseForHITL = !!ev.human_in_loop;
             return {
               ...s,
-              pipelineActiveIndex: shouldPauseForHITL ? 3 : ev.active_index,
-              pipelineLabel: shouldPauseForHITL ? 'Human review required (HITL)' : ev.label,
+              pipelineActiveIndex: DISABLE_HITL ? ev.active_index : ev.human_in_loop ? 3 : ev.active_index,
+              pipelineLabel: DISABLE_HITL ? ev.label : ev.human_in_loop ? 'Human review required (HITL)' : ev.label,
               pipelineSkippedIds: merged.size > 0 ? Array.from(merged) : s.pipelineSkippedIds,
             };
           });
@@ -252,9 +265,8 @@ export function useUnderwriting() {
 
         const result = await analyzeApplicationStream(req, onProgress);
 
-        // Stream mode HITL: if backend flags the case, pause at HITL and collect user input,
-        // then animate through remaining steps before revealing the final dashboard.
-        if (result.needs_hitl && !humanResponse) {
+        // When HITL is disabled, skip human review and proceed directly to final result.
+        if (!DISABLE_HITL && result.needs_hitl && !humanResponse) {
           setState((s) => ({
             ...s,
             step: 'deciding',
@@ -324,15 +336,6 @@ export function useUnderwriting() {
     [],
   );
 
-  const loadSample = useCallback(async (): Promise<FinancialData | null> => {
-    try {
-      const raw = await getSampleData();
-      return normalizeFinancialData(raw as unknown);
-    } catch {
-      return null;
-    }
-  }, []);
-
   const reset = useCallback(() => {
     setState({
       step: 'idle',
@@ -346,5 +349,5 @@ export function useUnderwriting() {
     });
   }, []);
 
-  return { ...state, run, loadSample, reset };
+  return { ...state, run, reset };
 }

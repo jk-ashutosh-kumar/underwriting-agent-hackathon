@@ -12,9 +12,8 @@ export function EmptyState() {
       <div className="space-y-2 max-w-xs">
         <h2 className="text-lg font-semibold text-foreground">Ready to Underwrite</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Upload a financial statement JSON or use the sample data, then click{' '}
-          <span className="text-primary font-medium">Run Analysis</span> to start the multi-agent
-          credit committee.
+          Select a company, upload financial documents, and the platform will parse, validate, and
+          run analysis automatically through the multi-agent credit committee.
         </p>
       </div>
       <div className="flex flex-col items-start gap-2 text-left bg-muted/10 border border-border/40 rounded-xl p-4 max-w-xs w-full">

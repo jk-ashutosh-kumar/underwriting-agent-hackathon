@@ -396,11 +396,13 @@ def iter_underwriting_flow_events(
         yield _progress_event("deciding", "decision", "Final underwriting decision")
         state = decision_node(state)
     elif next_step == "hitl":
+        # In API/UI mode we run the HITL node non-interactively (no blocking input).
+        # Do not mark this as a human-in-loop pause, so the frontend doesn't get stuck.
         yield _progress_event(
             "hitl",
             "hitl",
-            "Human-in-the-loop — capture clarification",
-            human_in_loop=True,
+            "HITL auto-consumed (no human review required)",
+            human_in_loop=False,
         )
         state = hitl_node(state, interactive=interactive, human_response=human_response)
         yield _progress_event("resume", "resume", "Resume pipeline after HITL")

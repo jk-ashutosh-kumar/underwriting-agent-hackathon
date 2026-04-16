@@ -3071,5 +3071,1312 @@
     "decision": "REJECTED",
     "region": "India",
     "risk_score": 75
+  },
+  {
+    "case_id": "case-1776369859",
+    "created_at": "2026-04-16T20:04:19.706342+00:00",
+    "input_data": {
+      "applicant_id": null,
+      "statement_month": null,
+      "transactions": [
+        {
+          "date": "2025-11-02",
+          "description": "NEFT - DHANA CROP SCIENCES",
+          "amount": 3850000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-11-03",
+          "description": "RTGS - DHARMAJ CROP",
+          "amount": 2500000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-11-04",
+          "description": "GST Payment",
+          "amount": 1275000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-11-05",
+          "description": "IMPS - SRI ADITYA",
+          "amount": 840000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-11-10",
+          "description": "RTGS - SRI RASAYAN",
+          "amount": 1850000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2025-11-20",
+          "description": "NEFT - SRI VENKATESHWARA",
+          "amount": 920000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2025-11-27",
+          "description": "Loan EMI",
+          "amount": 1050000.0,
+          "type": "debit"
+        }
+      ],
+      "total_inflow": 5610000.0,
+      "total_outflow": 6675000.0,
+      "invoice_data": null,
+      "credit_report": null
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction amounts",
+          "high volume of legal cases",
+          "invoice volume vs bank inflow mismatch"
+        ],
+        "explanation": "The financial case shows significant inflows and outflows with large transactions exceeding the threshold. Additionally, there are 165 legal cases associated with the entity, which raises concerns about its operational integrity. The average invoice value is low compared to the total inflow, indicating potential discrepancies.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": -1065000.0,
+        "trend": "shrinking",
+        "estimated_revenue": 96860795.0,
+        "growth_signal": "negative cash flow",
+        "insight": "The business is experiencing a negative cash flow with total outflows exceeding inflows, indicating financial strain.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current case shows a negative cash flow with monthly inflow of 5,610,000 and outflow of 6,675,000, indicating potential liquidity issues. Historical cases in India with risk scores above 60 have consistently been rejected, suggesting a high-risk environment.",
+        "comparison_insight": "The current case metrics reflect a higher risk profile compared to historical entries, which have all been rejected. The average invoice value and frequency do not mitigate the negative cash flow situation.",
+        "comparison": "The current case metrics reflect a higher risk profile compared to historical entries, which have all been rejected. The average invoice value and frequency do not mitigate the negative cash flow situation.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "credit_limit": {
+        "min_limit": 9409.18,
+        "max_limit": 21954.74,
+        "economics_base_limit": 160020.0,
+        "nominal_ceiling": 134416.8,
+        "nominal_floor": 89611.2,
+        "reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 89611 up to 134417; we treat 134417 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 9409 to 21955. \n\nCompared with that nominal ceiling, the quoted band is tighter because the case was not approved, so the quote is a conservative reference only; the auditor raised 3 issue(s) (for example: large transaction amounts); language in the flags tripped an extra policy haircut; the audit risk score is 75 out of 100 (lower is better); the auditor asked for review rather than a clean approve."
+      },
+      "unified_profile": {
+        "bank": {
+          "applicant_id": null,
+          "statement_month": null,
+          "transactions": [
+            {
+              "date": "2025-11-02",
+              "description": "NEFT - DHANA CROP SCIENCES",
+              "amount": 3850000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2025-11-03",
+              "description": "RTGS - DHARMAJ CROP",
+              "amount": 2500000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2025-11-04",
+              "description": "GST Payment",
+              "amount": 1275000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2025-11-05",
+              "description": "IMPS - SRI ADITYA",
+              "amount": 840000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2025-11-10",
+              "description": "RTGS - SRI RASAYAN",
+              "amount": 1850000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2025-11-20",
+              "description": "NEFT - SRI VENKATESHWARA",
+              "amount": 920000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2025-11-27",
+              "description": "Loan EMI",
+              "amount": 1050000.0,
+              "type": "debit"
+            }
+          ],
+          "total_inflow": 5610000.0,
+          "total_outflow": 6675000.0,
+          "invoice_data": null,
+          "credit_report": null
+        },
+        "invoices": [
+          {
+            "invoice_id": "1592844520669",
+            "date": "22 June 2020",
+            "amount": 53340.0,
+            "customer": "Kamal Pumps Enterprise",
+            "status": "PENDING",
+            "raw": {
+              "buyer": {
+                "name": "Kamal Pumps Enterprise",
+                "gstin": "04AAERS9818B2A",
+                "state": "Maharashtra",
+                "address": "423 Yeola, Nashik, 423402, Maharashtra",
+                "state_code": null
+              },
+              "seller": {
+                "name": "Indrayani Enterprises",
+                "gstin": "07AAECR2971C1Z",
+                "state": "Maharashtra",
+                "address": "Yeola, Nashik, 423401, Maharashtra",
+                "contact": {
+                  "email": null,
+                  "phone": "+91 9857234526"
+                },
+                "state_code": null
+              },
+              "consignee": null,
+              "logistics": null,
+              "line_items": [
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 4095,
+                  "description": "Rotary Pump",
+                  "total_amount": 49140
+                },
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 350,
+                  "description": "Connection valves",
+                  "total_amount": 4200
+                }
+              ],
+              "tax_details": {
+                "cgst_rate": 0,
+                "igst_rate": 0,
+                "sgst_rate": 0,
+                "total_tax": 0,
+                "cgst_amount": 0,
+                "igst_amount": 0,
+                "sgst_amount": 0
+              },
+              "bank_details": {
+                "ifsc": "SBIN0000534",
+                "branch": "Hiranandani",
+                "bank_name": "STATE BANK OF INDIA",
+                "account_number": "203356289317"
+              },
+              "amount_summary": {
+                "subtotal": 53340,
+                "round_off": null,
+                "total_amount": 53340,
+                "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+              },
+              "additional_info": {
+                "remarks": null,
+                "terms_and_conditions": null
+              },
+              "payment_details": {
+                "amount_due": 28340,
+                "amount_paid": 25000,
+                "payment_mode": "CASH",
+                "payment_terms": null
+              },
+              "invoice_metadata": {
+                "irn": null,
+                "ack_date": null,
+                "ack_number": null,
+                "invoice_date": "22 June 2020",
+                "invoice_type": "tax_invoice",
+                "invoice_number": "1592844520669"
+              }
+            }
+          }
+        ],
+        "credit_report": {
+          "legal_cases": 165,
+          "legal_cases_against_company": 0,
+          "gst_filing_status": "regular",
+          "gst_on_time_filing_percent": 100,
+          "gst_has_delay": false,
+          "past_defaults": 0,
+          "report": {
+            "tax_filing": {
+              "has_delay": false,
+              "gst_number": "36AADCC1579Q1Z3",
+              "return_type": "GSTR-3B",
+              "taxpayer_type": "Regular",
+              "registered_state": "Telangana",
+              "on_time_filing_percent": 100,
+              "filing_last_6_months_percent": 100,
+              "filing_last_12_months_percent": 100
+            },
+            "profit_loss": {
+              "pat": 85960595,
+              "ebitda": null,
+              "revenue": 96860795,
+              "net_margin_percent": null
+            },
+            "balance_sheet": {
+              "equity": null,
+              "total_assets": null,
+              "current_assets": null,
+              "current_liabilities": null
+            },
+            "legal_profile": {
+              "cases_by_company": {
+                "civil": 165,
+                "total": 165,
+                "criminal": 0
+              },
+              "cases_against_company": {
+                "civil": 0,
+                "total": 0,
+                "criminal": 0
+              }
+            },
+            "business_summary": {
+              "industry": "Agro - [Agro Products Retailers and Distributors']",
+              "gst_number": "36AADCC1579Q1Z3",
+              "pan_number": "AADCC1579Q",
+              "business_type": "Private Limited Company",
+              "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+              "age_of_business_months": 111,
+              "incorporation_date_pan": "2007-08-27"
+            },
+            "gstr3b_filing_delay": {
+              "summary": {
+                "status": "NO_DELAYS",
+                "total_delays": null,
+                "average_delay_days": null
+              },
+              "delay_records": null
+            }
+          }
+        },
+        "derived_metrics": {
+          "monthly_inflow": 5610000.0,
+          "monthly_outflow": 6675000.0,
+          "avg_invoice_value": 53340.0,
+          "invoice_frequency": 1,
+          "total_invoice_volume": 53340.0,
+          "gst_compliance": "regular"
+        }
+      },
+      "auditor": {
+        "risk_score": 75,
+        "flags": [
+          "large transaction amounts",
+          "high volume of legal cases",
+          "invoice volume vs bank inflow mismatch"
+        ],
+        "explanation": "The financial case shows significant inflows and outflows with large transactions exceeding the threshold. Additionally, there are 165 legal cases associated with the entity, which raises concerns about its operational integrity. The average invoice value is low compared to the total inflow, indicating potential discrepancies.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "final_summary": "The underwriting committee recommends a review of the case due to significant financial risks, including negative cash flow and a high volume of legal cases.",
+      "committee_chair": {
+        "final_summary": "The underwriting committee recommends a review of the case due to significant financial risks, including negative cash flow and a high volume of legal cases.",
+        "final_verdict_rationale": "The entity exhibits a concerning financial profile with large transaction amounts, a negative cash flow trend, and a high number of legal cases, all of which contribute to a high risk score. Historical data suggests that similar cases have been rejected, indicating a need for caution.",
+        "key_supporting_points": [
+          "Negative cash flow with total outflows exceeding inflows.",
+          "High volume of legal cases (165) raises operational integrity concerns.",
+          "Large transaction amounts exceeding thresholds indicate potential discrepancies."
+        ],
+        "key_risks": [
+          "Liquidity issues due to negative cash flow.",
+          "Operational integrity concerns from numerous legal cases.",
+          "Potential discrepancies in financial reporting indicated by invoice vs bank inflow mismatch."
+        ],
+        "confidence": 70,
+        "conditions_if_approved": [
+          "Further investigation into the legal cases and their impact on operations.",
+          "Detailed analysis of transaction discrepancies and financial reporting.",
+          "Monitoring of cash flow trends over the next quarter."
+        ],
+        "mode": "llm",
+        "accounting_signal": "Partner has 95% on-time payments",
+        "credit_limit_reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 89611 up to 134417; we treat 134417 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 9409 to 21955. \n\nCompared with that nominal ceiling, the quoted band is tighter because the case was not approved, so the quote is a conservative reference only; the auditor raised 3 issue(s) (for example: large transaction amounts); language in the flags tripped an extra policy haircut; the audit risk score is 75 out of 100 (lower is better); the auditor asked for review rather than a clean approve."
+      },
+      "crew_kickoff_summary": null,
+      "mode": "llm",
+      "crew_status": "CrewAI package import failed (orchestration skipped); auditor/trend/benchmark still run via direct calls \u2014 see each agent's mode from USE_LLM. Active committee path: LLM (USE_LLM)."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 75
+  },
+  {
+    "case_id": "case-1776371477",
+    "created_at": "2026-04-16T20:31:17.501599+00:00",
+    "input_data": {
+      "applicant_id": null,
+      "statement_month": null,
+      "transactions": [
+        {
+          "date": "01-Apr",
+          "description": "Opening",
+          "amount": 0.0,
+          "type": "debit"
+        },
+        {
+          "date": "02-Apr",
+          "description": "NEFT",
+          "amount": 120000.0,
+          "type": "credit"
+        },
+        {
+          "date": "05-Apr",
+          "description": "RTGS",
+          "amount": 100000.0,
+          "type": "debit"
+        }
+      ],
+      "total_inflow": 120000.0,
+      "total_outflow": 100000.0,
+      "invoice_data": null,
+      "credit_report": null
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 12,
+        "flags": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+        "risk_drivers": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Limited historical transaction behavior context."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1032. Please try again in 309ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "trend": {
+        "profit": 20000.0,
+        "trend": "stable",
+        "estimated_revenue": 120000.0,
+        "growth_signal": "stable (invoice_frequency=1/month)",
+        "insight": "In India, inflow is 120000.00 and outflow is 100000.00, so estimated profit is 20000.00. Growth ratio is 1.20, which I classify as 'stable' for this demo.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [
+          "Single-period cashflow may hide seasonality effects."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1014. Please try again in 304ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "benchmark": {
+        "benchmark_result": "Risk profile is closer to historically higher-risk partners",
+        "comparison_insight": "I reviewed 13 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+        "comparison": "I reviewed 13 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+        "risk_drivers": [
+          "High proportion of risky historical cases."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Historical memory size and distribution may be limited."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 458. Please try again in 137ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "credit_limit": {
+        "min_limit": 117779.84,
+        "max_limit": 176669.76,
+        "economics_base_limit": 160020.0,
+        "nominal_ceiling": 230428.8,
+        "nominal_floor": 153619.2,
+        "reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 153619 up to 230429; we treat 230429 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 117780 to 176670. \n\nCompared with that nominal ceiling, the quoted band is tighter because the auditor raised 1 issue(s) (for example: Credit report shows 165 legal case(s).); the auditor asked for review rather than a clean approve."
+      },
+      "unified_profile": {
+        "bank": {
+          "applicant_id": null,
+          "statement_month": null,
+          "transactions": [
+            {
+              "date": "01-Apr",
+              "description": "Opening",
+              "amount": 0.0,
+              "type": "debit"
+            },
+            {
+              "date": "02-Apr",
+              "description": "NEFT",
+              "amount": 120000.0,
+              "type": "credit"
+            },
+            {
+              "date": "05-Apr",
+              "description": "RTGS",
+              "amount": 100000.0,
+              "type": "debit"
+            }
+          ],
+          "total_inflow": 120000.0,
+          "total_outflow": 100000.0,
+          "invoice_data": null,
+          "credit_report": null
+        },
+        "invoices": [
+          {
+            "invoice_id": "1592844520669",
+            "date": "22 June 2020",
+            "amount": 53340.0,
+            "customer": "Kamal Pumps Enterprise",
+            "status": "PENDING",
+            "raw": {
+              "buyer": {
+                "name": "Kamal Pumps Enterprise",
+                "gstin": "04AAERS9818B2A",
+                "state": "Maharashtra",
+                "address": "423 Yeola, Nashik, 423402, Maharashtra",
+                "state_code": null
+              },
+              "seller": {
+                "name": "Indrayani Enterprises",
+                "gstin": "07AAECR2971C1Z",
+                "state": "Maharashtra",
+                "address": "Yeola, Nashik, 423401, Maharashtra",
+                "contact": {
+                  "email": null,
+                  "phone": "+91 9857234526"
+                },
+                "state_code": null
+              },
+              "consignee": null,
+              "logistics": null,
+              "line_items": [
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 4095,
+                  "description": "Rotary Pump",
+                  "total_amount": 49140
+                },
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 350,
+                  "description": "Connection valves",
+                  "total_amount": 4200
+                }
+              ],
+              "tax_details": {
+                "cgst_rate": 0,
+                "igst_rate": 0,
+                "sgst_rate": 0,
+                "total_tax": 0,
+                "cgst_amount": 0,
+                "igst_amount": 0,
+                "sgst_amount": 0
+              },
+              "bank_details": {
+                "ifsc": "SBIN0000534",
+                "branch": "Hiranandani",
+                "bank_name": "STATE BANK OF INDIA",
+                "account_number": "203356289317"
+              },
+              "amount_summary": {
+                "subtotal": 53340,
+                "round_off": null,
+                "total_amount": 53340,
+                "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+              },
+              "additional_info": {
+                "remarks": null,
+                "terms_and_conditions": null
+              },
+              "payment_details": {
+                "amount_due": 28340,
+                "amount_paid": 25000,
+                "payment_mode": "CASH",
+                "payment_terms": null
+              },
+              "invoice_metadata": {
+                "irn": null,
+                "ack_date": null,
+                "ack_number": null,
+                "invoice_date": "22 June 2020",
+                "invoice_type": "tax_invoice",
+                "invoice_number": "1592844520669"
+              }
+            }
+          }
+        ],
+        "credit_report": {
+          "legal_cases": 165,
+          "legal_cases_against_company": 0,
+          "gst_filing_status": "regular",
+          "gst_on_time_filing_percent": 100,
+          "gst_has_delay": false,
+          "past_defaults": 0,
+          "report": {
+            "tax_filing": {
+              "has_delay": false,
+              "gst_number": "36AADCC1579Q1Z3",
+              "return_type": "GSTR-3B",
+              "taxpayer_type": "Regular",
+              "registered_state": "Telangana",
+              "on_time_filing_percent": 100,
+              "filing_last_6_months_percent": 100,
+              "filing_last_12_months_percent": 100
+            },
+            "profit_loss": {
+              "pat": 85960595,
+              "ebitda": null,
+              "revenue": 96860795,
+              "net_margin_percent": null
+            },
+            "balance_sheet": {
+              "equity": null,
+              "total_assets": null,
+              "current_assets": null,
+              "current_liabilities": null
+            },
+            "legal_profile": {
+              "cases_by_company": {
+                "civil": 165,
+                "total": 165,
+                "criminal": 0
+              },
+              "cases_against_company": {
+                "civil": 0,
+                "total": 0,
+                "criminal": 0
+              }
+            },
+            "business_summary": {
+              "industry": "Agro - [Agro Products Retailers and Distributors']",
+              "gst_number": "36AADCC1579Q1Z3",
+              "pan_number": "AADCC1579Q",
+              "business_type": "Private Limited Company",
+              "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+              "age_of_business_months": 111,
+              "incorporation_date_pan": "2007-08-27"
+            },
+            "gstr3b_filing_delay": {
+              "summary": {
+                "status": "NO_DELAYS",
+                "total_delays": null,
+                "average_delay_days": null
+              },
+              "delay_records": null
+            }
+          }
+        },
+        "derived_metrics": {
+          "monthly_inflow": 120000.0,
+          "monthly_outflow": 100000.0,
+          "avg_invoice_value": 53340.0,
+          "invoice_frequency": 1,
+          "total_invoice_volume": 53340.0,
+          "gst_compliance": "regular"
+        }
+      },
+      "auditor": {
+        "risk_score": 12,
+        "flags": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+        "risk_drivers": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Limited historical transaction behavior context."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1032. Please try again in 309ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "final_summary": "Committee Summary (India): Committee chair view (India): audit risk is 12/100, trend is 'stable', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=13. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 100000.00, so estimated profit is 20000.00. Growth ratio is 1.20, which I classify as 'stable' for this demo., I reviewed 13 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Credit report shows 165 legal case(s)., High proportion of risky historical cases.. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
+      "committee_chair": {
+        "final_summary": "Committee Summary (India): Committee chair view (India): audit risk is 12/100, trend is 'stable', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=13. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 100000.00, so estimated profit is 20000.00. Growth ratio is 1.20, which I classify as 'stable' for this demo., I reviewed 13 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Credit report shows 165 legal case(s)., High proportion of risky historical cases.. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
+        "final_verdict_rationale": "Committee chair view (India): audit risk is 12/100, trend is 'stable', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=13. Overall posture is balanced.",
+        "key_supporting_points": [
+          "In India, inflow is 120000.00 and outflow is 100000.00, so estimated profit is 20000.00. Growth ratio is 1.20, which I classify as 'stable' for this demo.",
+          "I reviewed 13 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'."
+        ],
+        "key_risks": [
+          "Credit report shows 165 legal case(s).",
+          "High proportion of risky historical cases."
+        ],
+        "confidence": 64,
+        "conditions_if_approved": [
+          "Monthly statement monitoring",
+          "No single undocumented transfer above policy threshold"
+        ],
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 199691, Requested 814. Please try again in 151ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+        "accounting_signal": "Partner has 95% on-time payments",
+        "credit_limit_reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 153619 up to 230429; we treat 230429 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 117780 to 176670. \n\nCompared with that nominal ceiling, the quoted band is tighter because the auditor raised 1 issue(s) (for example: Credit report shows 165 legal case(s).); the auditor asked for review rather than a clean approve."
+      },
+      "crew_kickoff_summary": null,
+      "mode": "llm",
+      "crew_status": "CrewAI package import failed (orchestration skipped); auditor/trend/benchmark still run via direct calls \u2014 see each agent's mode from USE_LLM. Active committee path: LLM (USE_LLM)."
+    },
+    "decision": "APPROVED",
+    "region": "India",
+    "risk_score": 12
+  },
+  {
+    "case_id": "case-1776372330",
+    "created_at": "2026-04-16T20:45:30.995120+00:00",
+    "input_data": {
+      "applicant_id": null,
+      "statement_month": null,
+      "transactions": [
+        {
+          "date": "01-Apr",
+          "description": "Opening",
+          "amount": 0.0,
+          "type": "debit"
+        },
+        {
+          "date": "02-Apr",
+          "description": "NEFT",
+          "amount": 120000.0,
+          "type": "credit"
+        },
+        {
+          "date": "05-Apr",
+          "description": "RTGS",
+          "amount": 100000.0,
+          "type": "debit"
+        }
+      ],
+      "total_inflow": 120000.0,
+      "total_outflow": 100000.0,
+      "invoice_data": null,
+      "credit_report": null
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 12,
+        "flags": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+        "risk_drivers": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Limited historical transaction behavior context."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1032. Please try again in 309ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "trend": {
+        "profit": 20000.0,
+        "trend": "stable",
+        "estimated_revenue": 120000.0,
+        "growth_signal": "stable (invoice_frequency=1/month)",
+        "insight": "In India, inflow is 120000.00 and outflow is 100000.00, so estimated profit is 20000.00. Growth ratio is 1.20, which I classify as 'stable' for this demo.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [
+          "Single-period cashflow may hide seasonality effects."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1014. Please try again in 304ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "benchmark": {
+        "benchmark_result": "Risk profile is closer to historically higher-risk partners",
+        "comparison_insight": "I reviewed 14 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+        "comparison": "I reviewed 14 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+        "risk_drivers": [
+          "High proportion of risky historical cases."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Historical memory size and distribution may be limited."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 482. Please try again in 144ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "credit_limit": {
+        "min_limit": 117779.84,
+        "max_limit": 176669.76,
+        "economics_base_limit": 160020.0,
+        "nominal_ceiling": 230428.8,
+        "nominal_floor": 153619.2,
+        "reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 153619 up to 230429; we treat 230429 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 117780 to 176670. \n\nCompared with that nominal ceiling, the quoted band is tighter because the auditor raised 1 issue(s) (for example: Credit report shows 165 legal case(s).); the auditor asked for review rather than a clean approve."
+      },
+      "unified_profile": {
+        "bank": {
+          "applicant_id": null,
+          "statement_month": null,
+          "transactions": [
+            {
+              "date": "01-Apr",
+              "description": "Opening",
+              "amount": 0.0,
+              "type": "debit"
+            },
+            {
+              "date": "02-Apr",
+              "description": "NEFT",
+              "amount": 120000.0,
+              "type": "credit"
+            },
+            {
+              "date": "05-Apr",
+              "description": "RTGS",
+              "amount": 100000.0,
+              "type": "debit"
+            }
+          ],
+          "total_inflow": 120000.0,
+          "total_outflow": 100000.0,
+          "invoice_data": null,
+          "credit_report": null
+        },
+        "invoices": [
+          {
+            "invoice_id": "1592844520669",
+            "date": "22 June 2020",
+            "amount": 53340.0,
+            "customer": "Kamal Pumps Enterprise",
+            "status": "PENDING",
+            "raw": {
+              "buyer": {
+                "name": "Kamal Pumps Enterprise",
+                "gstin": "04AAERS9818B2A",
+                "state": "Maharashtra",
+                "address": "423 Yeola, Nashik, 423402, Maharashtra",
+                "state_code": null
+              },
+              "seller": {
+                "name": "Indrayani Enterprises",
+                "gstin": "07AAECR2971C1Z",
+                "state": "Maharashtra",
+                "address": "Yeola, Nashik, 423401, Maharashtra",
+                "contact": {
+                  "email": null,
+                  "phone": "+91 9857234526"
+                },
+                "state_code": null
+              },
+              "consignee": null,
+              "logistics": null,
+              "line_items": [
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 4095,
+                  "description": "Rotary Pump",
+                  "total_amount": 49140
+                },
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 350,
+                  "description": "Connection valves",
+                  "total_amount": 4200
+                }
+              ],
+              "tax_details": {
+                "cgst_rate": 0,
+                "igst_rate": 0,
+                "sgst_rate": 0,
+                "total_tax": 0,
+                "cgst_amount": 0,
+                "igst_amount": 0,
+                "sgst_amount": 0
+              },
+              "bank_details": {
+                "ifsc": "SBIN0000534",
+                "branch": "Hiranandani",
+                "bank_name": "STATE BANK OF INDIA",
+                "account_number": "203356289317"
+              },
+              "amount_summary": {
+                "subtotal": 53340,
+                "round_off": null,
+                "total_amount": 53340,
+                "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+              },
+              "additional_info": {
+                "remarks": null,
+                "terms_and_conditions": null
+              },
+              "payment_details": {
+                "amount_due": 28340,
+                "amount_paid": 25000,
+                "payment_mode": "CASH",
+                "payment_terms": null
+              },
+              "invoice_metadata": {
+                "irn": null,
+                "ack_date": null,
+                "ack_number": null,
+                "invoice_date": "22 June 2020",
+                "invoice_type": "tax_invoice",
+                "invoice_number": "1592844520669"
+              }
+            }
+          }
+        ],
+        "credit_report": {
+          "legal_cases": 165,
+          "legal_cases_against_company": 0,
+          "gst_filing_status": "regular",
+          "gst_on_time_filing_percent": 100,
+          "gst_has_delay": false,
+          "past_defaults": 0,
+          "report": {
+            "tax_filing": {
+              "has_delay": false,
+              "gst_number": "36AADCC1579Q1Z3",
+              "return_type": "GSTR-3B",
+              "taxpayer_type": "Regular",
+              "registered_state": "Telangana",
+              "on_time_filing_percent": 100,
+              "filing_last_6_months_percent": 100,
+              "filing_last_12_months_percent": 100
+            },
+            "profit_loss": {
+              "pat": 85960595,
+              "ebitda": null,
+              "revenue": 96860795,
+              "net_margin_percent": null
+            },
+            "balance_sheet": {
+              "equity": null,
+              "total_assets": null,
+              "current_assets": null,
+              "current_liabilities": null
+            },
+            "legal_profile": {
+              "cases_by_company": {
+                "civil": 165,
+                "total": 165,
+                "criminal": 0
+              },
+              "cases_against_company": {
+                "civil": 0,
+                "total": 0,
+                "criminal": 0
+              }
+            },
+            "business_summary": {
+              "industry": "Agro - [Agro Products Retailers and Distributors']",
+              "gst_number": "36AADCC1579Q1Z3",
+              "pan_number": "AADCC1579Q",
+              "business_type": "Private Limited Company",
+              "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+              "age_of_business_months": 111,
+              "incorporation_date_pan": "2007-08-27"
+            },
+            "gstr3b_filing_delay": {
+              "summary": {
+                "status": "NO_DELAYS",
+                "total_delays": null,
+                "average_delay_days": null
+              },
+              "delay_records": null
+            }
+          }
+        },
+        "derived_metrics": {
+          "monthly_inflow": 120000.0,
+          "monthly_outflow": 100000.0,
+          "avg_invoice_value": 53340.0,
+          "invoice_frequency": 1,
+          "total_invoice_volume": 53340.0,
+          "gst_compliance": "regular"
+        }
+      },
+      "auditor": {
+        "risk_score": 12,
+        "flags": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+        "risk_drivers": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Limited historical transaction behavior context."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1032. Please try again in 309ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "final_summary": "Committee Summary (India): Committee chair view (India): audit risk is 12/100, trend is 'stable', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=14. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 100000.00, so estimated profit is 20000.00. Growth ratio is 1.20, which I classify as 'stable' for this demo., I reviewed 14 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Credit report shows 165 legal case(s)., High proportion of risky historical cases.. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
+      "committee_chair": {
+        "final_summary": "Committee Summary (India): Committee chair view (India): audit risk is 12/100, trend is 'stable', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=14. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 100000.00, so estimated profit is 20000.00. Growth ratio is 1.20, which I classify as 'stable' for this demo., I reviewed 14 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Credit report shows 165 legal case(s)., High proportion of risky historical cases.. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
+        "final_verdict_rationale": "Committee chair view (India): audit risk is 12/100, trend is 'stable', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=14. Overall posture is balanced.",
+        "key_supporting_points": [
+          "In India, inflow is 120000.00 and outflow is 100000.00, so estimated profit is 20000.00. Growth ratio is 1.20, which I classify as 'stable' for this demo.",
+          "I reviewed 14 memory cases; 13 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'."
+        ],
+        "key_risks": [
+          "Credit report shows 165 legal case(s).",
+          "High proportion of risky historical cases."
+        ],
+        "confidence": 64,
+        "conditions_if_approved": [
+          "Monthly statement monitoring",
+          "No single undocumented transfer above policy threshold"
+        ],
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 814. Please try again in 244ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+        "accounting_signal": "Partner has 95% on-time payments",
+        "credit_limit_reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 153619 up to 230429; we treat 230429 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 117780 to 176670. \n\nCompared with that nominal ceiling, the quoted band is tighter because the auditor raised 1 issue(s) (for example: Credit report shows 165 legal case(s).); the auditor asked for review rather than a clean approve."
+      },
+      "crew_kickoff_summary": null,
+      "mode": "llm",
+      "crew_status": "CrewAI package import failed (orchestration skipped); auditor/trend/benchmark still run via direct calls \u2014 see each agent's mode from USE_LLM. Active committee path: LLM (USE_LLM)."
+    },
+    "decision": "APPROVED",
+    "region": "India",
+    "risk_score": 12
+  },
+  {
+    "case_id": "case-1776374490",
+    "created_at": "2026-04-16T21:21:30.656936+00:00",
+    "input_data": {
+      "applicant_id": null,
+      "statement_month": null,
+      "transactions": [
+        {
+          "date": "01-Apr",
+          "description": "Opening",
+          "amount": 0.0,
+          "type": "debit"
+        },
+        {
+          "date": "02-Apr",
+          "description": "NEFT",
+          "amount": 120000.0,
+          "type": "credit"
+        },
+        {
+          "date": "05-Apr",
+          "description": "RTGS",
+          "amount": 100000.0,
+          "type": "debit"
+        }
+      ],
+      "total_inflow": 120000.0,
+      "total_outflow": 100000.0,
+      "invoice_data": null,
+      "credit_report": null
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 65,
+        "flags": [
+          "legal issues",
+          "pending invoice",
+          "high legal case count"
+        ],
+        "explanation": "The applicant has a high number of legal cases (165), which raises concerns about potential financial instability. Additionally, there is a pending invoice that could indicate cash flow issues. The transaction inflow and outflow are relatively close, but the invoice value is significant compared to the total inflow, suggesting potential discrepancies.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 85960595.0,
+        "trend": "growing",
+        "estimated_revenue": 96860795.0,
+        "growth_signal": "Positive cash flow with higher inflow than outflow.",
+        "insight": "The business is experiencing a growing trend due to consistent positive cash flow and a healthy profit margin.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current case exhibits a risk profile that is not aligned with historical trends, where the majority of similar cases have been rejected due to higher risk scores.",
+        "comparison_insight": "The current case has a lower risk score compared to the historical rejected cases, but the overall risk appetite in the region suggests a cautious approach.",
+        "comparison": "The current case has a lower risk score compared to the historical rejected cases, but the overall risk appetite in the region suggests a cautious approach.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "credit_limit": {
+        "min_limit": 11425.43,
+        "max_limit": 26659.33,
+        "economics_base_limit": 160020.0,
+        "nominal_ceiling": 163220.4,
+        "nominal_floor": 108813.6,
+        "reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 108814 up to 163220; we treat 163220 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 11425 to 26659. \n\nCompared with that nominal ceiling, the quoted band is tighter because the case was not approved, so the quote is a conservative reference only; the auditor raised 3 issue(s) (for example: legal issues); language in the flags tripped an extra policy haircut; the audit risk score is 65 out of 100 (lower is better); the auditor asked for review rather than a clean approve."
+      },
+      "unified_profile": {
+        "bank": {
+          "applicant_id": null,
+          "statement_month": null,
+          "transactions": [
+            {
+              "date": "01-Apr",
+              "description": "Opening",
+              "amount": 0.0,
+              "type": "debit"
+            },
+            {
+              "date": "02-Apr",
+              "description": "NEFT",
+              "amount": 120000.0,
+              "type": "credit"
+            },
+            {
+              "date": "05-Apr",
+              "description": "RTGS",
+              "amount": 100000.0,
+              "type": "debit"
+            }
+          ],
+          "total_inflow": 120000.0,
+          "total_outflow": 100000.0,
+          "invoice_data": null,
+          "credit_report": null
+        },
+        "invoices": [
+          {
+            "invoice_id": "1592844520669",
+            "date": "22 June 2020",
+            "amount": 53340.0,
+            "customer": "Kamal Pumps Enterprise",
+            "status": "PENDING",
+            "raw": {
+              "buyer": {
+                "name": "Kamal Pumps Enterprise",
+                "gstin": "04AAERS9818B2A",
+                "state": "Maharashtra",
+                "address": "423 Yeola, Nashik, 423402, Maharashtra",
+                "state_code": null
+              },
+              "seller": {
+                "name": "Indrayani Enterprises",
+                "gstin": "07AAECR2971C1Z",
+                "state": "Maharashtra",
+                "address": "Yeola, Nashik, 423401, Maharashtra",
+                "contact": {
+                  "email": null,
+                  "phone": "+91 9857234526"
+                },
+                "state_code": null
+              },
+              "consignee": null,
+              "logistics": null,
+              "line_items": [
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 4095,
+                  "description": "Rotary Pump",
+                  "total_amount": 49140
+                },
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 350,
+                  "description": "Connection valves",
+                  "total_amount": 4200
+                }
+              ],
+              "tax_details": {
+                "cgst_rate": 0,
+                "igst_rate": 0,
+                "sgst_rate": 0,
+                "total_tax": 0,
+                "cgst_amount": 0,
+                "igst_amount": 0,
+                "sgst_amount": 0
+              },
+              "bank_details": {
+                "ifsc": "SBIN0000534",
+                "branch": "Hiranandani",
+                "bank_name": "STATE BANK OF INDIA",
+                "account_number": "203356289317"
+              },
+              "amount_summary": {
+                "subtotal": 53340,
+                "round_off": null,
+                "total_amount": 53340,
+                "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+              },
+              "additional_info": {
+                "remarks": null,
+                "terms_and_conditions": null
+              },
+              "payment_details": {
+                "amount_due": 28340,
+                "amount_paid": 25000,
+                "payment_mode": "CASH",
+                "payment_terms": null
+              },
+              "invoice_metadata": {
+                "irn": null,
+                "ack_date": null,
+                "ack_number": null,
+                "invoice_date": "22 June 2020",
+                "invoice_type": "tax_invoice",
+                "invoice_number": "1592844520669"
+              }
+            }
+          }
+        ],
+        "credit_report": {
+          "legal_cases": 165,
+          "legal_cases_against_company": 0,
+          "gst_filing_status": "regular",
+          "gst_on_time_filing_percent": 100,
+          "gst_has_delay": false,
+          "past_defaults": 0,
+          "report": {
+            "tax_filing": {
+              "has_delay": false,
+              "gst_number": "36AADCC1579Q1Z3",
+              "return_type": "GSTR-3B",
+              "taxpayer_type": "Regular",
+              "registered_state": "Telangana",
+              "on_time_filing_percent": 100,
+              "filing_last_6_months_percent": 100,
+              "filing_last_12_months_percent": 100
+            },
+            "profit_loss": {
+              "pat": 85960595,
+              "ebitda": null,
+              "revenue": 96860795,
+              "net_margin_percent": null
+            },
+            "balance_sheet": {
+              "equity": null,
+              "total_assets": null,
+              "current_assets": null,
+              "current_liabilities": null
+            },
+            "legal_profile": {
+              "cases_by_company": {
+                "civil": 165,
+                "total": 165,
+                "criminal": 0
+              },
+              "cases_against_company": {
+                "civil": 0,
+                "total": 0,
+                "criminal": 0
+              }
+            },
+            "business_summary": {
+              "industry": "Agro - [Agro Products Retailers and Distributors']",
+              "gst_number": "36AADCC1579Q1Z3",
+              "pan_number": "AADCC1579Q",
+              "business_type": "Private Limited Company",
+              "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+              "age_of_business_months": 111,
+              "incorporation_date_pan": "2007-08-27"
+            },
+            "gstr3b_filing_delay": {
+              "summary": {
+                "status": "NO_DELAYS",
+                "total_delays": null,
+                "average_delay_days": null
+              },
+              "delay_records": null
+            }
+          }
+        },
+        "derived_metrics": {
+          "monthly_inflow": 120000.0,
+          "monthly_outflow": 100000.0,
+          "avg_invoice_value": 53340.0,
+          "invoice_frequency": 1,
+          "total_invoice_volume": 53340.0,
+          "gst_compliance": "regular"
+        }
+      },
+      "auditor": {
+        "risk_score": 65,
+        "flags": [
+          "legal issues",
+          "pending invoice",
+          "high legal case count"
+        ],
+        "explanation": "The applicant has a high number of legal cases (165), which raises concerns about potential financial instability. Additionally, there is a pending invoice that could indicate cash flow issues. The transaction inflow and outflow are relatively close, but the invoice value is significant compared to the total inflow, suggesting potential discrepancies.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "final_summary": "The applicant presents a mixed profile with a growing trend in revenue and profit, but significant legal concerns and a pending invoice raise red flags. The overall risk score of 65 indicates a cautious approach is warranted.",
+      "committee_chair": {
+        "final_summary": "The applicant presents a mixed profile with a growing trend in revenue and profit, but significant legal concerns and a pending invoice raise red flags. The overall risk score of 65 indicates a cautious approach is warranted.",
+        "final_verdict_rationale": "While the business shows positive cash flow and growth, the high number of legal cases and pending invoice could jeopardize financial stability, necessitating further review before approval.",
+        "key_supporting_points": [
+          "Growing trend in revenue with positive cash flow.",
+          "Healthy profit margin of approximately 86%."
+        ],
+        "key_risks": [
+          "High number of legal cases (165) indicating potential instability.",
+          "Pending invoice suggesting possible cash flow issues.",
+          "Risk profile not aligned with historical trends in the region."
+        ],
+        "confidence": 60,
+        "conditions_if_approved": [
+          "Regular monitoring of legal case developments.",
+          "Resolution of the pending invoice before disbursement.",
+          "Continued assessment of cash flow stability."
+        ],
+        "mode": "llm",
+        "accounting_signal": "Partner has 95% on-time payments",
+        "credit_limit_reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 108814 up to 163220; we treat 163220 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 11425 to 26659. \n\nCompared with that nominal ceiling, the quoted band is tighter because the case was not approved, so the quote is a conservative reference only; the auditor raised 3 issue(s) (for example: legal issues); language in the flags tripped an extra policy haircut; the audit risk score is 65 out of 100 (lower is better); the auditor asked for review rather than a clean approve."
+      },
+      "crew_kickoff_summary": null,
+      "mode": "llm",
+      "crew_status": "CrewAI package import failed (orchestration skipped); auditor/trend/benchmark still run via direct calls \u2014 see each agent's mode from USE_LLM. Active committee path: LLM (USE_LLM)."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 65
   }
 ]

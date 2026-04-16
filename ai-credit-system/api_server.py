@@ -6,6 +6,7 @@ import json
 import logging
 import os
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -57,8 +58,8 @@ except Exception as exc:  # pragma: no cover - safe fallback when langgraph deps
     LANGGRAPH_IMPORT_ERROR = f"{type(exc).__name__}: {exc}"
     iter_langgraph_flow_events = None  # type: ignore[assignment]
     run_langgraph_flow = None  # type: ignore[assignment]
-from ingestion.parser import parse_document  # legacy mock fallback
 from ingestion.db import (
+    create_document,
     create_company,
     delete_company,
     get_document,
@@ -111,7 +112,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-SAMPLE_DATA_FILE = ROOT_DIR / "data" / "sample_statement.json"
 REGIONAL_RULES_FILE = ROOT_DIR / "data" / "regional_rules.json"
 CASES_MEMORY_FILE = ROOT_DIR / "data" / "cases_memory.json"
 USE_LANGGRAPH = os.getenv("USE_LANGGRAPH", "false").strip().lower() in {"1", "true", "yes", "on"}
@@ -407,10 +407,31 @@ def get_persistence_debug() -> PersistenceDebugResponse:
 
 ALLOWED_UPLOAD_TYPES = {
     "application/pdf",
+    "application/json",
+    "text/json",
     "image/jpeg",
     "image/png",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 }
+
+
+def _effective_upload_content_type(filename: str | None, declared: str | None) -> str:
+    """Infer MIME from filename when the browser omits or misreports content-type."""
+    name = (filename or "").lower()
+    if name.endswith(".pdf"):
+        return "application/pdf"
+    if name.endswith(".json"):
+        return "application/json"
+    if name.endswith((".jpg", ".jpeg")):
+        return "image/jpeg"
+    if name.endswith(".png"):
+        return "image/png"
+    if name.endswith(".xlsx"):
+        return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    raw = (declared or "").split(";")[0].strip().lower()
+    if raw in ALLOWED_UPLOAD_TYPES:
+        return raw
+    return raw or "application/octet-stream"
 
 
 @app.post("/api/parse-document", response_model=IngestResponse)
@@ -423,8 +444,14 @@ async def parse_uploaded_document(
 
     Returns a case_id immediately. Poll GET /api/case/{case_id} for results.
     """
+    if not files:
+        raise HTTPException(status_code=400, detail="At least one file is required")
+    if len(files) > 3:
+        raise HTTPException(status_code=400, detail="Maximum 3 files can be uploaded at once")
+
     for f in files:
-        if f.content_type not in ALLOWED_UPLOAD_TYPES:
+        effective = _effective_upload_content_type(f.filename, f.content_type)
+        if effective not in ALLOWED_UPLOAD_TYPES:
             raise HTTPException(
                 status_code=400,
                 detail=f"Unsupported file type: {f.filename} ({f.content_type})",
@@ -434,12 +461,21 @@ async def parse_uploaded_document(
 
     # Read file bytes eagerly (stream closes after request ends)
     payloads = []
+    document_ids: List[str] = []
     for f in files:
         raw = await f.read()
+        effective_type = _effective_upload_content_type(f.filename, f.content_type)
+        doc_id = create_document(
+            case_id=case_id,
+            document_name=f.filename or "upload",
+            metadata={"content_type": effective_type},
+        )
+        document_ids.append(doc_id)
         payloads.append({
             "filename": f.filename,
-            "content_type": f.content_type,
+            "content_type": effective_type,
             "bytes": raw,
+            "document_id": doc_id,
         })
 
     background_tasks.add_task(run_pipeline, case_id, company_id, payloads)
@@ -450,6 +486,7 @@ async def parse_uploaded_document(
         status="processing",
         files_received=len(payloads),
         message=f"{len(payloads)} file(s) queued for processing.",
+        document_ids=document_ids,
     )
 
 
@@ -503,13 +540,37 @@ def get_document_output(case_id: str, document_id: str) -> DocumentSummary:
 def get_case_documents(
     case_id: str,
     doc_types: Optional[str] = None,
+    wait_for_terminal: bool = False,
+    document_ids: Optional[str] = None,
+    timeout_seconds: int = 180,
+    poll_ms: int = 2000,
 ) -> List[DocumentSummary]:
     """List documents in a case. Optionally filter by doc_types (comma-separated).
 
     Example: /api/case/{id}/documents?doc_types=bank_statement,salary_slip
     """
     type_filter = [t.strip() for t in doc_types.split(",")] if doc_types else None
-    docs = get_documents_by_case(case_id, type_filter)
+    tracked_ids = {d.strip() for d in document_ids.split(",") if d.strip()} if document_ids else set()
+
+    def _is_terminal(status: Optional[str]) -> bool:
+        s = (status or "").strip().lower()
+        return s in {"done", "completed", "success", "succeeded", "failed", "error"}
+
+    def _fetch_docs() -> List[dict]:
+        return get_documents_by_case(case_id, type_filter)
+
+    docs = _fetch_docs()
+    if wait_for_terminal:
+        poll_secs = max(0.5, poll_ms / 1000.0)
+        deadline = time.monotonic() + max(5, timeout_seconds)
+        while time.monotonic() < deadline:
+            relevant = [d for d in docs if not tracked_ids or str(d.get("document_id")) in tracked_ids]
+            if relevant and len(relevant) == (len(tracked_ids) or len(relevant)):
+                if all(_is_terminal(d.get("status")) for d in relevant):
+                    break
+            time.sleep(poll_secs)
+            docs = _fetch_docs()
+
     return [DocumentSummary(**d) for d in docs]
 
 

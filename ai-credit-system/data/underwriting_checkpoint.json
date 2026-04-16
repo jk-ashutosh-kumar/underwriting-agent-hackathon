@@ -1,82 +1,76 @@
 {
   "applicant_data": {
-    "applicant_id": "SME-1029",
-    "statement_month": "2026-03",
+    "applicant_id": null,
+    "statement_month": null,
     "transactions": [
       {
-        "date": "2026-03-01",
-        "description": "Retail Sales Deposit",
-        "amount": 95000.0,
+        "date": "2025-11-02",
+        "description": "NEFT - DHANA CROP SCIENCES",
+        "amount": 3850000.0,
         "type": "credit"
       },
       {
-        "date": "2026-03-03",
-        "description": "Raw Material Purchase",
-        "amount": 38000.0,
+        "date": "2025-11-03",
+        "description": "RTGS - DHARMAJ CROP",
+        "amount": 2500000.0,
         "type": "debit"
       },
       {
-        "date": "2026-03-06",
-        "description": "Enterprise Contract Payment",
-        "amount": 135000.0,
+        "date": "2025-11-04",
+        "description": "GST Payment",
+        "amount": 1275000.0,
+        "type": "debit"
+      },
+      {
+        "date": "2025-11-05",
+        "description": "IMPS - SRI ADITYA",
+        "amount": 840000.0,
         "type": "credit"
       },
       {
-        "date": "2026-03-08",
-        "description": "Salary Payout",
-        "amount": 52000.0,
+        "date": "2025-11-10",
+        "description": "RTGS - SRI RASAYAN",
+        "amount": 1850000.0,
         "type": "debit"
       },
       {
-        "date": "2026-03-12",
-        "description": "Utility Bills",
-        "amount": 12000.0,
-        "type": "debit"
-      },
-      {
-        "date": "2026-03-14",
-        "description": "Online Sales Deposit",
-        "amount": 73000.0,
+        "date": "2025-11-20",
+        "description": "NEFT - SRI VENKATESHWARA",
+        "amount": 920000.0,
         "type": "credit"
       },
       {
-        "date": "2026-03-20",
-        "description": "Vendor Repayment",
-        "amount": 28000.0,
+        "date": "2025-11-27",
+        "description": "Loan EMI",
+        "amount": 1050000.0,
         "type": "debit"
-      },
-      {
-        "date": "2026-03-24",
-        "description": "Channel Partner Collection",
-        "amount": 62000.0,
-        "type": "credit"
       }
     ],
-    "total_inflow": 365000.0,
-    "total_outflow": 130000.0,
+    "total_inflow": 5610000.0,
+    "total_outflow": 6675000.0,
     "invoice_data": null,
     "credit_report": null
   },
   "region": "India",
   "risk_score": 75,
   "agent_logs": [
-    "Auditor: The applicant has a large credit transaction of 135000.0 which exceeds the large transaction threshold. Additionally, there is a pending invoice amounting to 53340.0, indicating potential cash flow issues. The presence of 165 legal cases raises concerns about the company's operational stability.",
-    "Trend: The business is experiencing a growing trend due to a significant positive cash flow, with inflows exceeding outflows by a substantial margin.",
-    "Benchmark: With a monthly inflow of 365,000 and outflow of 130,000, the current case demonstrates a positive cash flow, unlike previous cases that were rejected with risk scores averaging above 65.",
-    "Committee: The applicant presents a mixed profile with significant cash inflows and a growing trend, but is also facing substantial risks due to a large transaction, pending invoice, and numerous legal cases.",
-    "Router: Large transaction 95000.00 above threshold 50000.00 -> FLAGGED."
+    "Auditor: The financial case shows significant inflows and outflows with large transactions exceeding the threshold. Additionally, there are 165 legal cases associated with the entity, which raises concerns about its operational integrity. The average invoice value is low compared to the total inflow, indicating potential discrepancies.",
+    "Trend: The business is experiencing a negative cash flow with total outflows exceeding inflows, indicating financial strain.",
+    "Benchmark: The current case metrics reflect a higher risk profile compared to historical entries, which have all been rejected. The average invoice value and frequency do not mitigate the negative cash flow situation.",
+    "Committee: The underwriting committee recommends a review of the case due to significant financial risks, including negative cash flow and a high volume of legal cases.",
+    "Router: Large transaction 3850000.00 above threshold 500000.00 -> FLAGGED."
   ],
-  "human_input": "Allow",
+  "human_input": "appoved",
   "decision_status": "FLAGGED",
   "committee_output": {
     "audit": {
       "risk_score": 75,
       "flags": [
-        "Large transaction detected",
-        "Pending invoice with significant amount",
-        "High number of legal cases"
+        "large transaction amounts",
+        "high volume of legal cases",
+        "invoice volume vs bank inflow mismatch"
       ],
-      "explanation": "The applicant has a large credit transaction of 135000.0 which exceeds the large transaction threshold. Additionally, there is a pending invoice amounting to 53340.0, indicating potential cash flow issues. The presence of 165 legal cases raises concerns about the company's operational stability.",
+      "explanation": "The financial case shows significant inflows and outflows with large transactions exceeding the threshold. Additionally, there are 165 legal cases associated with the entity, which raises concerns about its operational integrity. The average invoice value is low compared to the total inflow, indicating potential discrepancies.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
@@ -84,11 +78,11 @@
       "mode": "llm"
     },
     "trend": {
-      "profit": 235000.0,
-      "trend": "growing",
+      "profit": -1065000.0,
+      "trend": "shrinking",
       "estimated_revenue": 96860795.0,
-      "growth_signal": "Strong cash inflow relative to outflow.",
-      "insight": "The business is experiencing a growing trend due to a significant positive cash flow, with inflows exceeding outflows by a substantial margin.",
+      "growth_signal": "negative cash flow",
+      "insight": "The business is experiencing a negative cash flow with total outflows exceeding inflows, indicating financial strain.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
@@ -96,9 +90,9 @@
       "mode": "llm"
     },
     "benchmark": {
-      "benchmark_result": "The current case shows a significantly lower risk profile compared to historical entries, which have consistently resulted in rejections due to higher risk scores.",
-      "comparison_insight": "With a monthly inflow of 365,000 and outflow of 130,000, the current case demonstrates a positive cash flow, unlike previous cases that were rejected with risk scores averaging above 65.",
-      "comparison": "With a monthly inflow of 365,000 and outflow of 130,000, the current case demonstrates a positive cash flow, unlike previous cases that were rejected with risk scores averaging above 65.",
+      "benchmark_result": "The current case shows a negative cash flow with monthly inflow of 5,610,000 and outflow of 6,675,000, indicating potential liquidity issues. Historical cases in India with risk scores above 60 have consistently been rejected, suggesting a high-risk environment.",
+      "comparison_insight": "The current case metrics reflect a higher risk profile compared to historical entries, which have all been rejected. The average invoice value and frequency do not mitigate the negative cash flow situation.",
+      "comparison": "The current case metrics reflect a higher risk profile compared to historical entries, which have all been rejected. The average invoice value and frequency do not mitigate the negative cash flow situation.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
@@ -115,60 +109,54 @@
     },
     "unified_profile": {
       "bank": {
-        "applicant_id": "SME-1029",
-        "statement_month": "2026-03",
+        "applicant_id": null,
+        "statement_month": null,
         "transactions": [
           {
-            "date": "2026-03-01",
-            "description": "Retail Sales Deposit",
-            "amount": 95000.0,
+            "date": "2025-11-02",
+            "description": "NEFT - DHANA CROP SCIENCES",
+            "amount": 3850000.0,
             "type": "credit"
           },
           {
-            "date": "2026-03-03",
-            "description": "Raw Material Purchase",
-            "amount": 38000.0,
+            "date": "2025-11-03",
+            "description": "RTGS - DHARMAJ CROP",
+            "amount": 2500000.0,
             "type": "debit"
           },
           {
-            "date": "2026-03-06",
-            "description": "Enterprise Contract Payment",
-            "amount": 135000.0,
+            "date": "2025-11-04",
+            "description": "GST Payment",
+            "amount": 1275000.0,
+            "type": "debit"
+          },
+          {
+            "date": "2025-11-05",
+            "description": "IMPS - SRI ADITYA",
+            "amount": 840000.0,
             "type": "credit"
           },
           {
-            "date": "2026-03-08",
-            "description": "Salary Payout",
-            "amount": 52000.0,
+            "date": "2025-11-10",
+            "description": "RTGS - SRI RASAYAN",
+            "amount": 1850000.0,
             "type": "debit"
           },
           {
-            "date": "2026-03-12",
-            "description": "Utility Bills",
-            "amount": 12000.0,
-            "type": "debit"
-          },
-          {
-            "date": "2026-03-14",
-            "description": "Online Sales Deposit",
-            "amount": 73000.0,
+            "date": "2025-11-20",
+            "description": "NEFT - SRI VENKATESHWARA",
+            "amount": 920000.0,
             "type": "credit"
           },
           {
-            "date": "2026-03-20",
-            "description": "Vendor Repayment",
-            "amount": 28000.0,
+            "date": "2025-11-27",
+            "description": "Loan EMI",
+            "amount": 1050000.0,
             "type": "debit"
-          },
-          {
-            "date": "2026-03-24",
-            "description": "Channel Partner Collection",
-            "amount": 62000.0,
-            "type": "credit"
           }
         ],
-        "total_inflow": 365000.0,
-        "total_outflow": 130000.0,
+        "total_inflow": 5610000.0,
+        "total_outflow": 6675000.0,
         "invoice_data": null,
         "credit_report": null
       },
@@ -322,8 +310,8 @@
         }
       },
       "derived_metrics": {
-        "monthly_inflow": 365000.0,
-        "monthly_outflow": 130000.0,
+        "monthly_inflow": 5610000.0,
+        "monthly_outflow": 6675000.0,
         "avg_invoice_value": 53340.0,
         "invoice_frequency": 1,
         "total_invoice_volume": 53340.0,
@@ -333,36 +321,36 @@
     "auditor": {
       "risk_score": 75,
       "flags": [
-        "Large transaction detected",
-        "Pending invoice with significant amount",
-        "High number of legal cases"
+        "large transaction amounts",
+        "high volume of legal cases",
+        "invoice volume vs bank inflow mismatch"
       ],
-      "explanation": "The applicant has a large credit transaction of 135000.0 which exceeds the large transaction threshold. Additionally, there is a pending invoice amounting to 53340.0, indicating potential cash flow issues. The presence of 165 legal cases raises concerns about the company's operational stability.",
+      "explanation": "The financial case shows significant inflows and outflows with large transactions exceeding the threshold. Additionally, there are 165 legal cases associated with the entity, which raises concerns about its operational integrity. The average invoice value is low compared to the total inflow, indicating potential discrepancies.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
       "recommendation": "review",
       "mode": "llm"
     },
-    "final_summary": "The applicant presents a mixed profile with significant cash inflows and a growing trend, but is also facing substantial risks due to a large transaction, pending invoice, and numerous legal cases.",
+    "final_summary": "The underwriting committee recommends a review of the case due to significant financial risks, including negative cash flow and a high volume of legal cases.",
     "committee_chair": {
-      "final_summary": "The applicant presents a mixed profile with significant cash inflows and a growing trend, but is also facing substantial risks due to a large transaction, pending invoice, and numerous legal cases.",
-      "final_verdict_rationale": "While the business shows strong cash flow and growth potential, the high risk score and flags related to large transactions and legal issues necessitate a cautious approach. A thorough review is recommended to assess the impact of these risks on the applicant's operational stability.",
+      "final_summary": "The underwriting committee recommends a review of the case due to significant financial risks, including negative cash flow and a high volume of legal cases.",
+      "final_verdict_rationale": "The entity exhibits a concerning financial profile with large transaction amounts, a negative cash flow trend, and a high number of legal cases, all of which contribute to a high risk score. Historical data suggests that similar cases have been rejected, indicating a need for caution.",
       "key_supporting_points": [
-        "Strong cash inflow relative to outflow.",
-        "Growing trend with a profit of 235,000.",
-        "Current case shows a lower risk profile compared to historical entries."
+        "Negative cash flow with total outflows exceeding inflows.",
+        "High volume of legal cases (165) raises operational integrity concerns.",
+        "Large transaction amounts exceeding thresholds indicate potential discrepancies."
       ],
       "key_risks": [
-        "Large transaction detected exceeding threshold.",
-        "Pending invoice with significant amount indicating potential cash flow issues.",
-        "High number of legal cases (165) raising concerns about operational stability."
+        "Liquidity issues due to negative cash flow.",
+        "Operational integrity concerns from numerous legal cases.",
+        "Potential discrepancies in financial reporting indicated by invoice vs bank inflow mismatch."
       ],
       "confidence": 70,
       "conditions_if_approved": [
-        "Further investigation into the pending invoice and its impact on cash flow.",
-        "Assessment of the legal cases and their potential implications for business operations.",
-        "Monitoring of future transactions to ensure they remain within acceptable limits."
+        "Further investigation into the legal cases and their impact on operations.",
+        "Detailed analysis of transaction discrepancies and financial reporting.",
+        "Monitoring of cash flow trends over the next quarter."
       ],
       "mode": "llm",
       "accounting_signal": "Partner has 95% on-time payments",
@@ -370,18 +358,18 @@
     },
     "crew_kickoff_summary": null,
     "mode": "llm",
-    "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    "crew_status": "CrewAI package import failed (orchestration skipped); auditor/trend/benchmark still run via direct calls \u2014 see each agent's mode from USE_LLM. Active committee path: LLM (USE_LLM)."
   },
   "hitl_context": {
     "reason": "large_transaction",
     "transaction": {
-      "date": "2026-03-01",
-      "description": "Retail Sales Deposit",
-      "amount": 95000.0,
+      "date": "2025-11-02",
+      "description": "NEFT - DHANA CROP SCIENCES",
+      "amount": 3850000.0,
       "type": "credit"
     },
-    "threshold": 50000.0,
-    "message": "Amount 95000.00 exceeds threshold 50000.00."
+    "threshold": 500000.0,
+    "message": "Amount 3850000.00 exceeds threshold 500000.00."
   },
   "route": "hitl"
 }

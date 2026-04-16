@@ -1,7 +1,9 @@
 import type {
   AnalyzeRequest,
-  FinancialData,
+  CaseDocument,
+  CompanyCaseSummary,
   FlowProgressPayload,
+  IngestResponse,
   LangGraphFlowResponse,
   PersistenceDebug,
   UnderwritingResult,
@@ -15,16 +17,6 @@ async function handleResponse<T>(res: Response): Promise<T> {
     throw new Error(err.detail ?? 'Unknown error');
   }
   return res.json() as Promise<T>;
-}
-
-export async function getSampleData(): Promise<FinancialData> {
-  const res = await fetch(`${API_BASE}/api/sample`);
-  return handleResponse<FinancialData>(res);
-}
-
-export async function getRegions(): Promise<string[]> {
-  const res = await fetch(`${API_BASE}/api/regions`);
-  return handleResponse<string[]>(res);
 }
 
 export async function analyzeApplication(req: AnalyzeRequest): Promise<UnderwritingResult> {
@@ -98,16 +90,46 @@ export async function resumeLangGraphFlow(req: AnalyzeRequest): Promise<LangGrap
   return handleResponse<LangGraphFlowResponse>(res);
 }
 
-export async function parseDocument(fileName: string, fileType: 'pdf' | 'json'): Promise<FinancialData> {
-  const res = await fetch(`${API_BASE}/api/parse-document`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ file_name: fileName, file_type: fileType }),
-  });
-  return handleResponse<FinancialData>(res);
-}
-
 export async function getPersistenceDebug(): Promise<PersistenceDebug> {
   const res = await fetch(`${API_BASE}/api/debug/persistence`);
   return handleResponse<PersistenceDebug>(res);
+}
+
+export async function getCompanies(): Promise<CompanyCaseSummary[]> {
+  const res = await fetch(`${API_BASE}/api/companies`);
+  return handleResponse<CompanyCaseSummary[]>(res);
+}
+
+export async function uploadCompanyDocuments(companyId: string, files: File[]): Promise<IngestResponse> {
+  const formData = new FormData();
+  formData.append('company_id', companyId);
+  for (const file of files) {
+    formData.append('files', file);
+  }
+  const res = await fetch(`${API_BASE}/api/parse-document`, {
+    method: 'POST',
+    body: formData,
+  });
+  return handleResponse<IngestResponse>(res);
+}
+
+interface GetCaseDocumentsOptions {
+  waitForTerminal?: boolean;
+  documentIds?: string[];
+  timeoutSeconds?: number;
+  pollMs?: number;
+}
+
+export async function getCaseDocuments(
+  caseId: string,
+  options: GetCaseDocumentsOptions = {},
+): Promise<CaseDocument[]> {
+  const params = new URLSearchParams();
+  if (options.waitForTerminal) params.set('wait_for_terminal', 'true');
+  if (options.documentIds?.length) params.set('document_ids', options.documentIds.join(','));
+  if (options.timeoutSeconds) params.set('timeout_seconds', String(options.timeoutSeconds));
+  if (options.pollMs) params.set('poll_ms', String(options.pollMs));
+  const query = params.toString();
+  const res = await fetch(`${API_BASE}/api/case/${caseId}/documents${query ? `?${query}` : ''}`);
+  return handleResponse<CaseDocument[]>(res);
 }

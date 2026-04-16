@@ -51,11 +51,14 @@ graph = builder.compile()
 async def process_document(
     case_id: str, company_id: str, payload: dict
 ) -> DocumentState:
-    document_id = create_document(
-        case_id=case_id,
-        document_name=payload["filename"],
-        metadata={"content_type": payload["content_type"]},
-    )
+    if payload.get("document_id"):
+        document_id = str(payload["document_id"])
+    else:
+        document_id = create_document(
+            case_id=case_id,
+            document_name=payload["filename"],
+            metadata={"content_type": payload["content_type"]},
+        )
 
     initial_state = DocumentState(
         case_id=case_id,

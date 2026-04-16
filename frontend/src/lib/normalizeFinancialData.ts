@@ -1,8 +1,22 @@
 import type { FinancialData, Transaction } from '@/types';
 
-function mapTxnRow(t: Record<string, unknown>): Transaction {
+function inferCreditDebit(t: Record<string, unknown>): 'credit' | 'debit' {
+  const ty = String(t.type ?? '').toLowerCase();
+  if (ty === 'credit' || ty === 'cr') return 'credit';
+  if (ty === 'debit' || ty === 'dr') return 'debit';
+  const tt = String(t.transaction_type ?? '').toLowerCase();
+  if (tt === 'credit' || tt === 'cr') return 'credit';
+  if (tt === 'debit' || tt === 'dr') return 'debit';
   const amount = typeof t.amount === 'number' ? t.amount : Number(t.amount ?? 0);
-  const transactionType: 'credit' | 'debit' = t.type === 'credit' ? 'credit' : 'debit';
+  if (amount < 0) return 'debit';
+  if (amount > 0) return 'credit';
+  return 'debit';
+}
+
+function mapTxnRow(t: Record<string, unknown>): Transaction {
+  const rawAmount = typeof t.amount === 'number' ? t.amount : Number(t.amount ?? 0);
+  const amount = Number.isFinite(rawAmount) ? Math.abs(rawAmount) : 0;
+  const transactionType = inferCreditDebit(t);
   const description =
     typeof t.description === 'string'
       ? t.description
@@ -12,7 +26,7 @@ function mapTxnRow(t: Record<string, unknown>): Transaction {
   return {
     date: String(t.date ?? ''),
     description,
-    amount: Number.isFinite(amount) ? amount : 0,
+    amount,
     type: transactionType,
   };
 }
@@ -68,20 +82,37 @@ export function normalizeFinancialData(value: unknown): FinancialData | null {
     };
   }
 
-  // Flat schema (original sample)
+  // Flat schema (optionally totals-only from parser / vision extraction)
   if (!Array.isArray(obj.transactions)) return null;
-  if (typeof obj.total_inflow !== 'number' || Number.isNaN(obj.total_inflow)) return null;
-  if (typeof obj.total_outflow !== 'number' || Number.isNaN(obj.total_outflow)) return null;
+  const rawRows = obj.transactions.filter((t): t is Record<string, unknown> => !!t && typeof t === 'object');
+  if (rawRows.length === 0) return null;
 
-  const transactions = obj.transactions
-    .filter((t): t is Record<string, unknown> => !!t && typeof t === 'object')
-    .map((t) => mapTxnRow(t));
+  const transactions = rawRows.map((t) => mapTxnRow(t));
+
+  let total_inflow: number;
+  let total_outflow: number;
+  if (
+    typeof obj.total_inflow === 'number' &&
+    !Number.isNaN(obj.total_inflow) &&
+    typeof obj.total_outflow === 'number' &&
+    !Number.isNaN(obj.total_outflow)
+  ) {
+    total_inflow = obj.total_inflow;
+    total_outflow = obj.total_outflow;
+  } else {
+    total_inflow = 0;
+    total_outflow = 0;
+    for (const t of transactions) {
+      if (t.type === 'credit') total_inflow += t.amount;
+      else total_outflow += t.amount;
+    }
+  }
 
   return {
     applicant_id: typeof obj.applicant_id === 'string' ? obj.applicant_id : undefined,
     statement_month: typeof obj.statement_month === 'string' ? obj.statement_month : undefined,
     transactions,
-    total_inflow: obj.total_inflow,
-    total_outflow: obj.total_outflow,
+    total_inflow,
+    total_outflow,
   };
 }

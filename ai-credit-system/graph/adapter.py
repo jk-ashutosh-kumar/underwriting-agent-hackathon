@@ -88,18 +88,25 @@ def iter_langgraph_flow_events(
     yield _progress_event("router_done", "route_decision", f"Route selected: {route}", route=route)
 
     if result["status"] == "NEEDS_INPUT":
+        # When auto-resume is enabled (API/UI mode), we should not surface HITL as a hard pause.
+        # The caller will resume automatically (or the flow will have already auto-resumed).
         yield _progress_event(
             "hitl",
             "hitl",
-            "Human-in-the-loop — capture clarification",
-            human_in_loop=True,
+            "HITL auto-resume pending",
+            human_in_loop=not auto_resume,
             thread_id=result["thread_id"],
         )
         yield {"type": "interrupt", "status": "NEEDS_INPUT", "thread_id": result["thread_id"]}
         return
 
     if route == "hitl":
-        yield _progress_event("hitl", "hitl", "Human-in-the-loop — capture clarification", human_in_loop=True)
+        yield _progress_event(
+            "hitl",
+            "hitl",
+            "HITL auto-consumed (no human review required)",
+            human_in_loop=False,
+        )
         yield _progress_event("resume", "resume", "Resume pipeline after HITL")
     else:
         yield _progress_event(
