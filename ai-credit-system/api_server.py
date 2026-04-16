@@ -59,12 +59,12 @@ except Exception as exc:  # pragma: no cover - safe fallback when langgraph deps
     run_langgraph_flow = None  # type: ignore[assignment]
 from ingestion.parser import parse_document  # legacy mock fallback
 from ingestion.db import (
-    get_case_documents_by_type,
+    get_documents_by_case,
     get_or_create_case,
     list_companies_with_cases,
     list_schemas,
 )
-from ingestion.models import CaseDocumentsResponse, CompanyCaseSummary, IngestResponse
+from ingestion.models import CompanyCaseSummary, DocumentSummary, IngestResponse
 from ingestion.pipeline import run_pipeline
 from memory.checkpoint import load_checkpoint
 from memory.store import load_memory
@@ -375,18 +375,20 @@ def get_companies() -> List[CompanyCaseSummary]:
     return [CompanyCaseSummary(**r) for r in rows]
 
 
-@app.get("/api/case/{case_id}/documents/{doc_type}", response_model=CaseDocumentsResponse)
-def get_documents_by_type(case_id: str, doc_type: str) -> CaseDocumentsResponse:
-    """List all extracted documents of a specific type within a case."""
-    docs = get_case_documents_by_type(case_id, doc_type)
-    if docs is None:
-        raise HTTPException(status_code=404, detail="Case not found")
-    return CaseDocumentsResponse(
-        case_id=case_id,
-        doc_type=doc_type,
-        count=len(docs),
-        documents=docs,
-    )
+
+
+@app.get("/api/case/{case_id}/documents", response_model=List[DocumentSummary])
+def get_case_documents(
+    case_id: str,
+    doc_types: Optional[str] = None,
+) -> List[DocumentSummary]:
+    """List documents in a case. Optionally filter by doc_types (comma-separated).
+
+    Example: /api/case/{id}/documents?doc_types=bank_statement,salary_slip
+    """
+    type_filter = [t.strip() for t in doc_types.split(",")] if doc_types else None
+    docs = get_documents_by_case(case_id, type_filter)
+    return [DocumentSummary(**d) for d in docs]
 
 
 @app.get("/api/schemas")

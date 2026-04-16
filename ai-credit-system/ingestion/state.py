@@ -9,6 +9,7 @@ class DocumentState(TypedDict):
     # Input
     case_id: str
     company_id: str
+    document_id: str
     filename: str
     content_type: str
     file_bytes: bytes

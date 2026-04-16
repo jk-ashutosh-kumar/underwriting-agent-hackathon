@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ingestion.db import merge_doc_output
+from ingestion.db import update_document
 from ingestion.parser.bank_statement_parser import validate_bank_statement
 from ingestion.state import DocumentState
 
@@ -37,10 +37,10 @@ async def merge_node(state: DocumentState) -> DocumentState:
         if state["document_type"] == "bank_statement":
             merged = validate_bank_statement(merged)
 
-        merge_doc_output(
-            state["case_id"],
-            state["document_type"],
-            merged,
+        update_document(
+            state["document_id"],
+            extracted_data=merged,
+            status="done",
         )
 
         return {
@@ -50,6 +50,7 @@ async def merge_node(state: DocumentState) -> DocumentState:
         }
 
     except Exception as e:
+        update_document(state["document_id"], status="failed")
         return {
             **state,
             "status": "failed",

@@ -7,7 +7,7 @@ import os
 
 from openai import AsyncOpenAI
 
-from ingestion.db import fetch_schema
+from ingestion.db import fetch_schema, update_document
 from ingestion.file_utils import image_to_b64, prepare_pages_for_classifier
 from ingestion.state import DocumentState
 
@@ -89,6 +89,7 @@ async def classify_node(state: DocumentState) -> DocumentState:
 
         schema = fetch_schema(doc_type)
         if not schema:
+            update_document(state["document_id"], doc_type=doc_type, status="failed")
             return {
                 **state,
                 "document_type": doc_type,
@@ -97,6 +98,7 @@ async def classify_node(state: DocumentState) -> DocumentState:
                 "error": f"No schema registered for type: {doc_type}",
             }
 
+        update_document(state["document_id"], doc_type=doc_type, status="extracting")
         return {
             **state,
             "document_type": doc_type,
@@ -105,6 +107,7 @@ async def classify_node(state: DocumentState) -> DocumentState:
         }
 
     except Exception as e:
+        update_document(state["document_id"], status="failed")
         return {
             **state,
             "status": "failed",

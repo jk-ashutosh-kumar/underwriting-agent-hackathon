@@ -7,7 +7,7 @@ import asyncio
 from langgraph.graph import END, StateGraph
 
 from ingestion.classifier import classify_node
-from ingestion.db import update_case_status
+from ingestion.db import create_document, update_case_status
 from ingestion.extractor import extract_node
 from ingestion.merger import merge_node
 from ingestion.state import DocumentState
@@ -51,9 +51,16 @@ graph = builder.compile()
 async def process_document(
     case_id: str, company_id: str, payload: dict
 ) -> DocumentState:
+    document_id = create_document(
+        case_id=case_id,
+        document_name=payload["filename"],
+        metadata={"content_type": payload["content_type"]},
+    )
+
     initial_state = DocumentState(
         case_id=case_id,
         company_id=company_id,
+        document_id=document_id,
         filename=payload["filename"],
         content_type=payload["content_type"],
         file_bytes=payload["bytes"],
