@@ -10,9 +10,20 @@ services:
         value: 10000
       - key: LOG_LEVEL
         value: INFO
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: USE_LLM
+        value: "true"
       - key: USE_LANGGRAPH
+        value: "true"
+      - key: USE_CREWAI_KICKOFF
         value: "false"
+      - key: CREWAI_KICKOFF_TIMEOUT_SECONDS
+        value: "3"
       # Set the following secrets in the Render dashboard (do not commit values):
-      # - OPENAI_API_KEY
-      # - SUPABASE_URL
-      # - SUPABASE_KEY
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
