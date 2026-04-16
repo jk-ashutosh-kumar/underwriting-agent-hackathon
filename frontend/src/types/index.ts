@@ -36,6 +36,16 @@ export interface BenchmarkResult {
   llm_error?: string | null;
 }
 
+export interface CommitteeChairResult {
+  final_verdict_rationale: string;
+  key_supporting_points: string[];
+  key_risks: string[];
+  confidence: number;
+  conditions_if_approved: string[];
+  mode?: 'llm' | 'deterministic_fallback' | 'deterministic_guardrail' | 'deterministic';
+  llm_error?: string | null;
+}
+
 export type DecisionStatus = 'APPROVED' | 'REJECTED' | 'FLAGGED' | 'PENDING';
 
 export interface UnderwritingResult {
@@ -45,6 +55,7 @@ export interface UnderwritingResult {
   audit: AuditResult;
   trend: TrendResult;
   benchmark: BenchmarkResult;
+  committee_chair: CommitteeChairResult;
   final_summary: string;
   crew_status: string;
   crew_mode?: 'llm' | 'deterministic';

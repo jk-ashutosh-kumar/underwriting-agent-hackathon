@@ -10,6 +10,32 @@ from llm.client import ask_llm_json
 logger = logging.getLogger(__name__)
 
 
+def _with_handoff(payload: Dict[str, Any]) -> Dict[str, Any]:
+    """Ensure structured handoff keys exist for downstream agents."""
+    payload["risk_drivers"] = (
+        [str(x) for x in payload.get("risk_drivers", [])]
+        if isinstance(payload.get("risk_drivers"), list)
+        else []
+    )
+    payload["positive_signals"] = (
+        [str(x) for x in payload.get("positive_signals", [])]
+        if isinstance(payload.get("positive_signals"), list)
+        else []
+    )
+    payload["uncertainties"] = (
+        [str(x) for x in payload.get("uncertainties", [])]
+        if isinstance(payload.get("uncertainties"), list)
+        else []
+    )
+    recommendation = payload.get("recommendation")
+    payload["recommendation"] = (
+        str(recommendation)
+        if isinstance(recommendation, str) and recommendation.strip()
+        else "review"
+    )
+    return payload
+
+
 def _run_trend_deterministic(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
     """Current deterministic implementation kept as safe fallback."""
     inflow = float(data.get("total_inflow", 0))
@@ -33,11 +59,16 @@ def _run_trend_deterministic(data: Dict[str, Any], context: Dict[str, Any]) -> D
         f"which I classify as '{trend}' for this demo."
     )
 
-    return {
+    result = {
         "profit": float(profit),
         "trend": trend,
         "insight": insight,
+        "risk_drivers": ["Shrinking cashflow trend detected"] if trend == "shrinking" else [],
+        "positive_signals": ["Healthy cashflow spread"] if trend == "growing" else [],
+        "uncertainties": ["Single-period cashflow may hide seasonality effects."],
+        "recommendation": "approve" if trend == "growing" else ("review" if trend == "stable" else "reject"),
     }
+    return _with_handoff(result)
 
 
 def _run_trend_llm(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
@@ -47,7 +78,9 @@ def _run_trend_llm(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, A
     outflow = float(data.get("total_outflow", 0))
     system_prompt = (
         "You are a data-driven strategist focused on growth. "
-        "Return ONLY JSON with keys: profit (number), trend (string), insight (string)."
+        "Return ONLY JSON with keys: profit (number), trend (string), insight (string), "
+        "risk_drivers (string list), positive_signals (string list), uncertainties (string list), "
+        "recommendation (approve|review|reject)."
     )
     user_prompt = (
         "Analyze business cashflow trend.\n"
@@ -67,7 +100,7 @@ def _run_trend_llm(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, A
         "trend_llm_completed",
         extra={"region": region, "trend": trend, "profit": profit},
     )
-    return {"profit": profit, "trend": trend, "insight": insight}
+    return _with_handoff({"profit": profit, "trend": trend, "insight": insight})
 
 
 def run_trend_analysis(data: Dict[str, Any], context: Dict[str, Any], use_llm: bool = False) -> Dict[str, Any]:

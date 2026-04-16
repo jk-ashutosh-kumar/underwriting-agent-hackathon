@@ -101,6 +101,7 @@ def _build_underwriting_response(
     audit_data = crew_out.get("audit", crew_out.get("auditor", {}))
     trend_data = crew_out.get("trend", {})
     benchmark_data = crew_out.get("benchmark", {})
+    committee_chair_data = crew_out.get("committee_chair", {})
 
     decision_status = state.get("decision_status", "PENDING")
     needs_hitl = decision_status == "FLAGGED"
@@ -140,6 +141,15 @@ def _build_underwriting_response(
             comparison_insight=benchmark_data.get("comparison_insight", ""),
             mode=benchmark_data.get("mode"),
             llm_error=benchmark_data.get("llm_error"),
+        ),
+        committee_chair=CommitteeChairResult(
+            final_verdict_rationale=committee_chair_data.get("final_verdict_rationale", ""),
+            key_supporting_points=committee_chair_data.get("key_supporting_points", []),
+            key_risks=committee_chair_data.get("key_risks", []),
+            confidence=int(committee_chair_data.get("confidence", 0)),
+            conditions_if_approved=committee_chair_data.get("conditions_if_approved", []),
+            mode=committee_chair_data.get("mode"),
+            llm_error=committee_chair_data.get("llm_error"),
         ),
         final_summary=crew_out.get("final_summary", ""),
         crew_status=crew_out.get("crew_status", ""),
@@ -202,6 +212,16 @@ class BenchmarkResult(BaseModel):
     llm_error: Optional[str] = None
 
 
+class CommitteeChairResult(BaseModel):
+    final_verdict_rationale: str = ""
+    key_supporting_points: List[str] = []
+    key_risks: List[str] = []
+    confidence: int = 0
+    conditions_if_approved: List[str] = []
+    mode: Optional[str] = None
+    llm_error: Optional[str] = None
+
+
 class UnderwritingResponse(BaseModel):
     risk_score: int
     decision_status: str
@@ -209,6 +229,7 @@ class UnderwritingResponse(BaseModel):
     audit: AuditResult
     trend: TrendResult
     benchmark: BenchmarkResult
+    committee_chair: CommitteeChairResult
     final_summary: str
     crew_status: str
     crew_mode: Optional[str] = None

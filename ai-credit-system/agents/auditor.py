@@ -11,6 +11,30 @@ from llm.client import ask_llm_json
 logger = logging.getLogger(__name__)
 
 
+def _with_handoff(payload: Dict[str, Any]) -> Dict[str, Any]:
+    """Ensure structured handoff keys exist for downstream agents."""
+    risk_drivers = payload.get("risk_drivers")
+    positive_signals = payload.get("positive_signals")
+    uncertainties = payload.get("uncertainties")
+    recommendation = payload.get("recommendation")
+
+    payload["risk_drivers"] = (
+        [str(x) for x in risk_drivers] if isinstance(risk_drivers, list) else []
+    )
+    payload["positive_signals"] = (
+        [str(x) for x in positive_signals] if isinstance(positive_signals, list) else []
+    )
+    payload["uncertainties"] = (
+        [str(x) for x in uncertainties] if isinstance(uncertainties, list) else []
+    )
+    payload["recommendation"] = (
+        str(recommendation)
+        if isinstance(recommendation, str) and recommendation.strip()
+        else "review"
+    )
+    return payload
+
+
 def _run_auditor_deterministic(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
     """Current deterministic implementation kept as safe fallback."""
     transactions: List[Dict[str, Any]] = data.get("transactions", [])
@@ -49,11 +73,16 @@ def _run_auditor_deterministic(data: Dict[str, Any], context: Dict[str, Any]) ->
             "amounts are common warning signs for layered or circular transaction behavior."
         )
 
-    return {
+    result = {
         "risk_score": int(risk_score),
         "flags": flags,
         "explanation": explanation,
+        "risk_drivers": flags[:3],
+        "positive_signals": ["No critical anomaly detected"] if not flags else [],
+        "uncertainties": ["Limited historical transaction behavior context."],
+        "recommendation": "review" if flags else "approve",
     }
+    return _with_handoff(result)
 
 
 def _run_auditor_llm(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
@@ -62,7 +91,9 @@ def _run_auditor_llm(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str,
     region = context.get("region", "Unknown")
     system_prompt = (
         "You are a skeptical forensic accountant. "
-        "Return ONLY JSON with keys: risk_score (0-100 int), flags (string list), explanation (string)."
+        "Return ONLY JSON with keys: risk_score (0-100 int), flags (string list), explanation (string), "
+        "risk_drivers (string list), positive_signals (string list), uncertainties (string list), "
+        "recommendation (approve|review|reject)."
     )
     user_prompt = (
         "Analyze this financial case for suspicious patterns.\n"
@@ -88,11 +119,12 @@ def _run_auditor_llm(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str,
             "flag_count": len(flags),
         },
     )
-    return {
+    result = {
         "risk_score": max(0, min(100, risk_score)),
         "flags": flags,
         "explanation": explanation,
     }
+    return _with_handoff(result)
 
 
 def run_auditor(data: Dict[str, Any], context: Dict[str, Any], use_llm: bool = False) -> Dict[str, Any]:

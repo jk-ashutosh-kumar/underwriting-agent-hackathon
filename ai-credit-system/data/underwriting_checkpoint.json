@@ -58,45 +58,84 @@
   "region": "India",
   "risk_score": 75,
   "agent_logs": [
-    "Auditor: The transaction on 2026-03-06 for 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential risk. No repeated exact amounts were identified.",
-    "Trend: The significant difference between total inflow and outflow indicates strong cash flow management and increasing profitability.",
-    "Benchmark: Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
-    "Committee: Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+    "Auditor: The analysis identified a large transaction of 135000.0 which exceeds the threshold of 100000.0, raising concerns about its legitimacy. Additionally, there are multiple transactions close to this threshold, indicating potential structuring.",
+    "Trend: The significant difference between total inflow and outflow indicates a strong cash flow position, suggesting growth potential.",
+    "Benchmark: Historically, cases with risk scores above 70 have been consistently rejected, while those with scores below 30 have been approved. The current case's risk score suggests a high likelihood of rejection based on past decisions.",
+    "Committee: The underwriting case presents significant concerns primarily due to a high risk score of 75, driven by a large transaction and multiple transactions near the threshold. Despite a strong cash flow trend indicating growth potential, historical data suggests a high likelihood of rejection for similar risk profiles.",
     "Router: Large transaction 95000.00 above threshold 50000.00 -> FLAGGED."
   ],
-  "human_input": "approved because it is for invoice INV001",
+  "human_input": "fraud",
   "decision_status": "FLAGGED",
   "committee_output": {
     "audit": {
       "risk_score": 75,
       "flags": [
-        "large transaction detected",
-        "repeated exact amounts not found"
+        "Large transaction detected: 135000.0",
+        "Multiple transactions around the large transaction threshold"
       ],
-      "explanation": "The transaction on 2026-03-06 for 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential risk. No repeated exact amounts were identified.",
+      "explanation": "The analysis identified a large transaction of 135000.0 which exceeds the threshold of 100000.0, raising concerns about its legitimacy. Additionally, there are multiple transactions close to this threshold, indicating potential structuring.",
+      "risk_drivers": [],
+      "positive_signals": [],
+      "uncertainties": [],
+      "recommendation": "review",
       "mode": "llm"
     },
     "trend": {
       "profit": 235000.0,
       "trend": "growing",
-      "insight": "The significant difference between total inflow and outflow indicates strong cash flow management and increasing profitability.",
+      "insight": "The significant difference between total inflow and outflow indicates a strong cash flow position, suggesting growth potential.",
+      "risk_drivers": [],
+      "positive_signals": [],
+      "uncertainties": [],
+      "recommendation": "review",
       "mode": "llm"
     },
     "benchmark": {
-      "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
-      "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+      "benchmark_result": "The current underwriting case has a risk score significantly higher than the majority of historical entries, which have mostly been rejected at similar or higher risk scores.",
+      "comparison_insight": "Historically, cases with risk scores above 70 have been consistently rejected, while those with scores below 30 have been approved. The current case's risk score suggests a high likelihood of rejection based on past decisions.",
+      "risk_drivers": [],
+      "positive_signals": [],
+      "uncertainties": [],
+      "recommendation": "review",
       "mode": "llm"
     },
     "auditor": {
       "risk_score": 75,
       "flags": [
-        "large transaction detected",
-        "repeated exact amounts not found"
+        "Large transaction detected: 135000.0",
+        "Multiple transactions around the large transaction threshold"
       ],
-      "explanation": "The transaction on 2026-03-06 for 135000.0 exceeds the large transaction threshold of 100000.0, indicating potential risk. No repeated exact amounts were identified.",
+      "explanation": "The analysis identified a large transaction of 135000.0 which exceeds the threshold of 100000.0, raising concerns about its legitimacy. Additionally, there are multiple transactions close to this threshold, indicating potential structuring.",
+      "risk_drivers": [],
+      "positive_signals": [],
+      "uncertainties": [],
+      "recommendation": "review",
       "mode": "llm"
     },
-    "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+    "final_summary": "The underwriting case presents significant concerns primarily due to a high risk score of 75, driven by a large transaction and multiple transactions near the threshold. Despite a strong cash flow trend indicating growth potential, historical data suggests a high likelihood of rejection for similar risk profiles.",
+    "committee_chair": {
+      "final_summary": "The underwriting case presents significant concerns primarily due to a high risk score of 75, driven by a large transaction and multiple transactions near the threshold. Despite a strong cash flow trend indicating growth potential, historical data suggests a high likelihood of rejection for similar risk profiles.",
+      "final_verdict_rationale": "The combination of a large transaction exceeding the threshold and multiple transactions close to that threshold raises red flags about the legitimacy of the financial activities. Historical benchmarks indicate that cases with risk scores above 70 have been consistently rejected, leading to a cautious approach in this instance.",
+      "key_supporting_points": [
+        "Large transaction detected: 135000.0",
+        "Multiple transactions around the large transaction threshold",
+        "Strong cash flow position with a profit of 235000.0"
+      ],
+      "key_risks": [
+        "Legitimacy concerns regarding large transactions",
+        "Potential structuring of transactions",
+        "High risk score compared to historical data"
+      ],
+      "confidence": 70,
+      "conditions_if_approved": [
+        "Further investigation into the legitimacy of the large transaction",
+        "Monitoring of future transaction patterns",
+        "Enhanced due diligence on the financial activities"
+      ],
+      "mode": "llm",
+      "accounting_signal": "Partner has 95% on-time payments"
+    },
+    "crew_kickoff_summary": null,
     "mode": "llm",
     "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
   },

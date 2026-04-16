@@ -12,14 +12,8 @@ MEMORY_FILE = BASE_DIR / "data" / "cases_memory.json"
 
 
 def _default_memory() -> List[Dict[str, Any]]:
-    """Return starter memory used when no file exists yet."""
-    return [
-        {
-            "partner": "ABC Ltd",
-            "risk": "high",
-            "note": "Late payments in December",
-        }
-    ]
+    """Return empty memory baseline when no file exists yet."""
+    return []
 
 
 def load_memory() -> List[Dict[str, Any]]:
@@ -33,7 +27,7 @@ def load_memory() -> List[Dict[str, Any]]:
             if isinstance(content, list):
                 return content
     except (json.JSONDecodeError, OSError):
-        # If file is corrupted or unreadable, fallback to starter memory.
+        # If file is corrupted or unreadable, fallback to empty memory.
         return _default_memory()
 
     return _default_memory()

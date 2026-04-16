@@ -40,12 +40,16 @@ class AccountingModuleTool(BaseTool):
     name: str = "AccountingModuleTool"
     description: str = "Query accounting indicators and repayment behavior."
 
-    def _run(self, query: str) -> str:
-        """Return a deterministic mock response for transparent demos."""
+    def _run(self, query: str = "", **_: object) -> str:
+        """Return a deterministic mock response for transparent demos.
+
+        CrewAI tool runners may pass framework kwargs (e.g. ``verbose``), so we
+        accept and ignore extra keyword arguments for compatibility.
+        """
         _ = query
         return "Partner has 95% on-time payments"
 
     # Compatibility helper for non-CrewAI direct calls.
-    def run(self, query: str) -> str:
+    def run(self, query: str = "", **kwargs: object) -> str:
         """Alias to keep usage simple across the codebase."""
-        return self._run(query)
+        return self._run(query, **kwargs)
