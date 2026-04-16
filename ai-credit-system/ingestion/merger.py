@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from ingestion.db import merge_doc_output
+from ingestion.db import update_document
+from ingestion.parser.bank_statement_parser import validate_bank_statement
 from ingestion.state import DocumentState
+from webhooks import fire_extraction_completed
 
 
 def deep_merge(pages: list[dict]) -> dict:
@@ -33,11 +35,16 @@ async def merge_node(state: DocumentState) -> DocumentState:
     try:
         merged = deep_merge(state["page_outputs"])
 
-        merge_doc_output(
-            state["case_id"],
-            state["document_type"],
-            merged,
+        if state["document_type"] == "bank_statement":
+            merged = validate_bank_statement(merged)
+
+        update_document(
+            state["document_id"],
+            extracted_data=merged,
+            status="done",
         )
+
+        await fire_extraction_completed(state["case_id"], state["document_id"])
 
         return {
             **state,
@@ -46,6 +53,7 @@ async def merge_node(state: DocumentState) -> DocumentState:
         }
 
     except Exception as e:
+        update_document(state["document_id"], status="failed")
         return {
             **state,
             "status": "failed",

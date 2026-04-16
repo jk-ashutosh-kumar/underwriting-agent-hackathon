@@ -28,3 +28,13 @@ class CaseDocumentsResponse(BaseModel):
     doc_type: str
     count: int
     documents: List[Dict[str, Any]]
+
+
+class DocumentSummary(BaseModel):
+    document_id: str
+    document_name: str
+    doc_type: Optional[str]
+    metadata: Dict[str, Any]
+    extracted_data: Dict[str, Any]
+    status: str
+    created_at: Optional[str]
