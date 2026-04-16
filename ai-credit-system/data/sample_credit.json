@@ -1,0 +1,55 @@
+{
+  "credcheck_report": {
+    "tax_filing": {
+      "has_delay": false,
+      "gst_number": "36AADCC1579Q1Z3",
+      "return_type": "GSTR-3B",
+      "taxpayer_type": "Regular",
+      "registered_state": "Telangana",
+      "on_time_filing_percent": 100,
+      "filing_last_6_months_percent": 100,
+      "filing_last_12_months_percent": 100
+    },
+    "profit_loss": {
+      "pat": 85960595,
+      "ebitda": null,
+      "revenue": 96860795,
+      "net_margin_percent": null
+    },
+    "balance_sheet": {
+      "equity": null,
+      "total_assets": null,
+      "current_assets": null,
+      "current_liabilities": null
+    },
+    "legal_profile": {
+      "cases_by_company": {
+        "civil": 165,
+        "total": 165,
+        "criminal": 0
+      },
+      "cases_against_company": {
+        "civil": 0,
+        "total": 0,
+        "criminal": 0
+      }
+    },
+    "business_summary": {
+      "industry": "Agro - [Agro Products Retailers and Distributors']",
+      "gst_number": "36AADCC1579Q1Z3",
+      "pan_number": "AADCC1579Q",
+      "business_type": "Private Limited Company",
+      "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+      "age_of_business_months": 111,
+      "incorporation_date_pan": "2007-08-27"
+    },
+    "gstr3b_filing_delay": {
+      "summary": {
+        "status": "NO_DELAYS",
+        "total_delays": null,
+        "average_delay_days": null
+      },
+      "delay_records": null
+    }
+  }
+}

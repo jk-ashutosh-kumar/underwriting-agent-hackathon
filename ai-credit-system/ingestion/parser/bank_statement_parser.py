@@ -74,7 +74,7 @@ def validate_bank_statement(merged: dict) -> dict:
 
         if prev_balance is not None and curr_balance is not None:
             computed = abs(curr_balance - prev_balance)
-            mismatch = abs(computed - stated) > AMOUNT_MISMATCH_TOLERANCE
+            mismatch = abs(computed - abs(stated)) > AMOUNT_MISMATCH_TOLERANCE
             txn["flag"] = mismatch
             txn["flag_type"] = "amount_mismatch" if mismatch else None
         else:

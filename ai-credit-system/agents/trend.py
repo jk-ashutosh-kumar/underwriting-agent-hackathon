@@ -37,15 +37,20 @@ def _with_handoff(payload: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _run_trend_deterministic(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
-    """Current deterministic implementation kept as safe fallback."""
-    inflow = float(data.get("total_inflow", 0))
-    outflow = float(data.get("total_outflow", 0))
+    """Deterministic trend analysis over unified profile."""
+    bank = data.get("bank", data)
+    metrics = data.get("derived_metrics", {})
+    inflow = float(bank.get("total_inflow", metrics.get("monthly_inflow", 0)))
+    outflow = float(bank.get("total_outflow", metrics.get("monthly_outflow", 0)))
+    invoice_volume = float(metrics.get("total_invoice_volume", 0))
+    invoice_frequency = int(metrics.get("invoice_frequency", 0))
+    estimated_revenue = max(inflow, invoice_volume)
     profit = inflow - outflow
 
     # Small ratio-based indicator for demo clarity.
     # > 1.2 is "growing", around 1.0 is "stable", below 1.0 is "shrinking".
     growth_ratio = (inflow / outflow) if outflow > 0 else 0.0
-    if growth_ratio > 1.2:
+    if growth_ratio > 1.2 and estimated_revenue > 0:
         trend = "growing"
     elif growth_ratio >= 1.0:
         trend = "stable"
@@ -62,6 +67,8 @@ def _run_trend_deterministic(data: Dict[str, Any], context: Dict[str, Any]) -> D
     result = {
         "profit": float(profit),
         "trend": trend,
+        "estimated_revenue": float(estimated_revenue),
+        "growth_signal": f"{trend} (invoice_frequency={invoice_frequency}/month)",
         "insight": insight,
         "risk_drivers": ["Shrinking cashflow trend detected"] if trend == "shrinking" else [],
         "positive_signals": ["Healthy cashflow spread"] if trend == "growing" else [],
@@ -74,17 +81,20 @@ def _run_trend_deterministic(data: Dict[str, Any], context: Dict[str, Any]) -> D
 def _run_trend_llm(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
     """LLM-assisted trend analysis with strict output schema."""
     region = context.get("region", "Unknown")
-    inflow = float(data.get("total_inflow", 0))
-    outflow = float(data.get("total_outflow", 0))
+    bank = data.get("bank", data)
+    inflow = float(bank.get("total_inflow", data.get("total_inflow", 0)))
+    outflow = float(bank.get("total_outflow", data.get("total_outflow", 0)))
     system_prompt = (
         "You are a data-driven strategist focused on growth. "
-        "Return ONLY JSON with keys: profit (number), trend (string), insight (string), "
+        "Return ONLY JSON with keys: profit (number), trend (string), estimated_revenue (number), "
+        "growth_signal (string), insight (string), "
         "risk_drivers (string list), positive_signals (string list), uncertainties (string list), "
         "recommendation (approve|review|reject)."
     )
     user_prompt = (
         "Analyze business cashflow trend.\n"
         f"Region: {region}\n"
+        f"Unified profile: {data}\n"
         f"Total inflow: {inflow}\n"
         f"Total outflow: {outflow}\n"
         "Classify trend as one of: growing, stable, shrinking. "
@@ -100,7 +110,15 @@ def _run_trend_llm(data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, A
         "trend_llm_completed",
         extra={"region": region, "trend": trend, "profit": profit},
     )
-    return _with_handoff({"profit": profit, "trend": trend, "insight": insight})
+    return _with_handoff(
+        {
+            "profit": profit,
+            "trend": trend,
+            "estimated_revenue": float(payload.get("estimated_revenue", inflow)),
+            "growth_signal": str(payload.get("growth_signal", trend)),
+            "insight": insight,
+        }
+    )
 
 
 def run_trend_analysis(data: Dict[str, Any], context: Dict[str, Any], use_llm: bool = False) -> Dict[str, Any]:

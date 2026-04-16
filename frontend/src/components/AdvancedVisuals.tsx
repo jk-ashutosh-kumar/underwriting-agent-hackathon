@@ -47,7 +47,7 @@ function riskContributors(result: UnderwritingResult) {
     { label: 'Fraud Signals', score: Math.min(100, flags * 22 + (risk > 55 ? 16 : 6)) },
     { label: 'Cash Volatility', score: Math.min(100, Math.max(10, Math.abs(result.trend.profit) > 100000 ? 72 : 44)) },
     { label: 'Benchmark Gap', score: result.benchmark.benchmark_result.toLowerCase().includes('high') ? 78 : 36 },
-    { label: 'Committee Confidence', score: result.decision_status === 'FLAGGED' ? 58 : 82 },
+    { label: 'Committee Confidence', score: result.needs_hitl ? 58 : 82 },
   ];
 }
 
@@ -58,11 +58,10 @@ export function AdvancedVisuals({ result, inputData }: AdvancedVisualsProps) {
   const trough = series.reduce((acc, cur) => (cur.value < acc.value ? cur : acc), series[0]);
   const closing = series[series.length - 1]?.value ?? 0;
   const contributors = riskContributors(result);
-  const approved = result.decision_status === 'APPROVED';
   const stacked = [
-    { label: 'Approval Likelihood', value: approved ? 74 : 32, tone: 'bg-success' },
-    { label: 'Manual Review', value: result.needs_hitl ? 48 : 14, tone: 'bg-warning' },
-    { label: 'Rejection Pressure', value: result.decision_status === 'REJECTED' ? 69 : 22, tone: 'bg-destructive' },
+    { label: 'Model risk load', value: Math.min(92, result.risk_score), tone: 'bg-destructive' },
+    { label: 'Review touchpoint depth', value: result.needs_hitl ? 52 : 18, tone: 'bg-warning' },
+    { label: 'Policy headroom', value: Math.max(12, 100 - result.risk_score), tone: 'bg-success' },
   ];
 
   return (
@@ -132,7 +131,7 @@ export function AdvancedVisuals({ result, inputData }: AdvancedVisualsProps) {
         <div className="2xl:col-span-2 rounded-xl border border-border/60 bg-muted/30 p-4 space-y-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <BrainCircuit className="w-4 h-4 text-accent" />
-            Decision Pressure Map
+            Exposure & review load
           </div>
           {stacked.map((item) => (
             <div key={item.label}>
@@ -170,23 +169,26 @@ export function AdvancedVisuals({ result, inputData }: AdvancedVisualsProps) {
         <div className="rounded-xl border border-border/60 bg-muted/30 p-4 space-y-3">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <ActivitySquare className="w-4 h-4 text-success" />
-            Outcome Snapshot
+            Case risk summary
           </div>
+          <p className="text-xs text-muted-foreground">
+            Quantitative readouts that feed the limit band above. There is no single approve/reject gate here.
+          </p>
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-lg border border-border/60 bg-background/70 p-3">
-              <p className="text-xs text-muted-foreground">Final Decision</p>
-              <p className="text-lg font-semibold mt-1">{result.decision_status}</p>
+              <p className="text-xs text-muted-foreground">Human review</p>
+              <p className="text-lg font-semibold mt-1">{result.needs_hitl ? 'Required' : 'Not required'}</p>
             </div>
             <div className="rounded-lg border border-border/60 bg-background/70 p-3">
-              <p className="text-xs text-muted-foreground">Risk Score</p>
-              <p className="text-lg font-mono mt-1">{result.risk_score}/100</p>
+              <p className="text-xs text-muted-foreground">Committee confidence</p>
+              <p className="text-lg font-mono mt-1">{result.committee_chair.confidence}%</p>
             </div>
             <div className="rounded-lg border border-border/60 bg-background/70 p-3">
-              <p className="text-xs text-muted-foreground">Profit Signal</p>
+              <p className="text-xs text-muted-foreground">Profit signal</p>
               <p className="text-lg font-mono mt-1">{result.trend.profit >= 0 ? '+' : ''}{result.trend.profit.toLocaleString()}</p>
             </div>
             <div className="rounded-lg border border-border/60 bg-background/70 p-3">
-              <p className="text-xs text-muted-foreground">Alert Flags</p>
+              <p className="text-xs text-muted-foreground">Alert flags</p>
               <p className="text-lg font-mono mt-1">{result.audit.flags.length}</p>
             </div>
           </div>
