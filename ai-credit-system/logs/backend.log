@@ -1140,3 +1140,38 @@ KeyError: 'tools'
 2026-04-16 12:27:39,449 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-5872a43b2f04 route=hitl decision=REJECTED
 2026-04-16 12:27:39,449 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-5872a43b2f04 decision=REJECTED
 2026-04-16 12:27:39,452 INFO [api_server] case_saved_to_memory_store
+2026-04-16 13:39:52,793 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 13:39:52,794 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-7b5928ef9420
+2026-04-16 13:39:52,794 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-7b5928ef9420 region=India
+2026-04-16 13:39:52,795 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 13:39:56,594 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:39:56,608 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 13:39:59,077 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:39:59,079 INFO [agents.trend] trend_llm_completed
+2026-04-16 13:40:02,137 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:40:02,137 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 13:40:06,276 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:40:06,282 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-7b5928ef9420
+2026-04-16 13:40:06,282 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-7b5928ef9420 decision=FLAGGED
+2026-04-16 13:40:23,240 INFO [api_server] langgraph_resume_received thread_id=lg-7b5928ef9420
+2026-04-16 13:40:23,241 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-7b5928ef9420
+2026-04-16 13:40:23,241 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-7b5928ef9420
+2026-04-16 13:40:23,243 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-7b5928ef9420 route=hitl decision=REJECTED
+2026-04-16 13:40:23,243 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-7b5928ef9420 decision=REJECTED
+2026-04-16 13:40:23,249 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:14:49,128 INFO [httpx] HTTP Request: GET https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases?select=id&company_id=eq.6f57876f-b709-4905-a054-53d0bdb3cd1c&limit=1 "HTTP/2 200 OK"
+2026-04-16 18:14:49,373 INFO [httpx] HTTP Request: POST https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases "HTTP/2 201 Created"
+2026-04-16 18:14:49,611 INFO [httpx] HTTP Request: PATCH https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases?id=eq.65c74e08-bcb9-4571-951b-786138546c8c "HTTP/2 200 OK"
+2026-04-16 18:14:55,918 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:14:56,256 INFO [httpx] HTTP Request: GET https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/document_schemas?select=output_format&document_type=eq.bank_statement&limit=1 "HTTP/2 200 OK"
+2026-04-16 18:15:10,565 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:15:35,645 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:16:03,702 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:16:14,960 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:16:15,388 INFO [httpx] HTTP Request: GET https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases?select=extracted_data&id=eq.65c74e08-bcb9-4571-951b-786138546c8c&limit=1 "HTTP/2 200 OK"
+2026-04-16 18:16:15,635 INFO [httpx] HTTP Request: PATCH https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases?id=eq.65c74e08-bcb9-4571-951b-786138546c8c "HTTP/2 200 OK"
+2026-04-16 18:16:15,881 INFO [httpx] HTTP Request: PATCH https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases?id=eq.65c74e08-bcb9-4571-951b-786138546c8c "HTTP/2 200 OK"
+2026-04-16 18:25:23,937 INFO [httpx] HTTP Request: GET https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases?select=%2A&id=eq.65c74e08-bcb9-4571-951b-786138546c8c&limit=1 "HTTP/2 200 OK"
+2026-04-16 18:53:03,823 INFO [httpx] HTTP Request: GET https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/companies?select=id%2Cname "HTTP/2 200 OK"
+2026-04-16 18:53:04,047 INFO [httpx] HTTP Request: GET https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases?select=id%2Ccompany_id%2Cstatus%2Cdoc_types "HTTP/2 200 OK"
+2026-04-16 18:53:29,322 INFO [httpx] HTTP Request: GET https://jelaqlyrpvxoyrjwdtwp.supabase.co/rest/v1/cases?select=extracted_data&id=eq.65c74e08-bcb9-4571-951b-786138546c8c&limit=1 "HTTP/2 200 OK"
