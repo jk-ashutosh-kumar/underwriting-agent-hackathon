@@ -7,9 +7,11 @@ import { ResultsDashboard } from '@/components/ResultsDashboard';
 import { PipelineFlow } from '@/components/PipelineFlow';
 import { EmptyState } from '@/components/EmptyState';
 import { useUnderwriting } from '@/hooks/useUnderwriting';
+import { useTheme } from '@/components/theme-provider';
 import type { FinancialData } from '@/types';
 
 export default function App() {
+  const { theme } = useTheme();
   const {
     result,
     error,
@@ -75,7 +77,7 @@ export default function App() {
           )}
         </div>
       </main>
-      <Toaster position="bottom-right" richColors theme="light" />
+      <Toaster position="bottom-right" richColors theme={theme === "system" ? "light" : theme} />
     </div>
   );
 }
