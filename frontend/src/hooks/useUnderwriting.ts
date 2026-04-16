@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
-import { analyzeApplicationStream, getSampleData, resumeLangGraphFlow, startLangGraphFlow } from '@/lib/api';
-import { normalizeFinancialData } from '@/lib/normalizeFinancialData';
+import { analyzeApplicationStream, resumeLangGraphFlow, startLangGraphFlow } from '@/lib/api';
 import type {
   FinancialData,
   UnderwritingResult,
@@ -324,15 +323,6 @@ export function useUnderwriting() {
     [],
   );
 
-  const loadSample = useCallback(async (): Promise<FinancialData | null> => {
-    try {
-      const raw = await getSampleData();
-      return normalizeFinancialData(raw as unknown);
-    } catch {
-      return null;
-    }
-  }, []);
-
   const reset = useCallback(() => {
     setState({
       step: 'idle',
@@ -346,5 +336,5 @@ export function useUnderwriting() {
     });
   }, []);
 
-  return { ...state, run, loadSample, reset };
+  return { ...state, run, reset };
 }

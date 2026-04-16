@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import type { UnderwritingResult } from '@/types';
-import { cn } from '@/lib/utils';
 import { Activity, ShieldCheck, TrendingUp, TriangleAlert } from 'lucide-react';
 import {
   PieChart,
@@ -14,7 +13,6 @@ import {
   Tooltip,
   BarChart,
   Bar,
-  Label,
 } from 'recharts';
 
 interface InsightsChartsProps {
@@ -81,13 +79,13 @@ function RiskDonut({ score }: { score: number }) {
   );
 }
 
-function momentumData(profit: number, trend: string) {
+function momentumData(profit: number) {
   const base = [3000, 4500, 4200, 5800, profit];
   return base.map((v, i) => ({ name: `T-${4-i}`, value: v }));
 }
 
-function MomentumLine({ profit, trend }: { profit: number; trend: string }) {
-  const data = useMemo(() => momentumData(profit, trend), [profit, trend]);
+function MomentumLine({ profit }: { profit: number; trend: string }) {
+  const data = useMemo(() => momentumData(profit), [profit]);
   
   return (
     <div className="h-32 w-full">

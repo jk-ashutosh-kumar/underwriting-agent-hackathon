@@ -20,7 +20,6 @@ export default function App() {
     error,
     loading,
     run,
-    loadSample,
     reset,
     pipelineActiveIndex,
     pipelineSkippedIds,
@@ -104,7 +103,6 @@ export default function App() {
         <div className="flex-1 flex gap-4 px-6 py-6 max-w-[1760px] mx-auto w-full">
           <InputPanel
             onRun={handleRun}
-            onLoadSample={loadSample}
             onReset={reset}
             loading={loading}
             hasResult={!!result}

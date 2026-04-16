@@ -1,4 +1,3 @@
-import { ShieldCheck } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 
 export function Header() {

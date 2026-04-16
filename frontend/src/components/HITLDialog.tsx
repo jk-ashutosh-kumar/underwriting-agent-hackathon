@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertTriangle, X, Send, Calendar, DollarSign, Tag, FileText } from 'lucide-react';
+import { AlertTriangle, X, Send, Calendar, Tag, FileText } from 'lucide-react';
 
 export interface HITLContext {
   message: string;

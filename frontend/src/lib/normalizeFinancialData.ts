@@ -68,7 +68,7 @@ export function normalizeFinancialData(value: unknown): FinancialData | null {
     };
   }
 
-  // Flat schema (original sample)
+  // Flat schema
   if (!Array.isArray(obj.transactions)) return null;
   if (typeof obj.total_inflow !== 'number' || Number.isNaN(obj.total_inflow)) return null;
   if (typeof obj.total_outflow !== 'number' || Number.isNaN(obj.total_outflow)) return null;
