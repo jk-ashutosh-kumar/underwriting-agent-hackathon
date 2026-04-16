@@ -33,10 +33,10 @@ export function ResultsDashboard({
   onHITLSubmit,
   loading,
 }: ResultsDashboardProps) {
-  const minLimit = result.credit_limit?.min_limit ?? 0
-  const maxLimit = result.credit_limit?.max_limit ?? 0
-  const econBase = result.credit_limit?.economics_base_limit ?? 0
-  const nominalCeil = result.credit_limit?.nominal_ceiling ?? 0
+  const minLimit = Math.round(result.credit_limit?.min_limit ?? 0)
+  const maxLimit = Math.round(result.credit_limit?.max_limit ?? 0)
+  const econBase = Math.round(result.credit_limit?.economics_base_limit ?? 0)
+  const nominalCeil = Math.round(result.credit_limit?.nominal_ceiling ?? 0)
   const creditLimitReasoning = result.credit_limit?.reasoning ?? ""
   const crossDataHighlights = [
     ...(result.audit?.flags ?? []).slice(0, 2),

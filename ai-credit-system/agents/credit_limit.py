@@ -30,14 +30,10 @@ def _combined_flags_contain_keyword(combined: str, kw: str) -> bool:
 
 
 def _fmt_plain_amount(value: float) -> str:
-    """Plain number string (no grouping); matches UI ``formatPlainAmount`` style."""
+    """Plain whole-number string (no grouping)."""
     if not isinstance(value, (int, float)) or not math.isfinite(float(value)):
         return "0"
-    n = float(value)
-    if abs(n - round(n)) < 1e-9:
-        return str(int(round(n)))
-    text = f"{n:.2f}".rstrip("0").rstrip(".")
-    return text if text else "0"
+    return str(int(round(float(value))))
 
 
 def _truncate_words(text: str, max_len: int) -> str:
