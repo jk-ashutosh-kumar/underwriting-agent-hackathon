@@ -57,8 +57,8 @@ except Exception as exc:  # pragma: no cover - safe fallback when langgraph deps
     LANGGRAPH_IMPORT_ERROR = f"{type(exc).__name__}: {exc}"
     iter_langgraph_flow_events = None  # type: ignore[assignment]
     run_langgraph_flow = None  # type: ignore[assignment]
-from ingestion.parser import parse_document  # legacy mock fallback
 from ingestion.db import (
+    create_document,
     get_documents_by_case,
     get_or_create_case,
     list_companies_with_cases,
@@ -84,7 +84,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-SAMPLE_DATA_FILE = ROOT_DIR / "data" / "sample_statement.json"
 REGIONAL_RULES_FILE = ROOT_DIR / "data" / "regional_rules.json"
 CASES_MEMORY_FILE = ROOT_DIR / "data" / "cases_memory.json"
 USE_LANGGRAPH = os.getenv("USE_LANGGRAPH", "false").strip().lower() in {"1", "true", "yes", "on"}
@@ -353,10 +352,31 @@ def get_persistence_debug() -> PersistenceDebugResponse:
 
 ALLOWED_UPLOAD_TYPES = {
     "application/pdf",
+    "application/json",
+    "text/json",
     "image/jpeg",
     "image/png",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 }
+
+
+def _effective_upload_content_type(filename: str | None, declared: str | None) -> str:
+    """Infer MIME from filename when the browser omits or misreports content-type."""
+    name = (filename or "").lower()
+    if name.endswith(".pdf"):
+        return "application/pdf"
+    if name.endswith(".json"):
+        return "application/json"
+    if name.endswith((".jpg", ".jpeg")):
+        return "image/jpeg"
+    if name.endswith(".png"):
+        return "image/png"
+    if name.endswith(".xlsx"):
+        return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    raw = (declared or "").split(";")[0].strip().lower()
+    if raw in ALLOWED_UPLOAD_TYPES:
+        return raw
+    return raw or "application/octet-stream"
 
 
 @app.post("/api/parse-document", response_model=IngestResponse)
@@ -369,8 +389,14 @@ async def parse_uploaded_document(
 
     Returns a case_id immediately. Poll GET /api/case/{case_id} for results.
     """
+    if not files:
+        raise HTTPException(status_code=400, detail="At least one file is required")
+    if len(files) > 3:
+        raise HTTPException(status_code=400, detail="Maximum 3 files can be uploaded at once")
+
     for f in files:
-        if f.content_type not in ALLOWED_UPLOAD_TYPES:
+        effective = _effective_upload_content_type(f.filename, f.content_type)
+        if effective not in ALLOWED_UPLOAD_TYPES:
             raise HTTPException(
                 status_code=400,
                 detail=f"Unsupported file type: {f.filename} ({f.content_type})",
@@ -380,12 +406,21 @@ async def parse_uploaded_document(
 
     # Read file bytes eagerly (stream closes after request ends)
     payloads = []
+    document_ids: List[str] = []
     for f in files:
         raw = await f.read()
+        effective_type = _effective_upload_content_type(f.filename, f.content_type)
+        doc_id = create_document(
+            case_id=case_id,
+            document_name=f.filename or "upload",
+            metadata={"content_type": effective_type},
+        )
+        document_ids.append(doc_id)
         payloads.append({
             "filename": f.filename,
-            "content_type": f.content_type,
+            "content_type": effective_type,
             "bytes": raw,
+            "document_id": doc_id,
         })
 
     background_tasks.add_task(run_pipeline, case_id, company_id, payloads)
@@ -396,6 +431,7 @@ async def parse_uploaded_document(
         status="processing",
         files_received=len(payloads),
         message=f"{len(payloads)} file(s) queued for processing.",
+        document_ids=document_ids,
     )
 
 
