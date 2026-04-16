@@ -750,3 +750,597 @@ KeyError: 'tools'
 2026-04-16 13:48:59,254 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-53c1bd6e937f route=hitl decision=REJECTED
 2026-04-16 13:48:59,254 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-53c1bd6e937f decision=REJECTED
 2026-04-16 13:48:59,258 INFO [api_server] case_saved_to_memory_store
+2026-04-16 17:45:59,517 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 17:45:59,517 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-929b93b18668
+2026-04-16 17:45:59,518 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-929b93b18668 region=India
+2026-04-16 17:45:59,519 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 17:45:59,525 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 17:46:03,634 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:46:03,648 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 17:46:06,046 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:46:06,046 INFO [agents.trend] trend_llm_completed
+2026-04-16 17:46:11,139 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:46:11,140 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 17:46:14,105 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:46:14,107 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-929b93b18668
+2026-04-16 17:46:14,107 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-929b93b18668 decision=FLAGGED
+2026-04-16 17:46:41,568 INFO [api_server] langgraph_resume_received thread_id=lg-929b93b18668
+2026-04-16 17:46:41,568 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-929b93b18668
+2026-04-16 17:46:41,569 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-929b93b18668
+2026-04-16 17:46:41,571 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-929b93b18668 route=hitl decision=REJECTED
+2026-04-16 17:46:41,571 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-929b93b18668 decision=REJECTED
+2026-04-16 17:46:41,577 INFO [api_server] case_saved_to_memory_store
+2026-04-16 17:48:34,612 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 17:48:34,613 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-878eef1eca48
+2026-04-16 17:48:34,613 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-878eef1eca48 region=India
+2026-04-16 17:48:34,614 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 17:48:34,618 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 17:48:37,459 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:48:37,469 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 17:48:39,061 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:48:39,062 INFO [agents.trend] trend_llm_completed
+2026-04-16 17:48:42,440 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:48:42,441 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 17:48:45,500 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:48:45,502 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-878eef1eca48
+2026-04-16 17:48:45,502 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-878eef1eca48 decision=FLAGGED
+2026-04-16 17:49:34,787 INFO [api_server] langgraph_resume_received thread_id=lg-878eef1eca48
+2026-04-16 17:49:34,787 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-878eef1eca48
+2026-04-16 17:49:34,787 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-878eef1eca48
+2026-04-16 17:49:34,788 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-878eef1eca48 route=hitl decision=REJECTED
+2026-04-16 17:49:34,788 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-878eef1eca48 decision=REJECTED
+2026-04-16 17:49:34,792 INFO [api_server] case_saved_to_memory_store
+2026-04-16 17:50:36,254 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 17:50:36,255 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-9e1201d065f6
+2026-04-16 17:50:36,255 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-9e1201d065f6 region=India
+2026-04-16 17:50:36,255 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 17:50:36,260 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 17:50:39,287 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:50:39,288 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 17:50:41,753 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:50:41,754 INFO [agents.trend] trend_llm_completed
+2026-04-16 17:50:44,195 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:50:44,195 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 17:50:51,199 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 17:50:51,201 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-9e1201d065f6
+2026-04-16 17:50:51,201 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-9e1201d065f6 decision=FLAGGED
+2026-04-16 17:50:55,644 INFO [api_server] langgraph_resume_received thread_id=lg-9e1201d065f6
+2026-04-16 17:50:55,645 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-9e1201d065f6
+2026-04-16 17:50:55,645 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-9e1201d065f6
+2026-04-16 17:50:55,645 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-9e1201d065f6 route=hitl decision=REJECTED
+2026-04-16 17:50:55,645 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-9e1201d065f6 decision=REJECTED
+2026-04-16 17:50:55,649 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:11:22,571 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:11:22,572 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-e0d508101de1
+2026-04-16 18:11:22,573 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-e0d508101de1 region=India
+2026-04-16 18:11:22,574 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:11:22,582 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:11:26,917 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:11:26,920 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:11:29,726 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:11:29,727 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:11:33,505 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:11:33,505 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:11:39,023 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:11:39,025 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-e0d508101de1
+2026-04-16 18:11:39,025 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-e0d508101de1 decision=FLAGGED
+2026-04-16 18:11:43,371 INFO [api_server] langgraph_resume_received thread_id=lg-e0d508101de1
+2026-04-16 18:11:43,372 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-e0d508101de1
+2026-04-16 18:11:43,372 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-e0d508101de1
+2026-04-16 18:11:43,373 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-e0d508101de1 route=hitl decision=REJECTED
+2026-04-16 18:11:43,374 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-e0d508101de1 decision=REJECTED
+2026-04-16 18:11:43,381 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:17:13,873 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:17:13,874 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6abdf667f018
+2026-04-16 18:17:13,874 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-6abdf667f018 region=India
+2026-04-16 18:17:13,875 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:17:13,879 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:17:17,143 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:17:17,144 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:17:19,373 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:17:19,374 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:17:22,948 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:17:22,949 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:17:26,774 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:17:26,776 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-6abdf667f018
+2026-04-16 18:17:26,776 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-6abdf667f018 decision=FLAGGED
+2026-04-16 18:17:32,970 INFO [api_server] langgraph_resume_received thread_id=lg-6abdf667f018
+2026-04-16 18:17:32,971 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6abdf667f018
+2026-04-16 18:17:32,971 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-6abdf667f018
+2026-04-16 18:17:32,973 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-6abdf667f018 route=hitl decision=REJECTED
+2026-04-16 18:17:32,973 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-6abdf667f018 decision=REJECTED
+2026-04-16 18:17:32,979 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:18:42,563 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:18:42,564 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-01fb4cee35a0
+2026-04-16 18:18:42,564 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-01fb4cee35a0 region=India
+2026-04-16 18:18:42,565 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:18:42,578 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:18:46,103 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:18:46,107 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:18:48,234 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:18:48,235 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:18:50,139 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:18:50,139 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:18:52,578 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:18:52,580 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-01fb4cee35a0
+2026-04-16 18:18:52,580 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-01fb4cee35a0 decision=FLAGGED
+2026-04-16 18:20:35,253 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:20:35,255 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-ced71a1f7b37
+2026-04-16 18:20:35,255 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-ced71a1f7b37 region=India
+2026-04-16 18:20:35,256 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:20:35,267 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:20:39,166 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:20:39,172 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:20:41,200 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:20:41,203 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:20:43,469 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:20:43,470 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:20:46,659 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:20:46,660 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-ced71a1f7b37
+2026-04-16 18:20:46,660 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-ced71a1f7b37 decision=FLAGGED
+2026-04-16 18:21:24,088 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:21:24,088 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-bcac83422caf
+2026-04-16 18:21:24,088 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-bcac83422caf region=India
+2026-04-16 18:21:24,089 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:21:24,093 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:21:27,492 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:21:27,493 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:21:29,368 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:21:29,369 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:21:31,920 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:21:31,923 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:21:35,697 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:21:35,700 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-bcac83422caf
+2026-04-16 18:21:35,700 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-bcac83422caf decision=FLAGGED
+2026-04-16 18:21:43,028 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:21:43,029 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-12f3bf4c708f
+2026-04-16 18:21:43,029 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-12f3bf4c708f region=India
+2026-04-16 18:21:43,030 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:21:43,036 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:21:46,170 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:21:46,171 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:21:47,989 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:21:47,989 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:21:50,347 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:21:50,347 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:21:55,017 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:21:55,021 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-12f3bf4c708f
+2026-04-16 18:21:55,021 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-12f3bf4c708f decision=FLAGGED
+2026-04-16 18:22:05,109 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:22:05,109 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-882b22c74601
+2026-04-16 18:22:05,109 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-882b22c74601 region=India
+2026-04-16 18:22:05,110 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:22:05,114 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:22:08,166 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:22:08,167 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:22:10,314 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:22:10,314 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:22:12,881 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:22:12,884 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:22:17,499 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:22:17,508 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-882b22c74601
+2026-04-16 18:22:17,508 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-882b22c74601 decision=FLAGGED
+2026-04-16 18:22:27,252 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:22:27,252 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-57180514c97a
+2026-04-16 18:22:27,252 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-57180514c97a region=India
+2026-04-16 18:22:27,254 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:22:27,258 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:22:30,179 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:22:30,181 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:22:32,041 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:22:32,041 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:22:35,036 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:22:35,037 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:22:39,068 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:22:39,069 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-57180514c97a
+2026-04-16 18:22:39,069 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-57180514c97a decision=FLAGGED
+2026-04-16 18:23:01,949 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:23:01,950 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c1734f35853e
+2026-04-16 18:23:01,950 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-c1734f35853e region=India
+2026-04-16 18:23:01,950 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:23:01,954 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:23:04,971 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:23:04,972 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:23:07,835 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:23:07,836 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:23:10,301 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:23:10,301 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:23:15,007 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:23:15,009 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-c1734f35853e
+2026-04-16 18:23:15,009 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-c1734f35853e decision=FLAGGED
+2026-04-16 18:24:12,765 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:24:12,766 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-42125e4ad79a
+2026-04-16 18:24:12,766 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-42125e4ad79a region=India
+2026-04-16 18:24:12,767 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:24:12,771 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:24:16,135 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:24:16,136 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:24:18,406 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:24:18,415 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:24:20,836 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:24:20,837 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:24:25,030 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:24:25,033 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-42125e4ad79a
+2026-04-16 18:24:25,033 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-42125e4ad79a decision=FLAGGED
+2026-04-16 18:24:34,464 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:24:34,465 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-cb46e9e2136e
+2026-04-16 18:24:34,466 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-cb46e9e2136e region=India
+2026-04-16 18:24:34,466 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:24:34,470 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:24:38,152 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:24:38,154 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:24:40,254 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:24:40,256 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:24:43,317 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:24:43,322 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:24:48,350 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:24:48,352 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-cb46e9e2136e
+2026-04-16 18:24:48,352 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-cb46e9e2136e decision=FLAGGED
+2026-04-16 18:24:56,160 INFO [api_server] langgraph_resume_received thread_id=lg-cb46e9e2136e
+2026-04-16 18:24:56,161 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-cb46e9e2136e
+2026-04-16 18:24:56,161 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-cb46e9e2136e
+2026-04-16 18:24:56,162 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-cb46e9e2136e route=hitl decision=REJECTED
+2026-04-16 18:24:56,162 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-cb46e9e2136e decision=REJECTED
+2026-04-16 18:24:56,168 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:25:18,298 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:25:18,300 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-5241b0ee8559
+2026-04-16 18:25:18,300 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-5241b0ee8559 region=India
+2026-04-16 18:25:18,301 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:25:18,307 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:25:22,184 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:25:22,186 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:25:24,615 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:25:24,618 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:25:27,627 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:25:27,629 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:25:31,608 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:25:31,610 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-5241b0ee8559
+2026-04-16 18:25:31,610 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-5241b0ee8559 decision=FLAGGED
+2026-04-16 18:25:43,411 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:25:43,412 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c6f3d86be46e
+2026-04-16 18:25:43,412 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-c6f3d86be46e region=India
+2026-04-16 18:25:43,413 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:25:43,420 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:25:46,435 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:25:46,436 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:25:48,804 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:25:48,805 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:25:51,684 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:25:51,691 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:25:57,483 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:25:57,485 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-c6f3d86be46e
+2026-04-16 18:25:57,486 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-c6f3d86be46e decision=FLAGGED
+2026-04-16 18:26:05,675 INFO [api_server] langgraph_resume_received thread_id=lg-c6f3d86be46e
+2026-04-16 18:26:05,675 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-c6f3d86be46e
+2026-04-16 18:26:05,675 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-c6f3d86be46e
+2026-04-16 18:26:05,676 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-c6f3d86be46e route=hitl decision=REJECTED
+2026-04-16 18:26:05,677 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-c6f3d86be46e decision=REJECTED
+2026-04-16 18:26:05,681 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:27:07,092 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:27:07,093 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-bad6eb4c32c6
+2026-04-16 18:27:07,093 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-bad6eb4c32c6 region=India
+2026-04-16 18:27:07,093 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:27:07,097 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:27:10,169 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:27:10,171 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:27:12,205 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:27:12,218 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:27:14,822 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:27:14,823 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:27:20,192 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:27:20,198 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-bad6eb4c32c6
+2026-04-16 18:27:20,199 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-bad6eb4c32c6 decision=FLAGGED
+2026-04-16 18:30:02,045 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:30:02,046 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-5e56aca92efd
+2026-04-16 18:30:02,046 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-5e56aca92efd region=India
+2026-04-16 18:30:02,047 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:30:02,051 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:30:06,921 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:30:06,938 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:30:09,267 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:30:09,272 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:30:12,818 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:30:12,820 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:30:16,920 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:30:16,922 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-5e56aca92efd
+2026-04-16 18:30:16,922 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-5e56aca92efd decision=FLAGGED
+2026-04-16 18:36:17,918 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:36:17,920 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-d93f708242da
+2026-04-16 18:36:17,920 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-d93f708242da region=India
+2026-04-16 18:36:17,922 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:36:17,930 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:36:21,122 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:36:21,125 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:36:25,014 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:36:25,015 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:36:28,505 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:36:28,506 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:36:32,850 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:36:32,854 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-d93f708242da
+2026-04-16 18:36:32,854 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-d93f708242da decision=FLAGGED
+2026-04-16 18:36:41,672 INFO [api_server] langgraph_resume_received thread_id=lg-d93f708242da
+2026-04-16 18:36:41,672 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-d93f708242da
+2026-04-16 18:36:41,672 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-d93f708242da
+2026-04-16 18:36:41,673 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-d93f708242da route=hitl decision=REJECTED
+2026-04-16 18:36:41,673 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-d93f708242da decision=REJECTED
+2026-04-16 18:36:41,681 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:37:50,509 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:37:50,509 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-0bd747e704eb
+2026-04-16 18:37:50,510 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-0bd747e704eb region=India
+2026-04-16 18:37:50,511 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:37:50,520 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:37:53,814 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:37:53,815 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:37:55,661 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:37:55,661 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:37:58,796 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:37:58,797 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:38:02,342 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:38:02,345 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-0bd747e704eb
+2026-04-16 18:38:02,345 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-0bd747e704eb decision=FLAGGED
+2026-04-16 18:38:13,448 INFO [api_server] langgraph_resume_received thread_id=lg-0bd747e704eb
+2026-04-16 18:38:13,448 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-0bd747e704eb
+2026-04-16 18:38:13,448 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-0bd747e704eb
+2026-04-16 18:38:13,450 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-0bd747e704eb route=hitl decision=REJECTED
+2026-04-16 18:38:13,450 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-0bd747e704eb decision=REJECTED
+2026-04-16 18:38:13,463 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:39:02,310 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:39:02,310 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-9c78719ce88c
+2026-04-16 18:39:02,310 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-9c78719ce88c region=India
+2026-04-16 18:39:02,311 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:39:02,316 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:39:05,194 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:39:05,195 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:39:06,836 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:39:06,840 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:39:09,972 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:39:09,973 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:39:14,966 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:39:14,968 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-9c78719ce88c
+2026-04-16 18:39:14,969 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-9c78719ce88c decision=FLAGGED
+2026-04-16 18:42:50,654 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:42:50,656 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-3f0b5f26ec1a
+2026-04-16 18:42:50,656 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-3f0b5f26ec1a region=India
+2026-04-16 18:42:50,658 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:42:50,666 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:42:52,631 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:42:52,632 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:42:55,181 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:42:55,181 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:42:58,464 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:42:58,465 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:43:02,811 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:43:02,813 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-3f0b5f26ec1a
+2026-04-16 18:43:02,813 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-3f0b5f26ec1a decision=FLAGGED
+2026-04-16 18:44:40,787 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:44:40,787 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-a527429ba55e
+2026-04-16 18:44:40,787 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-a527429ba55e region=India
+2026-04-16 18:44:40,789 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:44:40,796 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:44:43,233 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:44:43,235 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:44:46,772 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:44:46,774 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:44:48,949 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:44:48,949 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:44:52,275 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:44:52,282 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-a527429ba55e
+2026-04-16 18:44:52,282 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-a527429ba55e decision=FLAGGED
+2026-04-16 18:54:31,072 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:54:31,073 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-26d3df5edc49
+2026-04-16 18:54:31,073 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-26d3df5edc49 region=India
+2026-04-16 18:54:31,073 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:54:31,079 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:54:33,878 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:54:33,880 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:54:35,676 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:54:35,686 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:54:39,244 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:54:39,246 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:54:42,422 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:54:42,424 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-26d3df5edc49
+2026-04-16 18:54:42,424 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-26d3df5edc49 decision=FLAGGED
+2026-04-16 18:54:48,755 INFO [api_server] langgraph_resume_received thread_id=lg-26d3df5edc49
+2026-04-16 18:54:48,755 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-26d3df5edc49
+2026-04-16 18:54:48,755 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-26d3df5edc49
+2026-04-16 18:54:48,757 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-26d3df5edc49 route=hitl decision=REJECTED
+2026-04-16 18:54:48,757 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-26d3df5edc49 decision=REJECTED
+2026-04-16 18:54:48,766 INFO [api_server] case_saved_to_memory_store
+2026-04-16 18:58:27,433 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 18:58:27,433 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-53bd6f5dcef9
+2026-04-16 18:58:27,434 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-53bd6f5dcef9 region=India
+2026-04-16 18:58:27,435 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 18:58:27,442 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 18:58:30,547 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:58:30,558 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 18:58:32,167 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:58:32,170 INFO [agents.trend] trend_llm_completed
+2026-04-16 18:58:34,447 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:58:34,449 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 18:58:37,879 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 18:58:37,886 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-53bd6f5dcef9
+2026-04-16 18:58:37,886 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-53bd6f5dcef9 decision=FLAGGED
+2026-04-16 19:03:25,628 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:03:25,629 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-23b9e74ddedc
+2026-04-16 19:03:25,629 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-23b9e74ddedc region=India
+2026-04-16 19:03:25,630 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:03:25,634 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:03:28,991 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:03:28,992 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:03:30,762 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:03:30,767 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:03:33,023 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:03:33,024 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:03:36,594 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:03:36,596 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-23b9e74ddedc
+2026-04-16 19:03:36,596 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-23b9e74ddedc decision=FLAGGED
+2026-04-16 19:03:43,133 INFO [api_server] langgraph_resume_received thread_id=lg-23b9e74ddedc
+2026-04-16 19:03:43,133 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-23b9e74ddedc
+2026-04-16 19:03:43,133 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-23b9e74ddedc
+2026-04-16 19:03:43,134 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-23b9e74ddedc route=hitl decision=REJECTED
+2026-04-16 19:03:43,134 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-23b9e74ddedc decision=REJECTED
+2026-04-16 19:03:43,143 INFO [api_server] case_saved_to_memory_store
+2026-04-16 19:04:48,988 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:04:48,990 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-1d4af5572446
+2026-04-16 19:04:48,990 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-1d4af5572446 region=India
+2026-04-16 19:04:48,991 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:04:48,998 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:04:54,019 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:04:54,020 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:04:56,474 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:04:56,474 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:04:58,726 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:04:58,727 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:05:01,699 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:05:01,702 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-1d4af5572446
+2026-04-16 19:05:01,702 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-1d4af5572446 decision=FLAGGED
+2026-04-16 19:05:07,512 INFO [api_server] langgraph_resume_received thread_id=lg-1d4af5572446
+2026-04-16 19:05:07,512 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-1d4af5572446
+2026-04-16 19:05:07,512 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-1d4af5572446
+2026-04-16 19:05:07,513 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-1d4af5572446 route=hitl decision=REJECTED
+2026-04-16 19:05:07,513 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-1d4af5572446 decision=REJECTED
+2026-04-16 19:05:07,523 INFO [api_server] case_saved_to_memory_store
+2026-04-16 19:05:25,290 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:05:25,290 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6a79d0fee9e5
+2026-04-16 19:05:25,290 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-6a79d0fee9e5 region=India
+2026-04-16 19:05:25,292 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:05:25,295 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:05:28,844 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:05:28,845 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:05:30,880 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:05:30,881 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:05:33,133 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:05:33,134 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:05:38,596 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:05:38,598 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-6a79d0fee9e5
+2026-04-16 19:05:38,598 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-6a79d0fee9e5 decision=FLAGGED
+2026-04-16 19:05:43,723 INFO [api_server] langgraph_resume_received thread_id=lg-6a79d0fee9e5
+2026-04-16 19:05:43,723 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6a79d0fee9e5
+2026-04-16 19:05:43,723 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-6a79d0fee9e5
+2026-04-16 19:05:43,724 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-6a79d0fee9e5 route=hitl decision=REJECTED
+2026-04-16 19:05:43,724 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-6a79d0fee9e5 decision=REJECTED
+2026-04-16 19:05:43,732 INFO [api_server] case_saved_to_memory_store
+2026-04-16 19:14:09,281 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:14:09,282 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-f540b50b896b
+2026-04-16 19:14:09,282 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-f540b50b896b region=India
+2026-04-16 19:14:09,283 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:14:09,295 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:14:12,385 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:14:12,388 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:14:14,284 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:14:14,286 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:14:18,165 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:14:18,171 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:14:21,454 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:14:21,459 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-f540b50b896b
+2026-04-16 19:14:21,459 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-f540b50b896b decision=FLAGGED
+2026-04-16 19:17:06,365 INFO [api_server] langgraph_resume_received thread_id=lg-f540b50b896b
+2026-04-16 19:17:06,366 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-f540b50b896b
+2026-04-16 19:17:06,366 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-f540b50b896b
+2026-04-16 19:17:06,370 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-f540b50b896b route=hitl decision=REJECTED
+2026-04-16 19:17:06,370 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-f540b50b896b decision=REJECTED
+2026-04-16 19:17:06,381 INFO [api_server] case_saved_to_memory_store
+2026-04-16 19:17:42,182 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:17:42,183 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-49cf6988299a
+2026-04-16 19:17:42,183 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-49cf6988299a region=India
+2026-04-16 19:17:42,185 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:17:42,190 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:17:44,415 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:17:44,422 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:17:47,450 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:17:47,451 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:17:50,771 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:17:50,773 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:17:54,569 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:17:54,572 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-49cf6988299a
+2026-04-16 19:17:54,572 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-49cf6988299a decision=FLAGGED
+2026-04-16 19:18:23,500 INFO [api_server] langgraph_resume_received thread_id=lg-49cf6988299a
+2026-04-16 19:18:23,502 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-49cf6988299a
+2026-04-16 19:18:23,502 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-49cf6988299a
+2026-04-16 19:18:23,503 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-49cf6988299a route=hitl decision=REJECTED
+2026-04-16 19:18:23,503 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-49cf6988299a decision=REJECTED
+2026-04-16 19:18:23,510 INFO [api_server] case_saved_to_memory_store
+2026-04-16 19:19:22,025 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:19:22,026 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6ee4bbcf787a
+2026-04-16 19:19:22,026 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-6ee4bbcf787a region=India
+2026-04-16 19:19:22,026 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:19:22,031 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:19:25,112 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:19:25,113 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:19:27,295 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:19:27,296 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:19:30,540 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:19:30,541 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:19:34,133 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:19:34,135 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-6ee4bbcf787a
+2026-04-16 19:19:34,135 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-6ee4bbcf787a decision=FLAGGED
+2026-04-16 19:35:06,352 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:35:06,353 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-a03913e5ed96
+2026-04-16 19:35:06,353 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-a03913e5ed96 region=India
+2026-04-16 19:35:06,355 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:35:06,363 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:35:09,552 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:35:09,555 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:35:11,802 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:35:11,803 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:35:15,155 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:35:15,155 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:35:18,859 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:35:18,860 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-a03913e5ed96
+2026-04-16 19:35:18,860 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-a03913e5ed96 decision=FLAGGED
+2026-04-16 19:36:16,721 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:36:16,722 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-7cd8a2e00a20
+2026-04-16 19:36:16,722 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-7cd8a2e00a20 region=India
+2026-04-16 19:36:16,723 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:36:16,728 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:36:20,640 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:36:20,641 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:36:22,530 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:36:22,543 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:36:24,930 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:36:24,930 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:36:30,468 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:36:30,472 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-7cd8a2e00a20
+2026-04-16 19:36:30,472 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-7cd8a2e00a20 decision=FLAGGED
+2026-04-16 19:36:56,939 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:36:56,941 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-48e46e2693c6
+2026-04-16 19:36:56,942 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-48e46e2693c6 region=India
+2026-04-16 19:36:56,943 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:36:56,949 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:37:00,995 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:00,996 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:37:03,074 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:03,086 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:37:05,962 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:05,963 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:37:10,386 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:10,388 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-48e46e2693c6
+2026-04-16 19:37:10,388 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-48e46e2693c6 decision=FLAGGED
+2026-04-16 19:37:10,870 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:37:10,870 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-74640d434a30
+2026-04-16 19:37:10,870 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-74640d434a30 region=India
+2026-04-16 19:37:10,871 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:37:10,874 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:37:14,582 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:14,584 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:37:16,842 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:16,847 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:37:19,932 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:19,934 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:37:24,041 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:24,053 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-74640d434a30
+2026-04-16 19:37:24,054 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-74640d434a30 decision=FLAGGED
+2026-04-16 19:37:44,417 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 19:37:44,418 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-8d206f87357c
+2026-04-16 19:37:44,418 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-8d206f87357c region=India
+2026-04-16 19:37:44,419 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
+2026-04-16 19:37:44,423 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 19:37:47,930 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:47,931 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 19:37:50,012 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:50,014 INFO [agents.trend] trend_llm_completed
+2026-04-16 19:37:52,527 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:52,528 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 19:37:57,446 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 19:37:57,450 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-8d206f87357c
+2026-04-16 19:37:57,452 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-8d206f87357c decision=FLAGGED

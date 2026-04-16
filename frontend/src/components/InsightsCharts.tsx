@@ -146,18 +146,7 @@ function SeverityBars({ flags }: { flags: string[] }) {
 }
 
 export function InsightsCharts({ result }: InsightsChartsProps) {
-<<<<<<< Updated upstream
-  const risk = Math.max(0, Math.min(100, result.risk_score));
-  const visibleRisk = risk === 0 ? 1.8 : risk;
-  const confidence = getDecisionConfidence(result.decision_status);
-  const flags = result.audit.flags.length;
-  const highSeverity = Math.min(flags, 3);
-  const mediumSeverity = Math.max(0, Math.min(flags - highSeverity, 2));
-  const lowSeverity = Math.max(0, flags - highSeverity - mediumSeverity);
-  const momentumPoints = buildMomentumPoints(result.trend.profit, result.trend.trend);
-=======
   const confidence = result.decision_status === 'APPROVED' ? 86 : result.decision_status === 'REJECTED' ? 12 : 62;
->>>>>>> Stashed changes
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
@@ -178,39 +167,12 @@ export function InsightsCharts({ result }: InsightsChartsProps) {
         </p>
       </div>
 
-<<<<<<< Updated upstream
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-border/60 bg-muted/30 p-4 min-h-40 space-y-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <ShieldCheck className="w-4 h-4 text-primary" />
-            <span>Risk Composition</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <svg width="78" height="78" viewBox="0 0 42 42" className="-rotate-90">
-              <circle cx="21" cy="21" r="15.915" fill="none" stroke="currentColor" strokeWidth="4.2" className="text-slate-300" />
-              <circle
-                cx="21"
-                cy="21"
-                r="15.915"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="4.2"
-                strokeDasharray={`${visibleRisk} ${Math.max(100 - visibleRisk, 0.1)}`}
-                className={cn(risk < 30 ? 'text-success' : risk < 60 ? 'text-warning' : 'text-destructive')}
-              />
-            </svg>
-            <div>
-              <p className="text-xl font-mono font-bold">{risk}%</p>
-              <p className="text-xs text-muted-foreground mt-1">{getRiskBand(risk)} exposure</p>
-              <p className="text-[10px] text-muted-foreground/70 mt-0.5">Lower is better</p>
-=======
       {/* Decision Confidence */}
       <div className="group rounded-2xl border border-border/40 bg-card p-6 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="p-2 rounded-lg bg-accent/5">
               <Activity className="w-4 h-4 text-accent" />
->>>>>>> Stashed changes
             </div>
             <span className="text-sm font-semibold text-foreground">Decision Confidence</span>
           </div>
@@ -260,33 +222,6 @@ export function InsightsCharts({ result }: InsightsChartsProps) {
             </div>
             <span className="text-sm font-semibold text-foreground">Flag Severity</span>
           </div>
-<<<<<<< Updated upstream
-          <div className="space-y-2.5">
-            <div className="flex items-center gap-2">
-              <span className="w-10 text-xs text-muted-foreground">High</span>
-              <div className="h-2.5 flex-1 rounded-full bg-muted/40 overflow-hidden">
-                <div className="h-full bg-destructive rounded-full min-w-[2px]" style={{ width: `${(highSeverity / 3) * 100}%` }} />
-              </div>
-              <span className="w-7 text-right text-[10px] text-muted-foreground">{highSeverity}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-10 text-xs text-muted-foreground">Med</span>
-              <div className="h-2.5 flex-1 rounded-full bg-muted/40 overflow-hidden">
-                <div className="h-full bg-warning rounded-full min-w-[2px]" style={{ width: `${(mediumSeverity / 2) * 100}%` }} />
-              </div>
-              <span className="w-7 text-right text-[10px] text-muted-foreground">{mediumSeverity}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-10 text-xs text-muted-foreground">Low</span>
-              <div className="h-2.5 flex-1 rounded-full bg-muted/40 overflow-hidden">
-                <div className="h-full bg-primary rounded-full min-w-[2px]" style={{ width: `${Math.min(lowSeverity, 4) * 25}%` }} />
-              </div>
-              <span className="w-7 text-right text-[10px] text-muted-foreground">{lowSeverity}</span>
-            </div>
-          </div>
-          <p className="text-xs text-muted-foreground">{flags} total flags detected</p>
-=======
->>>>>>> Stashed changes
         </div>
         <SeverityBars flags={result.audit.flags} />
         <p className="text-xs text-muted-foreground">
