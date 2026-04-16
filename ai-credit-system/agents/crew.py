@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 
 from agents.auditor import run_auditor
 from agents.benchmark import run_benchmark
+from agents.cross_check import run_cross_check
+from agents.findings import aggregate_findings, classify
 from agents.trend import run_trend_analysis
 from data.unified_schema import build_financial_profile
 from llm.client import ask_llm_json
@@ -352,6 +354,18 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
     memory_entries = load_memory()
     benchmark_context = {**trend_context, "trend_result": trend}
     benchmark = run_benchmark(unified_profile, benchmark_context, memory_entries, use_llm=use_llm)
+
+    # Task 4: Cross-check — reconcile invoices ↔ bank credits ↔ CredCheck.
+    cross_check_context = {
+        **benchmark_context,
+        "benchmark_result": benchmark,
+    }
+    cross_check = run_cross_check(unified_profile, cross_check_context, use_llm=use_llm)
+
+    # Aggregate findings from every agent that emits them.
+    findings = aggregate_findings(audit, cross_check, trend, benchmark)
+    findings_buckets = classify(findings)
+
     # Committee Chair: synthesizes committee outputs into explainable verdict bundle.
     chair = _committee_chair_deterministic(
         audit,
@@ -390,6 +404,12 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
         "audit": audit,
         "trend": trend,
         "benchmark": benchmark,
+        "cross_check": cross_check,
+        "findings": findings,
+        "findings_summary": {
+            "critical_count": len(findings_buckets["critical"]),
+            "non_critical_count": len(findings_buckets["non_critical"]),
+        },
         # Placeholder until flow.decision_node assigns limits post HITL / final decision.
         "credit_limit": {
             "min_limit": 0.0,

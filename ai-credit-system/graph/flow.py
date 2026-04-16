@@ -1,16 +1,24 @@
-"""Governed underwriting flow (LangGraph-style, function-simulated)."""
+"""Governed underwriting flow with two-tier HITL and critical/non-critical routing."""
 
 from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict, Iterator, List
+from typing import Any, Dict, Iterator, List, Optional
 
 from agents.credit_limit import (
     credit_limit_agent_log_lines,
     recommend_credit_limit_with_context,
 )
 from agents.crew import run_crew
+from graph.hitl_nodes import (
+    analyst_hitl_node,
+    analyst_resume_node,
+    borrower_blocking_node,
+    borrower_blocking_resume_node,
+    findings_router_node,
+    queue_async_borrower_node,
+)
 from graph.state import UnderwritingState, create_initial_state
 from memory.checkpoint import save_checkpoint
 
@@ -18,18 +26,29 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 SAMPLE_DATA_FILE = ROOT_DIR / "data" / "sample_statement.json"
 REGIONAL_POLICY_FILE = ROOT_DIR / "data" / "regional_policy.json"
 
-# UI pipeline indices (ingest → committee → router → HITL → resume → decision → checkpoint)
+# UI pipeline indices
 _PROGRESS_INDEX = {
     "ingesting": 0,
     "analysis": 1,
+    "cross_check": 1,
+    "findings": 2,
+    "analyst_hitl": 3,
+    "analyst_hitl_skipped": 3,
+    "analyst_resume": 4,
+    "analyst_resume_skipped": 4,
+    "borrower_hitl_blocking": 5,
+    "borrower_hitl_skipped": 5,
+    "borrower_async_queued": 5,
+    "deciding": 6,
+    "provisional_decision": 6,
+    "checkpoint": 7,
+    # Legacy step names kept so older UI clients don't break.
     "router": 2,
     "router_done": 2,
     "hitl": 3,
     "hitl_skipped": 3,
     "resume": 4,
     "resume_skipped": 4,
-    "deciding": 5,
-    "checkpoint": 6,
 }
 
 
@@ -46,7 +65,6 @@ def _progress_event(step: str, phase: str, label: str, **extra: Any) -> Dict[str
 
 
 def _load_regional_policy() -> Dict[str, Any]:
-    """Load region-aware policy thresholds with safe fallback."""
     if not REGIONAL_POLICY_FILE.exists():
         return {"India": {"cash_threshold": 50000, "flag_keywords": []}}
     with REGIONAL_POLICY_FILE.open("r", encoding="utf-8") as f:
@@ -54,25 +72,23 @@ def _load_regional_policy() -> Dict[str, Any]:
 
 
 def _normalized_risk_for_rules(risk_score: int) -> int:
-    """
-    Normalize risk score to a 0-10 style scale for simple routing.
-
-    Phase 2 currently returns up to 100. For router thresholds (<4, >7),
-    we scale down if needed.
-    """
-    # Treat incoming score as 0-100, then map to 0-10 for router/decision rules.
-    # This avoids ambiguous behavior where a low raw value like "8" was treated as
-    # high risk on a 0-10 scale instead of 8/100.
     bounded = max(0, min(100, int(risk_score)))
     return int(round(bounded / 10))
 
 
+# --------------------------------------------------------------------------- #
+# Nodes
+# --------------------------------------------------------------------------- #
+
+
 def run_analysis_node(state: UnderwritingState) -> UnderwritingState:
-    """Node A: run multi-agent analysis and store explainable logs."""
+    """Run multi-agent committee + cross-check + findings aggregation."""
     committee_output = run_crew(state["applicant_data"], region=state["region"])
     audit = committee_output.get("audit", committee_output.get("auditor", {}))
     trend = committee_output.get("trend", {})
     benchmark = committee_output.get("benchmark", {})
+    cross_check = committee_output.get("cross_check", {})
+    findings = committee_output.get("findings", [])
 
     state["risk_score"] = int(audit.get("risk_score", 0))
     state["agent_logs"].append(f"Auditor: {audit.get('explanation', 'No explanation provided.')}")
@@ -80,30 +96,24 @@ def run_analysis_node(state: UnderwritingState) -> UnderwritingState:
     state["agent_logs"].append(
         f"Benchmark: {benchmark.get('comparison_insight', 'No benchmark insight provided.')}"
     )
+    state["agent_logs"].append(
+        f"Cross-check: {cross_check.get('explanation', 'No cross-check explanation.')}"
+    )
 
     final_summary = committee_output.get("final_summary")
     if final_summary:
         state["agent_logs"].append(f"Committee: {final_summary}")
-    # Cache crew output on state so API/streaming can avoid a second run_crew call.
+
     state["committee_output"] = committee_output  # type: ignore[assignment]
+    state["findings"] = findings
     return state
 
 
+# Legacy router_node retained for backward-compat callers (LangGraph adapter,
+# tests, etc.). The new flow uses findings_router_node + HITL nodes instead.
 def router_node(state: UnderwritingState) -> str:
-    """
-    Node B: route case to approve/hitl/review.
-
-    Rules:
-    - risk < 4  -> approve
-    - risk > 7  -> hitl
-    - else      -> review
-    Extra forced FLAGGED/HITL conditions:
-    - missing description
-    - large amount above regional threshold
-    - "Transfer 00921" style trigger
-    """
+    """Legacy per-transaction router — superseded by findings_router_node."""
     policy = _load_regional_policy()
-    # Reset per-run HITL context. When set, UI can show flagged transaction details.
     state["hitl_context"] = None  # type: ignore[assignment]
     region_policy = policy.get(state["region"], policy.get("India", {}))
     amount_threshold = float(region_policy.get("cash_threshold", 50000))
@@ -133,48 +143,27 @@ def router_node(state: UnderwritingState) -> str:
                 f"Router: Large transaction {amount:.2f} above threshold {amount_threshold:.2f} -> FLAGGED."
             )
             return "hitl"
-        if "Transfer 00921" in description:
-            state["decision_status"] = "FLAGGED"
-            state["hitl_context"] = {  # type: ignore[assignment]
-                "reason": "aha_trigger",
-                "transaction": txn,
-                "message": "Suspicious transfer pattern matched (Transfer 00921).",
-            }
-            state["agent_logs"].append(
-                "Router: Aha trigger matched ('Transfer 00921') -> FLAGGED for HITL."
-            )
-            return "hitl"
 
     normalized_risk = _normalized_risk_for_rules(state["risk_score"])
     if normalized_risk < 4:
         state["decision_status"] = "APPROVED"
-        state["agent_logs"].append(f"Router: Normalized risk {normalized_risk} < 4 -> APPROVE path.")
         return "approve"
     if normalized_risk > 7:
-        # High risk alone should not always trigger HITL popup.
-        # Keep it in review path unless an explicit transaction flag was found above.
         state["decision_status"] = "PENDING"
-        state["agent_logs"].append(
-            f"Router: Normalized risk {normalized_risk} > 7 -> REVIEW path (no explicit flagged transaction)."
-        )
         return "review"
-
     state["decision_status"] = "PENDING"
-    state["agent_logs"].append(f"Router: Normalized risk {normalized_risk} in [4..7] -> REVIEW path.")
     return "review"
 
 
+# Legacy single-tier HITL retained for backward-compat callers.
 def hitl_node(
     state: UnderwritingState, interactive: bool = True, human_response: str = ""
 ) -> UnderwritingState:
-    """Node C: pause for human clarification and persist checkpoint."""
     print("⚠️ Action Required: Suspicious transaction detected")
-    print("Found large transaction with no description")
     save_checkpoint(state)
     if interactive:
         user_response = input("Explain this transaction: ").strip()
     else:
-        # UI-safe mode: do not block; consume provided response.
         user_response = human_response.strip() or "No clarification provided"
     state["human_input"] = user_response
     state["agent_logs"].append(f"HITL: User explanation captured -> {user_response}")
@@ -182,46 +171,21 @@ def hitl_node(
 
 
 def resume_node(state: UnderwritingState) -> UnderwritingState:
-    """Node D: resume after HITL and adjust risk from human clarification quality."""
+    """Legacy single-tier resume — keyword-based delta to risk score."""
     clarification = state.get("human_input", "").strip() or "No clarification provided"
     state["agent_logs"].append(f"Resume: User clarified -> {clarification}")
 
     text = clarification.lower()
     positive_markers = [
-        "invoice",
-        "vendor",
-        "salary",
-        "tax",
-        "gst",
-        "rent",
-        "loan",
-        "emi",
-        "client",
-        "refund",
-        "prepayment",
-        "receipt",
+        "invoice", "vendor", "salary", "tax", "gst", "rent", "loan", "emi",
+        "client", "refund", "prepayment", "receipt",
     ]
     weak_markers = [
-        "dont know",
-        "don't know",
-        "not sure",
-        "unknown",
-        "cash",
-        "friend",
-        "personal",
-        "just like that",
-        "random",
-        "no reason",
-        "maybe",
+        "dont know", "don't know", "not sure", "unknown", "cash", "friend",
+        "personal", "just like that", "random", "no reason", "maybe",
     ]
     negative_markers = [
-        "reject",
-        "decline",
-        "fraud",
-        "suspicious",
-        "fake",
-        "illegal",
-        "money laundering",
+        "reject", "decline", "fraud", "suspicious", "fake", "illegal", "money laundering",
     ]
 
     has_numeric_context = any(ch.isdigit() for ch in clarification)
@@ -244,29 +208,19 @@ def resume_node(state: UnderwritingState) -> UnderwritingState:
     if has_negative_signal:
         quality_score -= 4
 
-    # Apply an explainable score delta from clarification quality.
-    # Positive reason can materially lower risk, weak reason can raise it.
     if quality_score >= 5:
-        delta = -6
-        note = "strong documentary/commercial explanation"
+        delta, note = -6, "strong documentary/commercial explanation"
     elif quality_score >= 3:
-        delta = -4
-        note = "reasonable explanation"
+        delta, note = -4, "reasonable explanation"
     elif quality_score >= 1:
-        delta = -2
-        note = "partial explanation"
+        delta, note = -2, "partial explanation"
     elif quality_score == 0:
-        delta = 0
-        note = "neutral explanation"
+        delta, note = 0, "neutral explanation"
     elif quality_score >= -2:
-        delta = 2
-        note = "weak explanation"
+        delta, note = 2, "weak explanation"
     else:
-        delta = 12
-        note = "negative/suspicious explanation"
+        delta, note = 12, "negative/suspicious explanation"
 
-    # Hard guardrail: explicitly negative clarifications should strongly penalize
-    # and bias final decision toward reject.
     if has_negative_signal:
         delta = max(delta, 15)
         state["hitl_override"] = "reject"  # type: ignore[assignment]
@@ -274,20 +228,13 @@ def resume_node(state: UnderwritingState) -> UnderwritingState:
 
     state["risk_score"] = max(0, int(state["risk_score"]) + delta)
     state["agent_logs"].append(
-        f"Resume: Clarification quality={quality_score} ({note}); risk delta={delta} "
-        "(negative lowers risk, positive raises risk). "
+        f"Resume: Clarification quality={quality_score} ({note}); risk delta={delta}. "
         f"New risk={state['risk_score']} (lower is better)."
     )
     return state
 
 
 def _apply_credit_limit_post_decision(state: UnderwritingState) -> None:
-    """
-    After router / HITL / resume, assign an annual facility band (often conservative).
-
-    Uses ``recommend_credit_limit_with_context`` so REJECTED / flagged / high-risk
-    cases still get a lower explainable range instead of zeros with generic text.
-    """
     co = state.get("committee_output")
     if not isinstance(co, dict):
         return
@@ -321,8 +268,8 @@ def _apply_credit_limit_post_decision(state: UnderwritingState) -> None:
 
 
 def decision_node(state: UnderwritingState) -> UnderwritingState:
-    """Node E: final decision assignment using normalized risk scale."""
-    if state.get("hitl_override") == "reject":  # type: ignore[attr-defined]
+    """Final/provisional decision based on findings + HITL state."""
+    if state.get("hitl_override") == "reject":
         state["decision_status"] = "REJECTED"
         state["agent_logs"].append(
             "Decision: HITL override requested rejection due to negative clarification."
@@ -330,22 +277,43 @@ def decision_node(state: UnderwritingState) -> UnderwritingState:
         _apply_credit_limit_post_decision(state)
         return state
 
-    normalized_risk = _normalized_risk_for_rules(int(state["risk_score"]))
-    if normalized_risk < 5:
-        state["decision_status"] = "APPROVED"
+    # Critical questions still open with the borrower → no decision yet.
+    if state.get("pending_borrower_qids_critical"):
+        state["decision_status"] = "AWAITING_BORROWER"
         state["agent_logs"].append(
-            f"Decision: Final risk(raw={state['risk_score']}, normalized={normalized_risk}) "
-            f"(lower is better) -> APPROVED."
+            "Decision: blocked — awaiting borrower answers to critical questions."
+        )
+        return state
+
+    normalized_risk = _normalized_risk_for_rules(int(state["risk_score"]))
+    base = "APPROVED" if normalized_risk < 5 else "REJECTED"
+
+    if state.get("pending_borrower_qids_async"):
+        state["is_provisional"] = True
+        provisional_status = (
+            "PROVISIONAL_APPROVED" if base == "APPROVED" else "PROVISIONAL_REJECTED"
+        )
+        state["decision_status"] = provisional_status
+        state["agent_logs"].append(
+            f"Decision: provisional {base} (raw risk={state['risk_score']}, "
+            f"normalized={normalized_risk}); "
+            f"{len(state['pending_borrower_qids_async'])} async borrower question(s) outstanding."
         )
     else:
-        state["decision_status"] = "REJECTED"
+        state["decision_status"] = base
+        state["is_provisional"] = False
         state["agent_logs"].append(
             f"Decision: Final risk(raw={state['risk_score']}, normalized={normalized_risk}) "
-            f"(lower is better) -> REJECTED."
+            f"(lower is better) -> {base}."
         )
 
     _apply_credit_limit_post_decision(state)
     return state
+
+
+# --------------------------------------------------------------------------- #
+# Streaming flow controller
+# --------------------------------------------------------------------------- #
 
 
 def iter_underwriting_flow_events(
@@ -353,75 +321,118 @@ def iter_underwriting_flow_events(
     region: str,
     interactive: bool = True,
     human_response: str = "",
+    *,
+    state: Optional[UnderwritingState] = None,
+    analyst_responses: Optional[Dict[str, str]] = None,
+    borrower_responses: Optional[Dict[str, str]] = None,
 ) -> Iterator[Dict[str, Any]]:
+    """Yield progress events for UI streaming, then final state.
+
+    The two-tier HITL flow is non-blocking in API mode: the function will pause
+    by emitting an `awaiting_*` event and returning control. The caller resumes
+    by passing in the existing `state` plus the relevant responses.
+
+    The `human_response` parameter is kept for backward compatibility — it is
+    interpreted as a free-text *analyst* answer applied uniformly to all
+    pending analyst questions when no structured `analyst_responses` dict is
+    supplied.
     """
-    Yield progress events for UI streaming, then final state.
+    if state is None:
+        state = create_initial_state(data, region)
+        yield _progress_event("ingesting", "ingesting", "Preparing case folder")
+        yield _progress_event(
+            "analysis",
+            "analysis",
+            "Multi-agent committee (Audit / Trend / Benchmark / Cross-check)",
+        )
+        state = run_analysis_node(state)
+        yield _progress_event("findings", "findings", "Aggregating findings & generating questions")
+        state = findings_router_node(state)
 
-    Each event is a dict with at least ``type``. Progress events use
-    ``type == "progress"`` and include ``phase``, ``step``, and ``label``.
-    Final event is ``type == "complete"`` with ``state`` (full UnderwritingState).
-    """
-    state = create_initial_state(data, region)
-    yield _progress_event("ingesting", "ingesting", "Preparing case folder")
+    if analyst_responses:
+        state["analyst_responses"] = {**(state.get("analyst_responses") or {}), **analyst_responses}
+    elif human_response and not state.get("analyst_responses"):
+        # Back-compat: apply free-text analyst answer to every pending analyst question.
+        free_text = human_response.strip()
+        if free_text and state.get("pending_analyst_qids"):
+            state["analyst_responses"] = {
+                qid: free_text for qid in state["pending_analyst_qids"]
+            }
 
-    yield _progress_event(
-        "analysis",
-        "analysis",
-        "Multi-agent committee (Audit / Trend / Benchmark)",
-    )
-    state = run_analysis_node(state)
+    # Tier-1: internal analyst.
+    if not state.get("analyst_responses"):
+        yield _progress_event("analyst_hitl", "analyst_hitl", "Tier-1: internal analyst review", human_in_loop=True)
+        state = analyst_hitl_node(state)
+        if state.get("decision_status") == "AWAITING_ANALYST":
+            save_checkpoint(state)
+            yield _progress_event(
+                "analyst_hitl",
+                "analyst_hitl_pending",
+                f"Awaiting analyst answers ({len(state.get('pending_analyst_qids', []))} questions)",
+                pending_qids=list(state.get("pending_analyst_qids", [])),
+            )
+            yield {"type": "complete", "state": state}
+            return
+    else:
+        yield _progress_event("analyst_hitl", "analyst_hitl", "Tier-1: applying analyst responses")
 
-    yield _progress_event("router", "router", "Policy routing & gates")
-    next_step = router_node(state)
-    yield _progress_event(
-        "router_done",
-        "route_decision",
-        f"Route selected: {next_step}",
-        route=next_step,
-    )
+    yield _progress_event("analyst_resume", "analyst_resume", "Folding analyst responses into findings")
+    state = analyst_resume_node(state)
 
-    if next_step == "approve":
+    # Tier-2 (blocking critical).
+    if state.get("pending_borrower_qids_critical"):
+        if borrower_responses:
+            state["borrower_responses"] = {
+                **(state.get("borrower_responses") or {}),
+                **borrower_responses,
+            }
+            yield _progress_event(
+                "borrower_hitl_blocking",
+                "borrower_hitl_blocking",
+                "Tier-2: applying borrower responses to critical findings",
+            )
+            state = borrower_blocking_resume_node(state)
+            if state.get("pending_borrower_qids_critical"):
+                save_checkpoint(state)
+                yield _progress_event(
+                    "borrower_hitl_blocking",
+                    "borrower_hitl_blocking_pending",
+                    "Awaiting remaining borrower answers (critical)",
+                    pending_qids=list(state["pending_borrower_qids_critical"]),
+                )
+                yield {"type": "complete", "state": state}
+                return
+        else:
+            state = borrower_blocking_node(state)
+            save_checkpoint(state)
+            yield _progress_event(
+                "borrower_hitl_blocking",
+                "borrower_hitl_blocking_pending",
+                f"Tier-2 blocking: {len(state['pending_borrower_qids_critical'])} critical question(s) escalated",
+                pending_qids=list(state["pending_borrower_qids_critical"]),
+            )
+            yield {"type": "complete", "state": state}
+            return
+    else:
         yield _progress_event(
-            "hitl_skipped",
-            "hitl_skipped",
-            "HITL: not required (approve path)",
-            skipped_steps=["hitl"],
+            "borrower_hitl_skipped",
+            "borrower_hitl_skipped",
+            "Tier-2 blocking: not required (no critical unanswered questions)",
         )
+
+    # Tier-2 (async non-critical) — never blocks.
+    if state.get("pending_borrower_qids_async"):
         yield _progress_event(
-            "resume_skipped",
-            "resume_skipped",
-            "Resume: not required",
-            skipped_steps=["hitl", "resume"],
+            "borrower_async_queued",
+            "borrower_async_queued",
+            f"Tier-2 async: {len(state['pending_borrower_qids_async'])} non-critical "
+            "question(s) queued for borrower",
+            pending_qids=list(state["pending_borrower_qids_async"]),
         )
-        yield _progress_event("deciding", "decision", "Final underwriting decision")
-        state = decision_node(state)
-    elif next_step == "hitl":
-        yield _progress_event(
-            "hitl",
-            "hitl",
-            "Human-in-the-loop — capture clarification",
-            human_in_loop=True,
-        )
-        state = hitl_node(state, interactive=interactive, human_response=human_response)
-        yield _progress_event("resume", "resume", "Resume pipeline after HITL")
-        state = resume_node(state)
-        yield _progress_event("deciding", "decision", "Final underwriting decision")
-        state = decision_node(state)
-    else:  # review
-        yield _progress_event(
-            "hitl_skipped",
-            "hitl_skipped",
-            "HITL: not required (review path)",
-            skipped_steps=["hitl"],
-        )
-        yield _progress_event(
-            "resume_skipped",
-            "resume_skipped",
-            "Resume: not required",
-            skipped_steps=["hitl", "resume"],
-        )
-        yield _progress_event("deciding", "decision", "Final underwriting decision")
-        state = decision_node(state)
+        state = queue_async_borrower_node(state)
+
+    yield _progress_event("deciding", "decision", "Final / provisional underwriting decision")
+    state = decision_node(state)
 
     save_checkpoint(state)
     yield _progress_event("checkpoint", "checkpoint", "Persisting checkpoint")
@@ -433,10 +444,22 @@ def run_underwriting_flow(
     region: str,
     interactive: bool = True,
     human_response: str = "",
+    *,
+    state: Optional[UnderwritingState] = None,
+    analyst_responses: Optional[Dict[str, str]] = None,
+    borrower_responses: Optional[Dict[str, str]] = None,
 ) -> UnderwritingState:
-    """Flow controller orchestrating all nodes with conditional routing."""
-    final_state: UnderwritingState | None = None
-    for event in iter_underwriting_flow_events(data, region, interactive, human_response):
+    """Drain the streaming flow and return the final state."""
+    final_state: Optional[UnderwritingState] = None
+    for event in iter_underwriting_flow_events(
+        data,
+        region,
+        interactive,
+        human_response,
+        state=state,
+        analyst_responses=analyst_responses,
+        borrower_responses=borrower_responses,
+    ):
         if event.get("type") == "complete":
             final_state = event["state"]
             break
@@ -444,9 +467,8 @@ def run_underwriting_flow(
     return final_state
 
 
-# Backward-compatible helper used by Phase 1/2 UI and CLI modules.
 def make_decision(risk_score: float) -> str:
-    """Return simple decision label for legacy callers."""
+    """Backward-compatible helper for legacy callers."""
     if risk_score > 7:
         return "HUMAN_REVIEW"
     return "APPROVED"
@@ -455,6 +477,6 @@ def make_decision(risk_score: float) -> str:
 if __name__ == "__main__":
     with SAMPLE_DATA_FILE.open("r", encoding="utf-8") as f:
         sample_data = json.load(f)
-    final_state = run_underwriting_flow(sample_data, region="India")
+    final = run_underwriting_flow(sample_data, region="India", interactive=False)
     print("\n=== GOVERNED UNDERWRITING FLOW RESULT ===")
-    print(json.dumps(final_state, indent=2))
+    print(json.dumps(final, indent=2, default=str))

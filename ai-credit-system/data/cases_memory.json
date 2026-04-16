@@ -3071,5 +3071,1070 @@
     "decision": "REJECTED",
     "region": "India",
     "risk_score": 75
+  },
+  {
+    "case_id": "case-1776367545",
+    "created_at": "2026-04-16T19:25:45.397417+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0,
+      "invoice_data": null,
+      "credit_report": null
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 65,
+        "flags": [
+          "High number of legal cases (165)",
+          "Pending invoice status",
+          "Invoice volume vs bank inflow mismatch"
+        ],
+        "explanation": "The applicant has a significant number of legal cases, which raises concerns about potential financial instability. Additionally, the pending invoice status and the mismatch between invoice volume and bank inflow suggest possible cash flow issues or unreported income.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "estimated_revenue": 96860795.0,
+        "growth_signal": "Positive cash flow with significant inflows exceeding outflows.",
+        "insight": "The business is experiencing a growing trend due to consistent inflows from retail and enterprise contracts, significantly surpassing outflows.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "benchmark": {
+        "benchmark_result": "The current case presents a significantly lower risk profile compared to historical entries, with no prior case being approved and all having risk scores above 45.",
+        "comparison_insight": "The current case's metrics indicate a healthy monthly inflow and outflow ratio, along with regular GST compliance, which contrasts sharply with the rejected cases that had higher risk scores.",
+        "comparison": "The current case's metrics indicate a healthy monthly inflow and outflow ratio, along with regular GST compliance, which contrasts sharply with the rejected cases that had higher risk scores.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "credit_limit": {
+        "min_limit": 11425.43,
+        "max_limit": 26659.33,
+        "economics_base_limit": 160020.0,
+        "nominal_ceiling": 163220.4,
+        "nominal_floor": 108813.6,
+        "reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 108814 up to 163220; we treat 163220 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 11425 to 26659. \n\nCompared with that nominal ceiling, the quoted band is tighter because the case was not approved, so the quote is a conservative reference only; the auditor raised 3 issue(s) (for example: High number of legal cases (165)); language in the flags tripped an extra policy haircut; the audit risk score is 65 out of 100 (lower is better); the auditor asked for review rather than a clean approve."
+      },
+      "unified_profile": {
+        "bank": {
+          "applicant_id": "SME-1029",
+          "statement_month": "2026-03",
+          "transactions": [
+            {
+              "date": "2026-03-01",
+              "description": "Retail Sales Deposit",
+              "amount": 95000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2026-03-03",
+              "description": "Raw Material Purchase",
+              "amount": 38000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2026-03-06",
+              "description": "Enterprise Contract Payment",
+              "amount": 135000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2026-03-08",
+              "description": "Salary Payout",
+              "amount": 52000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2026-03-12",
+              "description": "Utility Bills",
+              "amount": 12000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2026-03-14",
+              "description": "Online Sales Deposit",
+              "amount": 73000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2026-03-20",
+              "description": "Vendor Repayment",
+              "amount": 28000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2026-03-24",
+              "description": "Channel Partner Collection",
+              "amount": 62000.0,
+              "type": "credit"
+            }
+          ],
+          "total_inflow": 365000.0,
+          "total_outflow": 130000.0,
+          "invoice_data": null,
+          "credit_report": null
+        },
+        "invoices": [
+          {
+            "invoice_id": "1592844520669",
+            "date": "22 June 2020",
+            "amount": 53340.0,
+            "customer": "Kamal Pumps Enterprise",
+            "status": "PENDING",
+            "raw": {
+              "buyer": {
+                "name": "Kamal Pumps Enterprise",
+                "gstin": "04AAERS9818B2A",
+                "state": "Maharashtra",
+                "address": "423 Yeola, Nashik, 423402, Maharashtra",
+                "state_code": null
+              },
+              "seller": {
+                "name": "Indrayani Enterprises",
+                "gstin": "07AAECR2971C1Z",
+                "state": "Maharashtra",
+                "address": "Yeola, Nashik, 423401, Maharashtra",
+                "contact": {
+                  "email": null,
+                  "phone": "+91 9857234526"
+                },
+                "state_code": null
+              },
+              "consignee": null,
+              "logistics": null,
+              "line_items": [
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 4095,
+                  "description": "Rotary Pump",
+                  "total_amount": 49140
+                },
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 350,
+                  "description": "Connection valves",
+                  "total_amount": 4200
+                }
+              ],
+              "tax_details": {
+                "cgst_rate": 0,
+                "igst_rate": 0,
+                "sgst_rate": 0,
+                "total_tax": 0,
+                "cgst_amount": 0,
+                "igst_amount": 0,
+                "sgst_amount": 0
+              },
+              "bank_details": {
+                "ifsc": "SBIN0000534",
+                "branch": "Hiranandani",
+                "bank_name": "STATE BANK OF INDIA",
+                "account_number": "203356289317"
+              },
+              "amount_summary": {
+                "subtotal": 53340,
+                "round_off": null,
+                "total_amount": 53340,
+                "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+              },
+              "additional_info": {
+                "remarks": null,
+                "terms_and_conditions": null
+              },
+              "payment_details": {
+                "amount_due": 28340,
+                "amount_paid": 25000,
+                "payment_mode": "CASH",
+                "payment_terms": null
+              },
+              "invoice_metadata": {
+                "irn": null,
+                "ack_date": null,
+                "ack_number": null,
+                "invoice_date": "22 June 2020",
+                "invoice_type": "tax_invoice",
+                "invoice_number": "1592844520669"
+              }
+            }
+          }
+        ],
+        "credit_report": {
+          "legal_cases": 165,
+          "legal_cases_against_company": 0,
+          "gst_filing_status": "regular",
+          "gst_on_time_filing_percent": 100,
+          "gst_has_delay": false,
+          "past_defaults": 0,
+          "report": {
+            "tax_filing": {
+              "has_delay": false,
+              "gst_number": "36AADCC1579Q1Z3",
+              "return_type": "GSTR-3B",
+              "taxpayer_type": "Regular",
+              "registered_state": "Telangana",
+              "on_time_filing_percent": 100,
+              "filing_last_6_months_percent": 100,
+              "filing_last_12_months_percent": 100
+            },
+            "profit_loss": {
+              "pat": 85960595,
+              "ebitda": null,
+              "revenue": 96860795,
+              "net_margin_percent": null
+            },
+            "balance_sheet": {
+              "equity": null,
+              "total_assets": null,
+              "current_assets": null,
+              "current_liabilities": null
+            },
+            "legal_profile": {
+              "cases_by_company": {
+                "civil": 165,
+                "total": 165,
+                "criminal": 0
+              },
+              "cases_against_company": {
+                "civil": 0,
+                "total": 0,
+                "criminal": 0
+              }
+            },
+            "business_summary": {
+              "industry": "Agro - [Agro Products Retailers and Distributors']",
+              "gst_number": "36AADCC1579Q1Z3",
+              "pan_number": "AADCC1579Q",
+              "business_type": "Private Limited Company",
+              "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+              "age_of_business_months": 111,
+              "incorporation_date_pan": "2007-08-27"
+            },
+            "gstr3b_filing_delay": {
+              "summary": {
+                "status": "NO_DELAYS",
+                "total_delays": null,
+                "average_delay_days": null
+              },
+              "delay_records": null
+            }
+          }
+        },
+        "derived_metrics": {
+          "monthly_inflow": 365000.0,
+          "monthly_outflow": 130000.0,
+          "avg_invoice_value": 53340.0,
+          "invoice_frequency": 1,
+          "total_invoice_volume": 53340.0,
+          "gst_compliance": "regular"
+        }
+      },
+      "auditor": {
+        "risk_score": 65,
+        "flags": [
+          "High number of legal cases (165)",
+          "Pending invoice status",
+          "Invoice volume vs bank inflow mismatch"
+        ],
+        "explanation": "The applicant has a significant number of legal cases, which raises concerns about potential financial instability. Additionally, the pending invoice status and the mismatch between invoice volume and bank inflow suggest possible cash flow issues or unreported income.",
+        "risk_drivers": [],
+        "positive_signals": [],
+        "uncertainties": [],
+        "recommendation": "review",
+        "mode": "llm"
+      },
+      "final_summary": "The applicant presents a mixed profile with significant legal challenges but also shows positive cash flow trends. The risk score of 65 indicates potential financial instability, primarily due to a high number of legal cases and cash flow discrepancies. However, the business is experiencing growth with substantial inflows exceeding outflows, suggesting operational viability.",
+      "committee_chair": {
+        "final_summary": "The applicant presents a mixed profile with significant legal challenges but also shows positive cash flow trends. The risk score of 65 indicates potential financial instability, primarily due to a high number of legal cases and cash flow discrepancies. However, the business is experiencing growth with substantial inflows exceeding outflows, suggesting operational viability.",
+        "final_verdict_rationale": "While the applicant's growth trend and positive cash flow are encouraging, the high number of legal cases and pending invoices raise serious concerns about financial stability. The committee recommends further review to assess the implications of these risks before making a final decision.",
+        "key_supporting_points": [
+          "Growing trend with positive cash flow exceeding outflows.",
+          "Estimated revenue of approximately 96.86 million with a profit of 235,000.",
+          "Healthy monthly inflow and outflow ratio with regular GST compliance."
+        ],
+        "key_risks": [
+          "High number of legal cases (165).",
+          "Pending invoice status.",
+          "Mismatch between invoice volume and bank inflow."
+        ],
+        "confidence": 70,
+        "conditions_if_approved": [
+          "Close monitoring of legal cases and their financial implications.",
+          "Regular updates on cash flow status and invoice management.",
+          "Implementation of a risk mitigation plan to address identified issues."
+        ],
+        "mode": "llm",
+        "accounting_signal": "Partner has 95% on-time payments",
+        "credit_limit_reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 108814 up to 163220; we treat 163220 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 11425 to 26659. \n\nCompared with that nominal ceiling, the quoted band is tighter because the case was not approved, so the quote is a conservative reference only; the auditor raised 3 issue(s) (for example: High number of legal cases (165)); language in the flags tripped an extra policy haircut; the audit risk score is 65 out of 100 (lower is better); the auditor asked for review rather than a clean approve."
+      },
+      "crew_kickoff_summary": null,
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "REJECTED",
+    "region": "India",
+    "risk_score": 65
+  },
+  {
+    "case_id": "case-1776369385",
+    "created_at": "2026-04-16T19:56:25.157317+00:00",
+    "input_data": {
+      "applicant_id": "SME-1029",
+      "statement_month": "2026-03",
+      "transactions": [
+        {
+          "date": "2026-03-01",
+          "description": "Retail Sales Deposit",
+          "amount": 95000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-03",
+          "description": "Raw Material Purchase",
+          "amount": 38000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-06",
+          "description": "Enterprise Contract Payment",
+          "amount": 135000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-08",
+          "description": "Salary Payout",
+          "amount": 52000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-12",
+          "description": "Utility Bills",
+          "amount": 12000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-14",
+          "description": "Online Sales Deposit",
+          "amount": 73000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2026-03-20",
+          "description": "Vendor Repayment",
+          "amount": 28000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2026-03-24",
+          "description": "Channel Partner Collection",
+          "amount": 62000.0,
+          "type": "credit"
+        }
+      ],
+      "total_inflow": 365000.0,
+      "total_outflow": 130000.0,
+      "invoice_data": null,
+      "credit_report": null
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 12,
+        "flags": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "findings": [
+          {
+            "code": "LEGAL_CASES_BY_COMPANY",
+            "severity": "critical",
+            "category": "credit",
+            "source": "auditor",
+            "message": "Company is plaintiff in 165 legal case(s).",
+            "evidence": {
+              "count": 165
+            },
+            "needs_borrower": false
+          }
+        ],
+        "explanation": "Multiple risk signals detected (see findings) \u2014 including statement integrity, transaction patterns and credit-bureau context.",
+        "risk_drivers": [
+          "Company is plaintiff in 165 legal case(s)."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Limited historical transaction behavior context."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1448. Please try again in 434ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "trend": {
+        "profit": 235000.0,
+        "trend": "growing",
+        "estimated_revenue": 365000.0,
+        "growth_signal": "growing (invoice_frequency=1/month)",
+        "insight": "In India, inflow is 365000.00 and outflow is 130000.00, so estimated profit is 235000.00. Growth ratio is 2.81, which I classify as 'growing' for this demo.",
+        "risk_drivers": [],
+        "positive_signals": [
+          "Healthy cashflow spread"
+        ],
+        "uncertainties": [
+          "Single-period cashflow may hide seasonality effects."
+        ],
+        "recommendation": "approve",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1430. Please try again in 429ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "benchmark": {
+        "benchmark_result": "Risk profile is closer to historically higher-risk partners",
+        "comparison_insight": "I reviewed 13 memory cases; 13 were high risk. Current monthly inflow=365000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+        "comparison": "I reviewed 13 memory cases; 13 were high risk. Current monthly inflow=365000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+        "risk_drivers": [
+          "High proportion of risky historical cases."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Historical memory size and distribution may be limited."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 563. Please try again in 168ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "cross_check": {
+        "summary": {
+          "matched_count": 0,
+          "unmatched_invoice_count": 1,
+          "unmatched_credit_count": 4,
+          "invoice_match_ratio": 0.0,
+          "revenue_triangulation": {
+            "sources": {
+              "invoice_total_annualised": 53340.0,
+              "bank_inflow_annualised": 4380000.0,
+              "credcheck_pl_revenue": 96860795.0
+            },
+            "max_variance": 0.9994,
+            "comparable": true
+          },
+          "legal_counterparty_matches": []
+        },
+        "matched_pairs": [],
+        "unmatched_invoices": [
+          {
+            "invoice_id": "1592844520669",
+            "date": "22 June 2020",
+            "amount": 53340.0,
+            "customer": "Kamal Pumps Enterprise",
+            "status": "PENDING",
+            "tax_total": 0.0,
+            "payment_mode": "CASH",
+            "raw": {
+              "buyer": {
+                "name": "Kamal Pumps Enterprise",
+                "gstin": "04AAERS9818B2A",
+                "state": "Maharashtra",
+                "address": "423 Yeola, Nashik, 423402, Maharashtra",
+                "state_code": null
+              },
+              "seller": {
+                "name": "Indrayani Enterprises",
+                "gstin": "07AAECR2971C1Z",
+                "state": "Maharashtra",
+                "address": "Yeola, Nashik, 423401, Maharashtra",
+                "contact": {
+                  "email": null,
+                  "phone": "+91 9857234526"
+                },
+                "state_code": null
+              },
+              "consignee": null,
+              "logistics": null,
+              "line_items": [
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 4095,
+                  "description": "Rotary Pump",
+                  "total_amount": 49140
+                },
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 350,
+                  "description": "Connection valves",
+                  "total_amount": 4200
+                }
+              ],
+              "tax_details": {
+                "cgst_rate": 0,
+                "igst_rate": 0,
+                "sgst_rate": 0,
+                "total_tax": 0,
+                "cgst_amount": 0,
+                "igst_amount": 0,
+                "sgst_amount": 0
+              },
+              "bank_details": {
+                "ifsc": "SBIN0000534",
+                "branch": "Hiranandani",
+                "bank_name": "STATE BANK OF INDIA",
+                "account_number": "203356289317"
+              },
+              "amount_summary": {
+                "subtotal": 53340,
+                "round_off": null,
+                "total_amount": 53340,
+                "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+              },
+              "additional_info": {
+                "remarks": null,
+                "terms_and_conditions": null
+              },
+              "payment_details": {
+                "amount_due": 28340,
+                "amount_paid": 25000,
+                "payment_mode": "CASH",
+                "payment_terms": null
+              },
+              "invoice_metadata": {
+                "irn": null,
+                "ack_date": null,
+                "ack_number": null,
+                "invoice_date": "22 June 2020",
+                "invoice_type": "tax_invoice",
+                "invoice_number": "1592844520669"
+              }
+            }
+          }
+        ],
+        "unmatched_credits": [
+          {
+            "date": "2026-03-01",
+            "description": "Retail Sales Deposit",
+            "amount": 95000.0,
+            "type": "credit"
+          },
+          {
+            "date": "2026-03-06",
+            "description": "Enterprise Contract Payment",
+            "amount": 135000.0,
+            "type": "credit"
+          },
+          {
+            "date": "2026-03-14",
+            "description": "Online Sales Deposit",
+            "amount": 73000.0,
+            "type": "credit"
+          },
+          {
+            "date": "2026-03-24",
+            "description": "Channel Partner Collection",
+            "amount": 62000.0,
+            "type": "credit"
+          }
+        ],
+        "findings": [
+          {
+            "code": "INVOICE_UNMATCHED_MAJOR",
+            "severity": "critical",
+            "category": "cross_source",
+            "source": "cross_check",
+            "message": "1 of 1 invoice(s) had no matching bank credit within 5 days / 2% tolerance.",
+            "evidence": {
+              "unmatched_invoice_ids": [
+                "1592844520669"
+              ],
+              "match_ratio": 0.0
+            },
+            "needs_borrower": true
+          },
+          {
+            "code": "UNINVOICED_INFLOW",
+            "severity": "warning",
+            "category": "cross_source",
+            "source": "cross_check",
+            "message": "365000.00 of bank inflow is not covered by any invoice (100% of total inflow).",
+            "evidence": {
+              "unaccounted_inflow": 365000.0,
+              "unmatched_credit_count": 4
+            },
+            "needs_borrower": true
+          },
+          {
+            "code": "REVENUE_TRIANGULATION_MAJOR",
+            "severity": "critical",
+            "category": "cross_source",
+            "source": "cross_check",
+            "message": "Revenue figures from invoice / bank / CredCheck disagree by 100% \u2014 a major mismatch.",
+            "evidence": {
+              "invoice_total_annualised": 53340.0,
+              "bank_inflow_annualised": 4380000.0,
+              "credcheck_pl_revenue": 96860795.0
+            },
+            "needs_borrower": true
+          }
+        ],
+        "risk_drivers": [
+          "1 of 1 invoice(s) had no matching bank credit within 5 days / 2% tolerance.",
+          "Revenue figures from invoice / bank / CredCheck disagree by 100% \u2014 a major mismatch."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Date window and amount tolerance for matching are heuristic; small reconciliation gaps may be benign."
+        ],
+        "recommendation": "reject",
+        "explanation": "Cross-check raised 3 reconciliation finding(s); see findings list for detail.",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 414. Please try again in 124ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "findings": [
+        {
+          "code": "LEGAL_CASES_BY_COMPANY",
+          "severity": "warning",
+          "category": "credit",
+          "source": "auditor",
+          "message": "Company is plaintiff in 165 legal case(s).",
+          "evidence": {
+            "count": 165
+          },
+          "needs_borrower": false,
+          "id": "F-001"
+        },
+        {
+          "code": "INVOICE_UNMATCHED_MAJOR",
+          "severity": "critical",
+          "category": "cross_source",
+          "source": "cross_check",
+          "message": "1 of 1 invoice(s) had no matching bank credit within 5 days / 2% tolerance.",
+          "evidence": {
+            "unmatched_invoice_ids": [
+              "1592844520669"
+            ],
+            "match_ratio": 0.0
+          },
+          "needs_borrower": true,
+          "id": "F-002"
+        },
+        {
+          "code": "UNINVOICED_INFLOW",
+          "severity": "warning",
+          "category": "cross_source",
+          "source": "cross_check",
+          "message": "365000.00 of bank inflow is not covered by any invoice (100% of total inflow).",
+          "evidence": {
+            "unaccounted_inflow": 365000.0,
+            "unmatched_credit_count": 4
+          },
+          "needs_borrower": true,
+          "id": "F-003"
+        },
+        {
+          "code": "REVENUE_TRIANGULATION_MAJOR",
+          "severity": "critical",
+          "category": "cross_source",
+          "source": "cross_check",
+          "message": "Revenue figures from invoice / bank / CredCheck disagree by 100% \u2014 a major mismatch.",
+          "evidence": {
+            "invoice_total_annualised": 53340.0,
+            "bank_inflow_annualised": 4380000.0,
+            "credcheck_pl_revenue": 96860795.0
+          },
+          "needs_borrower": true,
+          "id": "F-004"
+        }
+      ],
+      "findings_summary": {
+        "critical_count": 2,
+        "non_critical_count": 2
+      },
+      "credit_limit": {
+        "min_limit": 132502.32,
+        "max_limit": 198753.48,
+        "economics_base_limit": 160020.0,
+        "nominal_ceiling": 259232.4,
+        "nominal_floor": 172821.6,
+        "reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 172822 up to 259232; we treat 259232 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 132502 to 198753. \n\nCompared with that nominal ceiling, the quoted band is tighter because the auditor raised 1 issue(s) (for example: Credit report shows 165 legal case(s).); the auditor asked for review rather than a clean approve."
+      },
+      "unified_profile": {
+        "bank": {
+          "applicant_id": "SME-1029",
+          "statement_month": "2026-03",
+          "transactions": [
+            {
+              "date": "2026-03-01",
+              "description": "Retail Sales Deposit",
+              "amount": 95000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2026-03-03",
+              "description": "Raw Material Purchase",
+              "amount": 38000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2026-03-06",
+              "description": "Enterprise Contract Payment",
+              "amount": 135000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2026-03-08",
+              "description": "Salary Payout",
+              "amount": 52000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2026-03-12",
+              "description": "Utility Bills",
+              "amount": 12000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2026-03-14",
+              "description": "Online Sales Deposit",
+              "amount": 73000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2026-03-20",
+              "description": "Vendor Repayment",
+              "amount": 28000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2026-03-24",
+              "description": "Channel Partner Collection",
+              "amount": 62000.0,
+              "type": "credit"
+            }
+          ],
+          "total_inflow": 365000.0,
+          "total_outflow": 130000.0,
+          "invoice_data": null,
+          "credit_report": null
+        },
+        "invoices": [
+          {
+            "invoice_id": "1592844520669",
+            "date": "22 June 2020",
+            "amount": 53340.0,
+            "customer": "Kamal Pumps Enterprise",
+            "status": "PENDING",
+            "tax_total": 0.0,
+            "payment_mode": "CASH",
+            "raw": {
+              "buyer": {
+                "name": "Kamal Pumps Enterprise",
+                "gstin": "04AAERS9818B2A",
+                "state": "Maharashtra",
+                "address": "423 Yeola, Nashik, 423402, Maharashtra",
+                "state_code": null
+              },
+              "seller": {
+                "name": "Indrayani Enterprises",
+                "gstin": "07AAECR2971C1Z",
+                "state": "Maharashtra",
+                "address": "Yeola, Nashik, 423401, Maharashtra",
+                "contact": {
+                  "email": null,
+                  "phone": "+91 9857234526"
+                },
+                "state_code": null
+              },
+              "consignee": null,
+              "logistics": null,
+              "line_items": [
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 4095,
+                  "description": "Rotary Pump",
+                  "total_amount": 49140
+                },
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 350,
+                  "description": "Connection valves",
+                  "total_amount": 4200
+                }
+              ],
+              "tax_details": {
+                "cgst_rate": 0,
+                "igst_rate": 0,
+                "sgst_rate": 0,
+                "total_tax": 0,
+                "cgst_amount": 0,
+                "igst_amount": 0,
+                "sgst_amount": 0
+              },
+              "bank_details": {
+                "ifsc": "SBIN0000534",
+                "branch": "Hiranandani",
+                "bank_name": "STATE BANK OF INDIA",
+                "account_number": "203356289317"
+              },
+              "amount_summary": {
+                "subtotal": 53340,
+                "round_off": null,
+                "total_amount": 53340,
+                "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+              },
+              "additional_info": {
+                "remarks": null,
+                "terms_and_conditions": null
+              },
+              "payment_details": {
+                "amount_due": 28340,
+                "amount_paid": 25000,
+                "payment_mode": "CASH",
+                "payment_terms": null
+              },
+              "invoice_metadata": {
+                "irn": null,
+                "ack_date": null,
+                "ack_number": null,
+                "invoice_date": "22 June 2020",
+                "invoice_type": "tax_invoice",
+                "invoice_number": "1592844520669"
+              }
+            }
+          }
+        ],
+        "credit_report": {
+          "legal_cases": 165,
+          "legal_cases_against_company": 0,
+          "gst_filing_status": "regular",
+          "gst_on_time_filing_percent": 100,
+          "gst_has_delay": false,
+          "past_defaults": 0,
+          "report": {
+            "tax_filing": {
+              "has_delay": false,
+              "gst_number": "36AADCC1579Q1Z3",
+              "return_type": "GSTR-3B",
+              "taxpayer_type": "Regular",
+              "registered_state": "Telangana",
+              "on_time_filing_percent": 100,
+              "filing_last_6_months_percent": 100,
+              "filing_last_12_months_percent": 100
+            },
+            "profit_loss": {
+              "pat": 85960595,
+              "ebitda": null,
+              "revenue": 96860795,
+              "net_margin_percent": null
+            },
+            "balance_sheet": {
+              "equity": null,
+              "total_assets": null,
+              "current_assets": null,
+              "current_liabilities": null
+            },
+            "legal_profile": {
+              "cases_by_company": {
+                "civil": 165,
+                "total": 165,
+                "criminal": 0
+              },
+              "cases_against_company": {
+                "civil": 0,
+                "total": 0,
+                "criminal": 0
+              }
+            },
+            "business_summary": {
+              "industry": "Agro - [Agro Products Retailers and Distributors']",
+              "gst_number": "36AADCC1579Q1Z3",
+              "pan_number": "AADCC1579Q",
+              "business_type": "Private Limited Company",
+              "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+              "age_of_business_months": 111,
+              "incorporation_date_pan": "2007-08-27"
+            },
+            "gstr3b_filing_delay": {
+              "summary": {
+                "status": "NO_DELAYS",
+                "total_delays": null,
+                "average_delay_days": null
+              },
+              "delay_records": null
+            }
+          },
+          "legal_cases_criminal": 0,
+          "gst_total_delays": 0,
+          "gst_avg_delay_days": 0.0,
+          "pl_latest_year": null,
+          "pl_latest_revenue": 96860795.0,
+          "pl_latest_pat": 85960595.0,
+          "pl_latest_ebitda": 0.0,
+          "bs_latest_year": null,
+          "bs_latest_total_assets": 0.0,
+          "bs_latest_equity": 0.0,
+          "bs_latest_current_liabilities": 0.0,
+          "director_defaults": 0,
+          "business_summary": {
+            "industry": "Agro - [Agro Products Retailers and Distributors']",
+            "business_type": "Private Limited Company",
+            "trade_name": "M S Coromandal Agri Sciences Private Limited",
+            "age_months": 111,
+            "incorporation_date": "2007-08-27",
+            "gst_number": "36AADCC1579Q1Z3",
+            "pan_number": "AADCC1579Q"
+          }
+        },
+        "derived_metrics": {
+          "monthly_inflow": 365000.0,
+          "monthly_outflow": 130000.0,
+          "avg_invoice_value": 53340.0,
+          "invoice_frequency": 1,
+          "total_invoice_volume": 53340.0,
+          "gst_compliance": "regular",
+          "flagged_transactions": [],
+          "flag_type_counts": {},
+          "round_trip_pairs": [],
+          "inflow_concentration": 0.3699,
+          "top_inflow_counterparty": "enterprise",
+          "cash_withdrawal_ratio": 0.0,
+          "cash_withdrawal_total": 0.0,
+          "txn_velocity": 0.3478,
+          "weekday_vs_weekend_ratio": 1.6667,
+          "largest_unexplained_credit": 0.0,
+          "largest_unexplained_credit_txn": null,
+          "running_balance_consistent": true,
+          "credits_count": 4,
+          "debits_count": 4
+        }
+      },
+      "auditor": {
+        "risk_score": 12,
+        "flags": [
+          "Credit report shows 165 legal case(s)."
+        ],
+        "findings": [
+          {
+            "code": "LEGAL_CASES_BY_COMPANY",
+            "severity": "critical",
+            "category": "credit",
+            "source": "auditor",
+            "message": "Company is plaintiff in 165 legal case(s).",
+            "evidence": {
+              "count": 165
+            },
+            "needs_borrower": false
+          }
+        ],
+        "explanation": "Multiple risk signals detected (see findings) \u2014 including statement integrity, transaction patterns and credit-bureau context.",
+        "risk_drivers": [
+          "Company is plaintiff in 165 legal case(s)."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Limited historical transaction behavior context."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1448. Please try again in 434ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "final_summary": "The underwriting committee has identified significant risks associated with the applicant due to a high number of legal cases, which raises concerns about the company's creditworthiness. However, the company shows a strong profit trend and healthy cash flow, indicating potential for growth.",
+      "committee_chair": {
+        "final_summary": "The underwriting committee has identified significant risks associated with the applicant due to a high number of legal cases, which raises concerns about the company's creditworthiness. However, the company shows a strong profit trend and healthy cash flow, indicating potential for growth.",
+        "final_verdict_rationale": "While the applicant demonstrates positive financial indicators, the critical legal issues present a substantial risk that cannot be overlooked. The recommendation is to proceed with caution, considering the legal implications.",
+        "key_supporting_points": [
+          "Estimated profit of 235,000.00 with a growing trend.",
+          "Healthy cash flow with inflow significantly exceeding outflow.",
+          "Current monthly inflow of 365,000.00 suggests potential for growth."
+        ],
+        "key_risks": [
+          "Company is involved in 165 legal cases, raising credit risk concerns.",
+          "Risk profile aligns with historically higher-risk partners.",
+          "Limited historical transaction behavior context may obscure true financial health."
+        ],
+        "confidence": 60,
+        "conditions_if_approved": [
+          "Continuous monitoring of legal case developments.",
+          "Regular review of financial performance to ensure sustainability.",
+          "Establishing a risk mitigation plan addressing legal issues."
+        ],
+        "mode": "llm",
+        "accounting_signal": "Partner has 95% on-time payments",
+        "credit_limit_reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 172822 up to 259232; we treat 259232 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 132502 to 198753. \n\nCompared with that nominal ceiling, the quoted band is tighter because the auditor raised 1 issue(s) (for example: Credit report shows 165 legal case(s).); the auditor asked for review rather than a clean approve."
+      },
+      "crew_kickoff_summary": null,
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "APPROVED",
+    "region": "India",
+    "risk_score": 12
   }
 ]

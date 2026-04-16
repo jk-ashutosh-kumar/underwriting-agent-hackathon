@@ -78,7 +78,13 @@ from ingestion.models import (
 )
 from ingestion.pipeline import run_pipeline
 from webhooks import list_webhooks, register, unregister
-from memory.checkpoint import load_checkpoint
+from memory.checkpoint import (
+    delete_thread,
+    list_threads,
+    load_checkpoint,
+    load_thread,
+    save_thread,
+)
 from memory.store import load_memory
 from memory.store import save_case
 
@@ -738,6 +744,251 @@ def underwrite_langgraph_resume(request: AnalyzeRequest) -> LangGraphFlowRespons
     except Exception as exc:
         logger.exception("langgraph_resume_failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+# --------------------------------------------------------------------------- #
+# Two-tier HITL endpoints
+# --------------------------------------------------------------------------- #
+
+import uuid as _uuid
+
+from graph.flow import iter_underwriting_flow_events as _iter_flow_events
+from graph.hitl_nodes import async_rescore_node as _async_rescore_node
+
+
+class TwoTierStartRequest(BaseModel):
+    data: FinancialData
+    region: str = "India"
+    thread_id: Optional[str] = None
+
+
+class TwoTierResponseRequest(BaseModel):
+    thread_id: str
+    responses: Dict[str, str]
+    mode: Optional[str] = None  # for borrower endpoint: "blocking" | "async"
+
+
+class TwoTierStateResponse(BaseModel):
+    thread_id: str
+    decision_status: str
+    risk_score: int
+    is_provisional: bool
+    hitl_stage: Optional[str] = None
+    pending_analyst_qids: List[str] = []
+    pending_borrower_qids_critical: List[str] = []
+    pending_borrower_qids_async: List[str] = []
+    findings: List[Dict[str, Any]] = []
+    questions: List[Dict[str, Any]] = []
+    agent_logs: List[str] = []
+    progress_events: List[Dict[str, Any]] = []
+    result: Optional[UnderwritingResponse] = None
+
+
+def _drain_flow(
+    data: Dict[str, Any],
+    region: str,
+    *,
+    state: Optional[Dict[str, Any]] = None,
+    analyst_responses: Optional[Dict[str, str]] = None,
+    borrower_responses: Optional[Dict[str, str]] = None,
+) -> tuple[Dict[str, Any], List[Dict[str, Any]]]:
+    """Drain the streaming flow returning (final_state, progress_events)."""
+    progress: List[Dict[str, Any]] = []
+    final_state: Optional[Dict[str, Any]] = None
+    for event in _iter_flow_events(
+        data,
+        region,
+        interactive=False,
+        human_response="",
+        state=state,
+        analyst_responses=analyst_responses,
+        borrower_responses=borrower_responses,
+    ):
+        if event.get("type") == "complete":
+            final_state = event["state"]
+        else:
+            progress.append(event)
+    if final_state is None:
+        raise RuntimeError("Flow ended without final state")
+    return final_state, progress
+
+
+def _two_tier_response(
+    thread_id: str,
+    state: Dict[str, Any],
+    progress: List[Dict[str, Any]],
+    *,
+    data_dict: Dict[str, Any],
+    region: str,
+) -> TwoTierStateResponse:
+    decision = str(state.get("decision_status", "PENDING"))
+    is_terminal = decision in {"APPROVED", "REJECTED"} and not state.get("is_provisional")
+    result_payload: Optional[UnderwritingResponse] = None
+    if is_terminal or decision in {"PROVISIONAL_APPROVED", "PROVISIONAL_REJECTED"}:
+        result_payload = _build_underwriting_response(state, data_dict, region)
+    return TwoTierStateResponse(
+        thread_id=thread_id,
+        decision_status=decision,
+        risk_score=int(state.get("risk_score", 0)),
+        is_provisional=bool(state.get("is_provisional", False)),
+        hitl_stage=state.get("hitl_stage"),
+        pending_analyst_qids=list(state.get("pending_analyst_qids", []) or []),
+        pending_borrower_qids_critical=list(state.get("pending_borrower_qids_critical", []) or []),
+        pending_borrower_qids_async=list(state.get("pending_borrower_qids_async", []) or []),
+        findings=list(state.get("findings", []) or []),
+        questions=list(state.get("questions", []) or []),
+        agent_logs=list(state.get("agent_logs", []) or []),
+        progress_events=progress,
+        result=result_payload,
+    )
+
+
+@app.post("/api/underwrite/two-tier/start", response_model=TwoTierStateResponse)
+def two_tier_start(request: TwoTierStartRequest) -> TwoTierStateResponse:
+    """Start a two-tier HITL underwriting thread. Pauses on Tier-1 if questions exist."""
+    thread_id = request.thread_id or f"th-{_uuid.uuid4().hex[:12]}"
+    data_dict = request.data.model_dump()
+    try:
+        state, progress = _drain_flow(data_dict, request.region)
+    except Exception as exc:
+        logger.exception("two_tier_start_failed")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    save_thread(thread_id, state, applicant_data=data_dict, region=request.region)
+    return _two_tier_response(
+        thread_id, state, progress, data_dict=data_dict, region=request.region
+    )
+
+
+def _resume_thread(
+    thread_id: str,
+    *,
+    analyst_responses: Optional[Dict[str, str]] = None,
+    borrower_responses: Optional[Dict[str, str]] = None,
+) -> TwoTierStateResponse:
+    payload = load_thread(thread_id)
+    if payload is None:
+        raise HTTPException(status_code=404, detail=f"Unknown thread_id: {thread_id}")
+    data_dict = payload.get("applicant_data") or {}
+    region = payload.get("region") or "India"
+    state = payload.get("state") or {}
+    try:
+        new_state, progress = _drain_flow(
+            data_dict,
+            region,
+            state=state,
+            analyst_responses=analyst_responses,
+            borrower_responses=borrower_responses,
+        )
+    except Exception as exc:
+        logger.exception("two_tier_resume_failed thread_id=%s", thread_id)
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    save_thread(thread_id, new_state, applicant_data=data_dict, region=region)
+    return _two_tier_response(
+        thread_id, new_state, progress, data_dict=data_dict, region=region
+    )
+
+
+@app.post("/api/underwrite/two-tier/analyst/respond", response_model=TwoTierStateResponse)
+def two_tier_analyst_respond(request: TwoTierResponseRequest) -> TwoTierStateResponse:
+    """Submit Tier-1 internal analyst answers to the pending questions."""
+    if not request.responses:
+        raise HTTPException(status_code=400, detail="responses must not be empty")
+    return _resume_thread(request.thread_id, analyst_responses=request.responses)
+
+
+@app.post("/api/underwrite/two-tier/borrower/respond", response_model=TwoTierStateResponse)
+def two_tier_borrower_respond(request: TwoTierResponseRequest) -> TwoTierStateResponse:
+    """Submit Tier-2 borrower answers.
+
+    `mode="async"` triggers the lightweight async re-score path (does NOT
+    re-run the full pipeline). `mode="blocking"` (or omitted) folds answers
+    into a paused thread waiting on critical questions.
+    """
+    if not request.responses:
+        raise HTTPException(status_code=400, detail="responses must not be empty")
+    mode = (request.mode or "blocking").strip().lower()
+    if mode == "async":
+        payload = load_thread(request.thread_id)
+        if payload is None:
+            raise HTTPException(status_code=404, detail=f"Unknown thread_id: {request.thread_id}")
+        state = payload.get("state") or {}
+        new_state, summary = _async_rescore_node(state, request.responses)
+        save_thread(
+            request.thread_id,
+            new_state,
+            applicant_data=payload.get("applicant_data"),
+            region=payload.get("region"),
+        )
+        data_dict = payload.get("applicant_data") or {}
+        region = payload.get("region") or "India"
+        # Surface the async-rescore summary as a single progress event.
+        progress = [
+            {
+                "type": "progress",
+                "phase": "async_rescore",
+                "step": "async_rescore",
+                "label": "Async borrower re-score",
+                **summary,
+            }
+        ]
+        return _two_tier_response(
+            request.thread_id,
+            new_state,
+            progress,
+            data_dict=data_dict,
+            region=region,
+        )
+    return _resume_thread(request.thread_id, borrower_responses=request.responses)
+
+
+@app.get("/api/underwrite/two-tier/{thread_id}/questions")
+def two_tier_questions(thread_id: str, tier: Optional[str] = None) -> Dict[str, Any]:
+    """List pending questions for a thread, optionally filtered by tier."""
+    payload = load_thread(thread_id)
+    if payload is None:
+        raise HTTPException(status_code=404, detail=f"Unknown thread_id: {thread_id}")
+    state = payload.get("state") or {}
+    questions = list(state.get("questions", []) or [])
+    tier_filter = (tier or "").strip().lower()
+    if tier_filter == "analyst":
+        questions = [q for q in questions if q.get("status") == "pending"]
+    elif tier_filter == "borrower":
+        pending_b = set(
+            list(state.get("pending_borrower_qids_critical", []) or [])
+            + list(state.get("pending_borrower_qids_async", []) or [])
+        )
+        questions = [q for q in questions if q.get("id") in pending_b]
+    return {
+        "thread_id": thread_id,
+        "tier": tier_filter or "all",
+        "count": len(questions),
+        "questions": questions,
+    }
+
+
+@app.get("/api/underwrite/two-tier/{thread_id}", response_model=TwoTierStateResponse)
+def two_tier_state(thread_id: str) -> TwoTierStateResponse:
+    """Snapshot of a two-tier HITL thread (no flow execution)."""
+    payload = load_thread(thread_id)
+    if payload is None:
+        raise HTTPException(status_code=404, detail=f"Unknown thread_id: {thread_id}")
+    state = payload.get("state") or {}
+    data_dict = payload.get("applicant_data") or {}
+    region = payload.get("region") or "India"
+    return _two_tier_response(thread_id, state, [], data_dict=data_dict, region=region)
+
+
+@app.get("/api/underwrite/two-tier")
+def two_tier_threads() -> Dict[str, Any]:
+    """List all known two-tier threads with a summary."""
+    return {"threads": list_threads()}
+
+
+@app.delete("/api/underwrite/two-tier/{thread_id}")
+def two_tier_delete(thread_id: str) -> Response:
+    if not delete_thread(thread_id):
+        raise HTTPException(status_code=404, detail=f"Unknown thread_id: {thread_id}")
+    return Response(status_code=204)
 
 
 if __name__ == "__main__":
