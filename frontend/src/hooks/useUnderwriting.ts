@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { analyzeApplicationStream, getSampleData, resumeLangGraphFlow, startLangGraphFlow } from '@/lib/api';
+import { normalizeFinancialData } from '@/lib/normalizeFinancialData';
 import type {
   FinancialData,
   UnderwritingResult,
@@ -103,8 +104,15 @@ export function useUnderwriting() {
               pipelineActiveIndex: 3,
               pipelineLabel: 'Awaiting your clarification (LangGraph HITL)',
             }));
+            const flagged = started.hitl_context?.transaction;
+            const flaggedReason = started.hitl_context?.message ?? 'Suspicious transaction requires human clarification.';
+            const flaggedAmount =
+              typeof flagged?.amount === 'number' ? `Amount: ${flagged.amount.toLocaleString()}` : 'Amount: N/A';
+            const flaggedDate = flagged?.date ? `Date: ${flagged.date}` : 'Date: N/A';
+            const flaggedType = flagged?.type ? `Type: ${String(flagged.type)}` : 'Type: N/A';
+            const flaggedDescription = flagged?.description ? `Description: ${flagged.description}` : 'Description: N/A';
             const clarification = window.prompt(
-              'Human review required. Please explain the suspicious transaction:',
+              `Human review required.\n${flaggedReason}\n${flaggedDate}\n${flaggedAmount}\n${flaggedType}\n${flaggedDescription}\n\nPlease explain this flagged transaction:`,
               '',
             );
             if (!clarification || !clarification.trim()) {
@@ -196,7 +204,8 @@ export function useUnderwriting() {
 
   const loadSample = useCallback(async (): Promise<FinancialData | null> => {
     try {
-      return await getSampleData();
+      const raw = await getSampleData();
+      return normalizeFinancialData(raw as unknown);
     } catch {
       return null;
     }

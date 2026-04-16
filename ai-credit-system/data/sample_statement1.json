@@ -1,0 +1,121 @@
+{
+    "applicant_id": "SME-1029",
+    "fiscal_year": "2025-2026",
+    "currency": "USD",
+    "annual_summary": {
+      "total_annual_inflow": 3845000,
+      "total_annual_outflow": 2155000,
+      "net_cash_flow": 1690000,
+      "avg_monthly_inflow": 320416.67
+    },
+    "monthly_data": [
+      {
+        "month": "2025-04",
+        "total_inflow": 280000,
+        "total_outflow": 150000,
+        "major_transactions": [
+          {"date": "2025-04-10", "desc": "Retail Sales", "amount": 180000, "type": "credit"},
+          {"date": "2025-04-20", "desc": "Inventory Restock", "amount": 90000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2025-05",
+        "total_inflow": 295000,
+        "total_outflow": 160000,
+        "major_transactions": [
+          {"date": "2025-05-15", "desc": "Contract A Payment", "amount": 200000, "type": "credit"},
+          {"date": "2025-05-28", "desc": "Staff Salaries", "amount": 60000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2025-06",
+        "total_inflow": 310000,
+        "total_outflow": 185000,
+        "major_transactions": [
+          {"date": "2025-06-05", "desc": "Online Sales", "amount": 150000, "type": "credit"},
+          {"date": "2025-06-30", "desc": "Quarterly Tax Payment", "amount": 45000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2025-07",
+        "total_inflow": 275000,
+        "total_outflow": 140000,
+        "major_transactions": [
+          {"date": "2025-07-12", "desc": "Retail Revenue", "amount": 275000, "type": "credit"},
+          {"date": "2025-07-25", "desc": "Warehouse Rent", "amount": 30000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2025-08",
+        "total_inflow": 320000,
+        "total_outflow": 170000,
+        "major_transactions": [
+          {"date": "2025-08-08", "desc": "Partner Settlement", "amount": 220000, "type": "credit"},
+          {"date": "2025-08-20", "desc": "Equipment Leasing", "amount": 50000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2025-09",
+        "total_inflow": 305000,
+        "total_outflow": 210000,
+        "major_transactions": [
+          {"date": "2025-09-14", "desc": "Misc Sales", "amount": 305000, "type": "credit"},
+          {"date": "2025-09-28", "desc": "Bulk Raw Material", "amount": 110000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2025-10",
+        "total_inflow": 340000,
+        "total_outflow": 180000,
+        "major_transactions": [
+          {"date": "2025-10-05", "desc": "Festive Advance", "amount": 140000, "type": "credit"},
+          {"date": "2025-10-25", "desc": "Marketing Spend", "amount": 40000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2025-11",
+        "total_inflow": 360000,
+        "total_outflow": 190000,
+        "major_transactions": [
+          {"date": "2025-11-15", "desc": "Export Order 1", "amount": 360000, "type": "credit"},
+          {"date": "2025-11-20", "desc": "Logistics Fees", "amount": 55000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2025-12",
+        "total_inflow": 450000,
+        "total_outflow": 250000,
+        "major_transactions": [
+          {"date": "2025-12-24", "desc": "Holiday Peak Sales", "amount": 450000, "type": "credit"},
+          {"date": "2025-12-30", "desc": "Annual Bonuses", "amount": 100000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2026-01",
+        "total_inflow": 285000,
+        "total_outflow": 190000,
+        "major_transactions": [
+          {"date": "2026-01-10", "desc": "Subscription Renewals", "amount": 200000, "type": "credit"},
+          {"date": "2026-01-20", "desc": "Debt Service Payment", "amount": 65000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2026-02",
+        "total_inflow": 275000,
+        "total_outflow": 130000,
+        "major_transactions": [
+          {"date": "2026-02-14", "desc": "Direct Client Pay", "amount": 275000, "type": "credit"},
+          {"date": "2026-02-25", "desc": "Utility/Maintenance", "amount": 25000, "type": "debit"}
+        ]
+      },
+      {
+        "month": "2026-03",
+        "total_inflow": 365000,
+        "total_outflow": 200000,
+        "major_transactions": [
+          {"date": "2026-03-06", "desc": "Enterprise Payment", "amount": 135000, "type": "credit"},
+          {"date": "2026-03-31", "desc": "Year-End Audit Fee", "amount": 70000, "type": "debit"}
+        ]
+      }
+    ]
+  }

@@ -55,13 +55,14 @@ export function ResultsDashboard({ result, inputData, onHITLSubmit, loading }: R
       {/* Agent Logs */}
       <AgentLogs logs={result.agent_logs} />
 
-      {/* Crew Status */}
-      {result.crew_status && (
-        <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/40 bg-muted/10">
-          <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-          <span className="text-xs text-muted-foreground font-mono">{result.crew_status}</span>
-        </div>
-      )}
+      {/* Orchestration note: backend always sets crew_status; hide the benign "all OK" line. */}
+      {result.crew_status &&
+        result.crew_status !== 'CrewAI committee configured with 3 agents and chained tasks.' && (
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/40 bg-muted/10">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+            <span className="text-xs text-muted-foreground font-mono">{result.crew_status}</span>
+          </div>
+        )}
     </div>
   );
 }

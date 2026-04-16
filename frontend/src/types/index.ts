@@ -85,5 +85,16 @@ export interface LangGraphFlowResponse {
   label: string;
   logs: string[];
   decision: DecisionStatus;
+  hitl_context?: {
+    reason?: string;
+    message?: string;
+    threshold?: number;
+    transaction?: {
+      date?: string;
+      description?: string;
+      amount?: number;
+      type?: 'credit' | 'debit' | string;
+    };
+  } | null;
   result?: UnderwritingResult | null;
 }
