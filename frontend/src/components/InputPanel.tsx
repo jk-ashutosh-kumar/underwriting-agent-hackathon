@@ -39,6 +39,7 @@ export function InputPanel({ onRun, onReset, loading, hasResult }: InputPanelPro
   const [financialData, setFinancialData] = useState<FinancialData | null>(null);
   const [inputSource, setInputSource] = useState<InputSource>('none');
   const [fileNames, setFileNames] = useState<string[]>([]);
+  const [pendingFiles, setPendingFiles] = useState<File[]>([]);
   const [dragging, setDragging] = useState(false);
   const [parseError, setParseError] = useState<string | null>(null);
   const [parseComplete, setParseComplete] = useState(false);
@@ -94,6 +95,7 @@ export function InputPanel({ onRun, onReset, loading, hasResult }: InputPanelPro
         setInputSource('none');
       } finally {
         if (fileRef.current) fileRef.current.value = '';
+        setPendingFiles([]);
       }
     },
     [uploadAndAwaitExtraction, setWorkflowError, region, onRun],
@@ -109,10 +111,16 @@ export function InputPanel({ onRun, onReset, loading, hasResult }: InputPanelPro
         setParseError('Select a company before uploading documents.');
         return;
       }
-      const combined = dropped.slice(0, MAX_UPLOAD_FILES);
-      void submitCompanyIngest(combined);
+      if (dropped.length + pendingFiles.length > MAX_UPLOAD_FILES) {
+        setParseError(`You can upload at most ${MAX_UPLOAD_FILES} documents.`);
+        return;
+      }
+      const limited = dropped.slice(0, MAX_UPLOAD_FILES - pendingFiles.length);
+      const nextFiles = [...pendingFiles, ...limited];
+      setPendingFiles(nextFiles);
+      setFileNames(nextFiles.map((f) => f.name));
     },
-    [wf.selectedCompanyId, submitCompanyIngest],
+    [wf.selectedCompanyId, pendingFiles],
   );
 
   function handleRunManual() {
@@ -152,7 +160,7 @@ export function InputPanel({ onRun, onReset, loading, hasResult }: InputPanelPro
   );
 
   return (
-    <aside className="w-[min(100%,420px)] shrink-0 flex flex-col gap-4">
+    <aside className="flex min-w-0 w-full flex-col gap-4">
       <WorkflowStepBar current={visualStep} busyStep={busyStep} />
 
       {/* Companies */}
@@ -287,12 +295,87 @@ export function InputPanel({ onRun, onReset, loading, hasResult }: InputPanelPro
             disabled={!wf.selectedCompanyId || workflowBusy || loading}
             onChange={(e) => {
               const newFiles = Array.from(e.target.files ?? []);
-              if (newFiles.length > 0 && wf.selectedCompanyId) {
-                void submitCompanyIngest(newFiles.slice(0, MAX_UPLOAD_FILES));
+              if (!wf.selectedCompanyId || newFiles.length === 0) return;
+              if (newFiles.length + pendingFiles.length > MAX_UPLOAD_FILES) {
+                setParseError(`You can upload at most ${MAX_UPLOAD_FILES} documents.`);
+                return;
               }
+              const limited = newFiles.slice(0, MAX_UPLOAD_FILES - pendingFiles.length);
+              const nextFiles = [...pendingFiles, ...limited];
+              setPendingFiles(nextFiles);
+              setFileNames(nextFiles.map((f) => f.name));
             }}
           />
         </div>
+
+        {/* Uploaded documents list with remove actions */}
+        {pendingFiles.length > 0 && (
+          <div className="mt-3 space-y-2">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+              Selected documents ({pendingFiles.length}/{MAX_UPLOAD_FILES})
+            </p>
+            <ul className="space-y-1.5">
+              {pendingFiles.map((file, idx) => (
+                <li
+                  key={`${file.name}-${idx}`}
+                  className="flex items-center justify-between rounded-md border border-border/50 bg-background/60 px-2.5 py-1.5"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-xs text-foreground/90">{file.name}</p>
+                    <p className="text-[10px] text-muted-foreground">
+                      {(file.size / 1024).toFixed(1)} KB · {file.type || 'unknown'}
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6 text-muted-foreground hover:text-destructive"
+                    disabled={workflowBusy || loading}
+                    onClick={() => {
+                      const next = pendingFiles.filter((_, i) => i !== idx);
+                      setPendingFiles(next);
+                      setFileNames(next.map((f) => f.name));
+                    }}
+                    aria-label={`Remove ${file.name}`}
+                  >
+                    ×
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Run parser button — enabled only when exactly MAX_UPLOAD_FILES documents are selected */}
+        {wf.selectedCompanyId && pendingFiles.length > 0 && (
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <p className="text-[10px] text-muted-foreground">
+              {pendingFiles.length === MAX_UPLOAD_FILES
+                ? 'Ready to parse all documents.'
+                : `Add ${MAX_UPLOAD_FILES - pendingFiles.length} more document${
+                    MAX_UPLOAD_FILES - pendingFiles.length > 1 ? 's' : ''
+                  } to enable parsing.`}
+            </p>
+            <Button
+              size="sm"
+              className="gap-1.5 h-8 px-3"
+              onClick={() => void submitCompanyIngest(pendingFiles)}
+              disabled={workflowBusy || loading || pendingFiles.length !== MAX_UPLOAD_FILES}
+            >
+              {workflowBusy ? (
+                <>
+                  <Spinner className="w-3.5 h-3.5" />
+                  Parsing…
+                </>
+              ) : (
+                <>
+                  <Play className="w-3.5 h-3.5" />
+                  Run parser
+                </>
+              )}
+            </Button>
+          </div>
+        )}
 
         {wf.workflowHint && (
           <p className="text-[11px] text-muted-foreground border border-border/40 rounded-md px-2.5 py-2 bg-background/50 flex gap-2">

@@ -7,7 +7,7 @@ const WORKFLOW_STEPS = [
   { label: 'Data extraction', icon: Binary },
   { label: 'Data validation', icon: ShieldCheck },
   { label: 'Data analysis', icon: FileSearch },
-  { label: 'Integration & human review', icon: Check },
+  // { label: 'Integration & human review', icon: Check },
 ] as const;
 
 interface DocumentParseWorkflowProps {

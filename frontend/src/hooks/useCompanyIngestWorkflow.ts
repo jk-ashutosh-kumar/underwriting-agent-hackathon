@@ -5,7 +5,7 @@ import type { CaseDocument, CompanyCaseSummary, FinancialData, IngestResponse } 
 
 export const MAX_UPLOAD_FILES = 3;
 const POLL_MS = 1500;
-const EXTRACT_MAX_ATTEMPTS = 120;
+const EXTRACT_MAX_ATTEMPTS = 3;
 
 export type WorkflowUiPhase =
   | 'loading_companies'
@@ -159,7 +159,12 @@ export function useCompanyIngestWorkflow() {
     async (caseId: string, documentIds: string[], fileCount: number): Promise<FinancialData> => {
       for (let attempt = 0; attempt < EXTRACT_MAX_ATTEMPTS; attempt++) {
         if (abortRef.current) throw new Error('Workflow cancelled.');
-        const docs = await getCaseDocuments(caseId);
+        const docs = await getCaseDocuments(caseId, {
+          waitForTerminal: true,
+          documentIds,
+          timeoutSeconds: 180,
+          pollMs: POLL_MS,
+        });
         const tracked = documentIds
           .map((id) => docs.find((d) => d.document_id === id))
           .filter((d): d is CaseDocument => !!d);
@@ -193,7 +198,6 @@ export function useCompanyIngestWorkflow() {
           setWorkflowHint(
             `Processing documents… (${tracked.filter((d) => isExtractionSuccessStatus(d.status)).length}/${tracked.length} ready)`,
           );
-          await sleep(POLL_MS);
           continue;
         }
 
@@ -212,9 +216,19 @@ export function useCompanyIngestWorkflow() {
                 : `No bank-style statement could be built from successful documents. Failures: ${formatFailedDetails(failures)}`,
             );
           }
-          throw new Error(
-            'Extraction finished but no underwriting-compatible statement fields were returned.',
+
+          // Extraction succeeded but payload is not a bank-style statement (e.g. invoice).
+          // Allow the workflow to complete with a minimal empty statement so analysis can proceed.
+          setWorkflowHint(
+            'Extraction finished with non-statement data (e.g. invoice). Proceeding with an empty statement for analysis.',
           );
+          return {
+            applicant_id: undefined,
+            statement_month: undefined,
+            transactions: [],
+            total_inflow: 0,
+            total_outflow: 0,
+          };
         }
 
         if (failures.length > 0) {

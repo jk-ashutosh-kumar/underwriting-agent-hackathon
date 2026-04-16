@@ -78,7 +78,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(37,99,235,0.09),transparent_45%),radial-gradient(circle_at_80%_0%,rgba(14,165,233,0.07),transparent_38%)]" />
       <Header />
 
@@ -99,25 +99,37 @@ export default function App() {
         onCancel={handleHITLCancel}
       />
 
-      <main className="pt-14 min-h-screen flex flex-col relative">
-        <div className="flex-1 flex gap-4 px-6 py-6 max-w-[1760px] mx-auto w-full">
-          <InputPanel
-            onRun={handleRun}
-            onReset={reset}
-            loading={loading}
-            hasResult={!!result}
-          />
-          <div className="w-px bg-border/40 shrink-0" />
-          {result && showResults ? (
-            <ResultsDashboard
-              result={result}
-              inputData={lastData?.data ?? null}
-              onHITLSubmit={handleHITL}
+      <main className="relative pt-16">
+        {/* Sidebar: fixed on lg+; stacks above content on smaller screens */}
+        <aside
+          className="z-30 w-full border-b border-border/40 bg-card/95 backdrop-blur-md lg:fixed lg:top-16 lg:bottom-0 lg:left-0 lg:w-[420px] lg:border-b-0 lg:border-r lg:overflow-y-auto lg:overscroll-y-contain [scrollbar-gutter:stable]"
+        >
+          <div className="mx-auto w-full max-w-[420px] px-6 py-6 lg:mx-0 lg:max-w-none">
+            <InputPanel
+              onRun={handleRun}
+              onReset={reset}
               loading={loading}
+              hasResult={!!result}
             />
-          ) : (
-            <EmptyState />
-          )}
+          </div>
+        </aside>
+
+        {/* Main column: offset by sidebar width on lg+; only this region scrolls vertically */}
+        <div className="flex min-h-0 flex-col lg:ml-[420px] lg:h-[calc(100vh-4rem)]">
+          <div className="mx-auto flex min-h-0 w-full max-w-[1760px] flex-1 flex-col px-6 py-6">
+            <div className="min-h-0 flex-1 overflow-y-auto scroll-smooth overscroll-y-contain [scrollbar-gutter:stable]">
+              {result && showResults ? (
+                <ResultsDashboard
+                  result={result}
+                  inputData={lastData?.data ?? null}
+                  onHITLSubmit={handleHITL}
+                  loading={loading}
+                />
+              ) : (
+                <EmptyState />
+              )}
+            </div>
+          </div>
         </div>
       </main>
 

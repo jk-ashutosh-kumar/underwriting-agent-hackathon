@@ -113,7 +113,23 @@ export async function uploadCompanyDocuments(companyId: string, files: File[]): 
   return handleResponse<IngestResponse>(res);
 }
 
-export async function getCaseDocuments(caseId: string): Promise<CaseDocument[]> {
-  const res = await fetch(`${API_BASE}/api/case/${caseId}/documents`);
+interface GetCaseDocumentsOptions {
+  waitForTerminal?: boolean;
+  documentIds?: string[];
+  timeoutSeconds?: number;
+  pollMs?: number;
+}
+
+export async function getCaseDocuments(
+  caseId: string,
+  options: GetCaseDocumentsOptions = {},
+): Promise<CaseDocument[]> {
+  const params = new URLSearchParams();
+  if (options.waitForTerminal) params.set('wait_for_terminal', 'true');
+  if (options.documentIds?.length) params.set('document_ids', options.documentIds.join(','));
+  if (options.timeoutSeconds) params.set('timeout_seconds', String(options.timeoutSeconds));
+  if (options.pollMs) params.set('poll_ms', String(options.pollMs));
+  const query = params.toString();
+  const res = await fetch(`${API_BASE}/api/case/${caseId}/documents${query ? `?${query}` : ''}`);
   return handleResponse<CaseDocument[]>(res);
 }

@@ -6,6 +6,7 @@ import json
 import logging
 import os
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -58,6 +59,7 @@ except Exception as exc:  # pragma: no cover - safe fallback when langgraph deps
     iter_langgraph_flow_events = None  # type: ignore[assignment]
     run_langgraph_flow = None  # type: ignore[assignment]
 from ingestion.db import (
+    create_document,
     create_company,
     delete_company,
     get_document,
@@ -522,13 +524,37 @@ def get_document_output(case_id: str, document_id: str) -> DocumentSummary:
 def get_case_documents(
     case_id: str,
     doc_types: Optional[str] = None,
+    wait_for_terminal: bool = False,
+    document_ids: Optional[str] = None,
+    timeout_seconds: int = 180,
+    poll_ms: int = 2000,
 ) -> List[DocumentSummary]:
     """List documents in a case. Optionally filter by doc_types (comma-separated).
 
     Example: /api/case/{id}/documents?doc_types=bank_statement,salary_slip
     """
     type_filter = [t.strip() for t in doc_types.split(",")] if doc_types else None
-    docs = get_documents_by_case(case_id, type_filter)
+    tracked_ids = {d.strip() for d in document_ids.split(",") if d.strip()} if document_ids else set()
+
+    def _is_terminal(status: Optional[str]) -> bool:
+        s = (status or "").strip().lower()
+        return s in {"done", "completed", "success", "succeeded", "failed", "error"}
+
+    def _fetch_docs() -> List[dict]:
+        return get_documents_by_case(case_id, type_filter)
+
+    docs = _fetch_docs()
+    if wait_for_terminal:
+        poll_secs = max(0.5, poll_ms / 1000.0)
+        deadline = time.monotonic() + max(5, timeout_seconds)
+        while time.monotonic() < deadline:
+            relevant = [d for d in docs if not tracked_ids or str(d.get("document_id")) in tracked_ids]
+            if relevant and len(relevant) == (len(tracked_ids) or len(relevant)):
+                if all(_is_terminal(d.get("status")) for d in relevant):
+                    break
+            time.sleep(poll_secs)
+            docs = _fetch_docs()
+
     return [DocumentSummary(**d) for d in docs]
 
 
