@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: underwriting-api
+    runtime: python
+    rootDir: ai-credit-system
+    buildCommand: apt-get install -y poppler-utils && pip install -r requirements.txt
+    startCommand: uvicorn api_server:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: LOG_LEVEL
+        value: INFO
+      - key: USE_LANGGRAPH
+        value: "false"
+      # Set the following secrets in the Render dashboard (do not commit values):
+      # - OPENAI_API_KEY
+      # - SUPABASE_URL
+      # - SUPABASE_KEY

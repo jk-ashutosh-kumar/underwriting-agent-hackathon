@@ -87,9 +87,25 @@ logger = logging.getLogger(__name__)
 if LANGGRAPH_IMPORT_ERROR:
     logger.warning("langgraph_import_unavailable error=%s", LANGGRAPH_IMPORT_ERROR)
 
+CORS_ORIGINS = [
+    # Local development
+    "http://localhost:5173",
+    "http://localhost:3000",
+    # Vercel deployments — covers all preview + production URLs for this project.
+    # Replace <your-project> with your actual Vercel project name once deployed.
+    "https://underwriting-agent-hackathon.vercel.app",
+    # Wildcard for all Vercel preview URLs (*.vercel.app) is not supported by
+    # CORSMiddleware directly, so add specific preview URLs here as needed,
+    # or set CORS_ORIGINS env var to a comma-separated list at runtime.
+]
+
+_extra_origins = os.getenv("CORS_ORIGINS", "")
+if _extra_origins:
+    CORS_ORIGINS.extend(o.strip() for o in _extra_origins.split(",") if o.strip())
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
