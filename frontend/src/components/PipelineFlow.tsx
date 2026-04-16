@@ -55,7 +55,7 @@ export function PipelineFlow({
           const status = stepStatus(idx, activeIndex, done, skipped, step.id);
           return (
             <div key={step.id} className="flex items-center">
-              <div className="flex flex-col items-center gap-1 min-w-[56px]">
+              <div className="flex flex-col items-center gap-1 min-w-[14]">
                 <div
                   className={cn(
                     'flex items-center justify-center w-7 h-7 rounded-full border text-xs font-mono transition-all duration-500',
@@ -77,7 +77,7 @@ export function PipelineFlow({
                 </div>
                 <span
                   className={cn(
-                    'text-[10px] uppercase tracking-widest font-medium text-center max-w-[72px] leading-tight',
+                    'text-[10px] uppercase tracking-widest font-medium text-center max-w-[18] leading-tight',
                     status === 'done' && 'text-success',
                     status === 'active' && 'text-primary',
                     status === 'pending' && 'text-muted-foreground/40',
@@ -90,7 +90,7 @@ export function PipelineFlow({
               {idx < PIPELINE_STEPS.length - 1 && (
                 <div
                   className={cn(
-                    'w-8 sm:w-10 h-px mx-0.5 mt-[-18px] transition-all duration-700 shrink-0',
+                    'w-8 sm:w-10 h-px mx-0.5 mt-[-4.5] transition-all duration-700 shrink-0',
                     stepStatus(idx + 1, activeIndex, done, skipped, PIPELINE_STEPS[idx + 1].id) !== 'pending' || done
                       ? 'bg-primary/40'
                       : 'bg-border',

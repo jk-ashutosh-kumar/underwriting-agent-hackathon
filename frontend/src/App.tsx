@@ -56,7 +56,7 @@ export default function App() {
             />
           </div>
         )}
-        <div className="flex-1 flex gap-4 px-6 py-6 max-w-[1760px] mx-auto w-full">
+        <div className="flex-1 flex gap-4 px-6 py-6 max-w-[440] mx-auto w-full">
           <InputPanel
             onRun={handleRun}
             onLoadSample={loadSample}
