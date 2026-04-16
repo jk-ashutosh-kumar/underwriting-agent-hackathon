@@ -70,6 +70,7 @@ export function InsightsCharts({ result }: InsightsChartsProps) {
             <div>
               <p className="text-xl font-mono font-bold">{risk}%</p>
               <p className="text-xs text-muted-foreground mt-1">{getRiskBand(risk)} exposure</p>
+              <p className="text-[10px] text-muted-foreground/70 mt-0.5">Lower is better</p>
             </div>
           </div>
         </div>

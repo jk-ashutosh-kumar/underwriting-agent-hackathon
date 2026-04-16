@@ -5,61 +5,8 @@
     "note": "Late payments in December"
   },
   {
-    "input_data": {
-      "applicant_id": "SME-1029",
-      "statement_month": "2026-03",
-      "transactions": [
-        {
-          "date": "2026-03-01",
-          "description": "Retail Sales Deposit",
-          "amount": 95000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-06",
-          "description": "Enterprise Contract Payment",
-          "amount": 135000.0,
-          "type": "credit"
-        }
-      ],
-      "total_inflow": 230000.0,
-      "total_outflow": 0.0
-    },
-    "agent_outputs": {
-      "audit": {
-        "risk_score": 25,
-        "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
-        ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
-      },
-      "trend": {
-        "profit": 230000.0,
-        "trend": "shrinking",
-        "insight": "In India, inflow is 230000.00 and outflow is 0.00, so estimated profit is 230000.00. Growth ratio is 0.00, which I classify as 'shrinking' for this demo."
-      },
-      "benchmark": {
-        "benchmark_result": "Risk profile is closer to historically higher-risk partners",
-        "comparison_insight": "I reviewed 1 memory cases; 1 were high risk. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'."
-      },
-      "auditor": {
-        "risk_score": 25,
-        "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
-        ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
-      },
-      "final_summary": "Committee Summary (India): audit risk score is 25/100; growth trend is 'shrinking' with profit 230000.00; benchmark view: Risk profile is closer to historically higher-risk partners. Accounting signal used: Partner has 95% on-time payments.",
-      "mode": "deterministic",
-      "crew_status": "CrewAI import unavailable; running deterministic local committee logic."
-    },
-    "decision": "REJECTED",
-    "region": "India",
-    "risk_score": 23
-  },
-  {
-    "case_id": "case-1776276066",
-    "created_at": "2026-04-15T18:01:06.700281+00:00",
+    "case_id": "case-1776314646",
+    "created_at": "2026-04-16T04:44:06.817410+00:00",
     "input_data": {
       "applicant_id": "SME-1029",
       "statement_month": "2026-03",
@@ -118,307 +65,40 @@
     },
     "agent_outputs": {
       "audit": {
-        "risk_score": 25,
+        "risk_score": 75,
         "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
+          "large transaction detected",
+          "repeated exact amounts detected"
         ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
+        "explanation": "A large transaction of 135000.0 was recorded, exceeding the threshold of 100000.0. Additionally, the transaction amounts of 95000.0 and 73000.0 are close to the threshold, indicating potential manipulation or structuring to avoid detection.",
+        "mode": "llm"
       },
       "trend": {
         "profit": 235000.0,
         "trend": "growing",
-        "insight": "In India, inflow is 365000.00 and outflow is 130000.00, so estimated profit is 235000.00. Growth ratio is 2.81, which I classify as 'growing' for this demo."
+        "insight": "The significant difference between total inflow and outflow indicates a strong positive cash flow, suggesting that the business is expanding and effectively managing its expenses.",
+        "mode": "llm"
       },
       "benchmark": {
-        "benchmark_result": "Risk profile is closer to historically higher-risk partners",
-        "comparison_insight": "I reviewed 2 memory cases; 1 were high risk. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'."
+        "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+        "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+        "mode": "llm"
       },
       "auditor": {
-        "risk_score": 25,
+        "risk_score": 75,
         "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
+          "large transaction detected",
+          "repeated exact amounts detected"
         ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
+        "explanation": "A large transaction of 135000.0 was recorded, exceeding the threshold of 100000.0. Additionally, the transaction amounts of 95000.0 and 73000.0 are close to the threshold, indicating potential manipulation or structuring to avoid detection.",
+        "mode": "llm"
       },
-      "final_summary": "Committee Summary (India): audit risk score is 25/100; growth trend is 'growing' with profit 235000.00; benchmark view: Risk profile is closer to historically higher-risk partners. Accounting signal used: Partner has 95% on-time payments.",
-      "mode": "deterministic",
+      "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+      "mode": "llm",
       "crew_status": "CrewAI import unavailable; running deterministic local committee logic."
     },
     "decision": "REJECTED",
     "region": "India",
-    "risk_score": 23
-  },
-  {
-    "case_id": "case-1776276111",
-    "created_at": "2026-04-15T18:01:51.251427+00:00",
-    "input_data": {
-      "applicant_id": "SME-1029",
-      "statement_month": "2026-03",
-      "transactions": [
-        {
-          "date": "2026-03-01",
-          "description": "Retail Sales Deposit",
-          "amount": 95000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-03",
-          "description": "Raw Material Purchase",
-          "amount": 38000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-06",
-          "description": "Enterprise Contract Payment",
-          "amount": 135000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-08",
-          "description": "Salary Payout",
-          "amount": 52000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-12",
-          "description": "Utility Bills",
-          "amount": 12000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-14",
-          "description": "Online Sales Deposit",
-          "amount": 73000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-20",
-          "description": "Vendor Repayment",
-          "amount": 28000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-24",
-          "description": "Channel Partner Collection",
-          "amount": 62000.0,
-          "type": "credit"
-        }
-      ],
-      "total_inflow": 365000.0,
-      "total_outflow": 130000.0
-    },
-    "agent_outputs": {
-      "audit": {
-        "risk_score": 25,
-        "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
-        ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
-      },
-      "trend": {
-        "profit": 235000.0,
-        "trend": "growing",
-        "insight": "In India, inflow is 365000.00 and outflow is 130000.00, so estimated profit is 235000.00. Growth ratio is 2.81, which I classify as 'growing' for this demo."
-      },
-      "benchmark": {
-        "benchmark_result": "Risk profile is closer to historically stable partners",
-        "comparison_insight": "I reviewed 3 memory cases; 1 were high risk. This suggests the current case aligns with 'Risk profile is closer to historically stable partners'."
-      },
-      "auditor": {
-        "risk_score": 25,
-        "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
-        ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
-      },
-      "final_summary": "Committee Summary (India): audit risk score is 25/100; growth trend is 'growing' with profit 235000.00; benchmark view: Risk profile is closer to historically stable partners. Accounting signal used: Partner has 95% on-time payments.",
-      "mode": "deterministic",
-      "crew_status": "CrewAI import unavailable; running deterministic local committee logic."
-    },
-    "decision": "REJECTED",
-    "region": "India",
-    "risk_score": 23
-  },
-  {
-    "case_id": "case-1776276126",
-    "created_at": "2026-04-15T18:02:06.429351+00:00",
-    "input_data": {
-      "applicant_id": "SME-1029",
-      "statement_month": "2026-03",
-      "transactions": [
-        {
-          "date": "2026-03-01",
-          "description": "Retail Sales Deposit",
-          "amount": 95000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-03",
-          "description": "Raw Material Purchase",
-          "amount": 38000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-06",
-          "description": "Enterprise Contract Payment",
-          "amount": 135000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-08",
-          "description": "Salary Payout",
-          "amount": 52000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-12",
-          "description": "Utility Bills",
-          "amount": 12000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-14",
-          "description": "Online Sales Deposit",
-          "amount": 73000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-20",
-          "description": "Vendor Repayment",
-          "amount": 28000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-24",
-          "description": "Channel Partner Collection",
-          "amount": 62000.0,
-          "type": "credit"
-        }
-      ],
-      "total_inflow": 365000.0,
-      "total_outflow": 130000.0
-    },
-    "agent_outputs": {
-      "audit": {
-        "risk_score": 25,
-        "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
-        ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
-      },
-      "trend": {
-        "profit": 235000.0,
-        "trend": "growing",
-        "insight": "In India, inflow is 365000.00 and outflow is 130000.00, so estimated profit is 235000.00. Growth ratio is 2.81, which I classify as 'growing' for this demo."
-      },
-      "benchmark": {
-        "benchmark_result": "Risk profile is closer to historically stable partners",
-        "comparison_insight": "I reviewed 4 memory cases; 1 were high risk. This suggests the current case aligns with 'Risk profile is closer to historically stable partners'."
-      },
-      "auditor": {
-        "risk_score": 25,
-        "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
-        ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
-      },
-      "final_summary": "Committee Summary (India): audit risk score is 25/100; growth trend is 'growing' with profit 235000.00; benchmark view: Risk profile is closer to historically stable partners. Accounting signal used: Partner has 95% on-time payments.",
-      "mode": "deterministic",
-      "crew_status": "CrewAI import unavailable; running deterministic local committee logic."
-    },
-    "decision": "REJECTED",
-    "region": "India",
-    "risk_score": 23
-  },
-  {
-    "case_id": "case-1776304168",
-    "created_at": "2026-04-16T01:49:28.743135+00:00",
-    "input_data": {
-      "applicant_id": "SME-1029",
-      "statement_month": "2026-03",
-      "transactions": [
-        {
-          "date": "2026-03-01",
-          "description": "Retail Sales Deposit",
-          "amount": 95000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-03",
-          "description": "Raw Material Purchase",
-          "amount": 38000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-06",
-          "description": "Enterprise Contract Payment",
-          "amount": 135000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-08",
-          "description": "Salary Payout",
-          "amount": 52000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-12",
-          "description": "Utility Bills",
-          "amount": 12000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-14",
-          "description": "Online Sales Deposit",
-          "amount": 73000.0,
-          "type": "credit"
-        },
-        {
-          "date": "2026-03-20",
-          "description": "Vendor Repayment",
-          "amount": 28000.0,
-          "type": "debit"
-        },
-        {
-          "date": "2026-03-24",
-          "description": "Channel Partner Collection",
-          "amount": 62000.0,
-          "type": "credit"
-        }
-      ],
-      "total_inflow": 365000.0,
-      "total_outflow": 130000.0
-    },
-    "agent_outputs": {
-      "audit": {
-        "risk_score": 25,
-        "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
-        ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
-      },
-      "trend": {
-        "profit": 235000.0,
-        "trend": "growing",
-        "insight": "In India, inflow is 365000.00 and outflow is 130000.00, so estimated profit is 235000.00. Growth ratio is 2.81, which I classify as 'growing' for this demo."
-      },
-      "benchmark": {
-        "benchmark_result": "Risk profile is closer to historically stable partners",
-        "comparison_insight": "I reviewed 5 memory cases; 1 were high risk. This suggests the current case aligns with 'Risk profile is closer to historically stable partners'."
-      },
-      "auditor": {
-        "risk_score": 25,
-        "flags": [
-          "Large transaction flagged: Enterprise Contract Payment for 135000.00 (threshold 100000.00)."
-        ],
-        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior."
-      },
-      "final_summary": "Committee Summary (India): audit risk score is 25/100; growth trend is 'growing' with profit 235000.00; benchmark view: Risk profile is closer to historically stable partners. Accounting signal used: Partner has 95% on-time payments.",
-      "mode": "deterministic",
-      "crew_status": "CrewAI import unavailable; running deterministic local committee logic."
-    },
-    "decision": "REJECTED",
-    "region": "India",
-    "risk_score": 23
+    "risk_score": 69
   }
 ]

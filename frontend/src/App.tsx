@@ -10,7 +10,18 @@ import { useUnderwriting } from '@/hooks/useUnderwriting';
 import type { FinancialData } from '@/types';
 
 export default function App() {
-  const { step, result, error, loading, run, loadSample, reset } = useUnderwriting();
+  const {
+    result,
+    error,
+    loading,
+    run,
+    loadSample,
+    reset,
+    pipelineActiveIndex,
+    pipelineSkippedIds,
+    pipelineLabel,
+    pipelineDone,
+  } = useUnderwriting();
   const [lastData, setLastData] = useState<{ data: FinancialData; region: string } | null>(null);
 
   async function handleRun(data: FinancialData, region: string) {
@@ -33,9 +44,14 @@ export default function App() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(37,99,235,0.09),transparent_45%),radial-gradient(circle_at_80%_0%,rgba(14,165,233,0.07),transparent_38%)]" />
       <Header />
       <main className="pt-14 min-h-screen flex flex-col relative">
-        {step !== 'idle' && (
+        {(pipelineActiveIndex >= 0 || pipelineDone) && (
           <div className="border-b border-border/40 bg-muted/5 px-6 py-3">
-            <PipelineFlow currentStep={step} />
+            <PipelineFlow
+              activeIndex={pipelineDone ? 6 : pipelineActiveIndex}
+              skippedStepIds={pipelineSkippedIds}
+              done={pipelineDone}
+              progressLabel={pipelineLabel}
+            />
           </div>
         )}
         <div className="flex-1 flex gap-4 px-6 py-6 max-w-[1760px] mx-auto w-full">
