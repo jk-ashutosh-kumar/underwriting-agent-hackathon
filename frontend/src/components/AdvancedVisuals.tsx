@@ -176,12 +176,25 @@ export function AdvancedVisuals({ result, inputData }: AdvancedVisualsProps) {
           </p>
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-lg border border-border/60 bg-background/70 p-3">
-              <p className="text-xs text-muted-foreground">Human review</p>
-              <p className="text-lg font-semibold mt-1">{result.needs_hitl ? 'Required' : 'Not required'}</p>
+              <p className="text-xs text-muted-foreground">Cashflow trend</p>
+              <p className="text-lg font-semibold mt-1 capitalize">{result.trend.trend}</p>
+              {result.trend.growth_signal ? (
+                <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-muted-foreground">
+                  {result.trend.growth_signal}
+                </p>
+              ) : null}
             </div>
             <div className="rounded-lg border border-border/60 bg-background/70 p-3">
-              <p className="text-xs text-muted-foreground">Committee confidence</p>
-              <p className="text-lg font-mono mt-1">{result.committee_chair.confidence}%</p>
+              <p className="text-xs text-muted-foreground">Limit band midpoint</p>
+              <p className="text-lg font-mono mt-1">
+                {result.credit_limit != null &&
+                Number.isFinite(result.credit_limit.min_limit) &&
+                Number.isFinite(result.credit_limit.max_limit)
+                  ? ((result.credit_limit.min_limit + result.credit_limit.max_limit) / 2).toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })
+                  : '—'}
+              </p>
             </div>
             <div className="rounded-lg border border-border/60 bg-background/70 p-3">
               <p className="text-xs text-muted-foreground">Profit signal</p>

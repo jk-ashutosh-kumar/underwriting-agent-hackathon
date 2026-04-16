@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import type { UnderwritingResult } from '@/types';
-import { Activity, Scale, TrendingUp, TriangleAlert } from 'lucide-react';
+import { Scale, TrendingUp, TriangleAlert, Users } from 'lucide-react';
 import { RiskGauge } from './RiskGauge';
 import {
   ResponsiveContainer,
@@ -92,7 +92,10 @@ function SeverityBars({ flags }: { flags: string[] }) {
 }
 
 export function InsightsCharts({ result }: InsightsChartsProps) {
-  const confidence = result.decision_status === 'APPROVED' ? 86 : result.decision_status === 'REJECTED' ? 12 : 62;
+  const chairConfidence = Math.max(
+    0,
+    Math.min(100, Number(result.committee_chair?.confidence ?? 0)),
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
@@ -127,29 +130,32 @@ export function InsightsCharts({ result }: InsightsChartsProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="p-2 rounded-lg bg-accent/5">
-              <Activity className="w-4 h-4 text-accent" />
+              <Users className="w-4 h-4 text-accent" />
             </div>
-            <span className="text-sm font-semibold text-foreground">Decision Confidence</span>
+            <span className="text-sm font-semibold text-foreground">Chair synthesis confidence</span>
           </div>
         </div>
         <div className="flex-1 flex flex-col justify-center gap-4">
           <div className="relative h-4 w-full rounded-full bg-muted/30 overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 bg-linear-to-r from-primary to-accent transition-all duration-1000 ease-out rounded-full"
-              style={{ width: `${confidence}%` }}
+              style={{ width: `${chairConfidence}%` }}
             />
           </div>
-          <div className="flex justify-between items-end">
-            <div>
-              <p className="text-3xl font-mono font-bold text-foreground">{confidence}%</p>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">Confidence Score</p>
-            </div>
-            <div className="text-right">
-              <p className="text-xs font-semibold text-foreground">{result.decision_status}</p>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">Current Status</p>
-            </div>
+          <div>
+            <p className="text-3xl font-mono font-bold text-foreground">{chairConfidence}%</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">
+              Committee chair output
+            </p>
+            {/* <p className="mt-2 text-xs text-muted-foreground">
+              Routing outcome is shown elsewhere; this bar is only how sure the chair is about its narrative.
+            </p> */}
           </div>
         </div>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          This is the chair agent’s self-reported confidence in its written synthesis. It is not the model risk
+          score on the left, and it is not an approval probability.
+        </p>
       </div>
 
       <div className="group rounded-2xl border border-border/40 bg-card p-6 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex flex-col gap-4">
