@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from ingestion.db import update_document
 from ingestion.parser.bank_statement_parser import validate_bank_statement
+from ingestion.parser.credcheck_report_parser import merge_credcheck_pages
 from ingestion.state import DocumentState
 from webhooks import fire_extraction_completed
 
@@ -33,9 +34,14 @@ async def merge_node(state: DocumentState) -> DocumentState:
         return state
 
     try:
-        merged = deep_merge(state["page_outputs"])
+        doc_type = state["document_type"]
 
-        if state["document_type"] == "bank_statement":
+        if doc_type == "credcheck_report":
+            merged = merge_credcheck_pages(state["page_outputs"])
+        else:
+            merged = deep_merge(state["page_outputs"])
+
+        if doc_type == "bank_statement":
             merged = validate_bank_statement(merged)
 
         update_document(
