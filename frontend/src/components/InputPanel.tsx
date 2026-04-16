@@ -23,7 +23,8 @@ interface InputPanelProps {
 export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }: InputPanelProps) {
   const [region, setRegion] = useState<string>('India');
   const [financialData, setFinancialData] = useState<FinancialData | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [fileNames, setFileNames] = useState<string[]>([]);
   const [dragging, setDragging] = useState(false);
   const [parseError, setParseError] = useState<string | null>(null);
   const [parsing, setParsing] = useState(false);
@@ -43,7 +44,43 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
     };
   }, []);
 
-  async function parseFile(file: File) {
+  function mergeFinancialData(dataList: FinancialData[]): FinancialData {
+    const transactions = dataList.flatMap((d) => d.transactions ?? []);
+    const total_inflow = dataList.reduce((sum, d) => sum + d.total_inflow, 0);
+    const total_outflow = dataList.reduce((sum, d) => sum + d.total_outflow, 0);
+    const applicantIds = Array.from(new Set(dataList.map((d) => d.applicant_id).filter(Boolean)));
+    const statementMonths = Array.from(new Set(dataList.map((d) => d.statement_month).filter(Boolean)));
+
+    return {
+      applicant_id: applicantIds.length === 1 ? applicantIds[0] : undefined,
+      statement_month: statementMonths.length === 1 ? statementMonths[0] : undefined,
+      transactions,
+      total_inflow,
+      total_outflow,
+    };
+  }
+
+  async function parseSingleFile(file: File): Promise<FinancialData | null> {
+    const isJson = file.type === 'application/json' || file.name.toLowerCase().endsWith('.json');
+    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+
+    if (!isJson && !isPdf) {
+      throw new Error('Unsupported file type. Upload a .json or .pdf statement.');
+    }
+
+    if (isPdf) {
+      const parsed = await parseDocument(file.name, 'pdf');
+      return normalizeFinancialData(parsed);
+    }
+
+    const text = await file.text();
+    const raw = JSON.parse(text) as unknown;
+    return normalizeFinancialData(raw);
+  }
+
+  async function parseFiles(files: File[]) {
+    if (files.length === 0) return;
+    
     setParseError(null);
     setParsing(true);
     setParseStep(0);
@@ -57,65 +94,56 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
     }, 450);
 
     try {
-      const isJson = file.type === 'application/json' || file.name.toLowerCase().endsWith('.json');
-      const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-
-      if (!isJson && !isPdf) {
-        setParseError('Unsupported file type. Upload a .json or .pdf statement.');
+      if (files.length > 2) {
+        setParseError('You can upload at most 2 files at once.');
         return;
       }
 
-      if (isPdf) {
-        const parsed = await parseDocument(file.name, 'pdf');
-        const normalized = normalizeFinancialData(parsed);
+      const parsedData: FinancialData[] = [];
+      for (const file of files) {
+        const normalized = await parseSingleFile(file);
         if (!normalized) {
-          setParseError('Unable to parse PDF into financial statement data.');
+          setParseError(`Could not parse ${file.name}. Check file schema/content and retry.`);
           return;
         }
-        setFinancialData(normalized);
-        setFileName(file.name);
-        setParseStep(5);
-        setParseComplete(true);
-        return;
+        parsedData.push(normalized);
       }
 
-      const text = await file.text();
-      const raw = JSON.parse(text) as unknown;
-      const normalized = normalizeFinancialData(raw);
-      if (!normalized) {
-        setParseError('Invalid JSON schema. Required: transactions, total_inflow, total_outflow.');
-        return;
-      }
-      setFinancialData(normalized);
-      setFileName(file.name);
+      setFinancialData(mergeFinancialData(parsedData));
+      setFileNames(files.map((f) => f.name));
+      setSelectedFiles(files);
       setParseStep(5);
       setParseComplete(true);
     } catch {
-      setParseError('Could not read this file. Upload a valid .json or .pdf statement.');
+      setParseError('Could not read selected files. Upload valid .json/.pdf files (max 2).');
     } finally {
       if (workflowTimerRef.current) {
         window.clearInterval(workflowTimerRef.current);
         workflowTimerRef.current = null;
       }
       setParsing(false);
+      // Reset input value so same file can be selected again if purged
+      if (fileRef.current) fileRef.current.value = '';
     }
   }
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      void parseFile(file);
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    if (droppedFiles.length > 0) {
+      const combined = [...selectedFiles, ...droppedFiles].slice(0, 2);
+      void parseFiles(combined);
     }
-  }, []);
+  }, [selectedFiles]);
 
   async function handleUseSample() {
     setParseError(null);
     const data = await onLoadSample();
     if (data) {
       setFinancialData(data);
-      setFileName('sample_statement.json');
+      setFileNames(['sample_statement.json']);
+      setSelectedFiles([]); // Sample data doesn't have real File objects
     }
   }
 
@@ -125,7 +153,8 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
 
   function handleReset() {
     setFinancialData(null);
-    setFileName(null);
+    setFileNames([]);
+    setSelectedFiles([]);
     setParseError(null);
     setParseStep(0);
     setParseComplete(false);
@@ -149,7 +178,7 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
   }
 
   return (
-    <aside className="w-72 shrink-0 flex flex-col gap-4">
+    <aside className="w-64 shrink-0 flex flex-col gap-4">
       {/* Region */}
       <div className="rounded-xl border border-border/60 bg-elevated p-4 space-y-3">
         <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
@@ -181,32 +210,45 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
           className={cn(
             'rounded-lg border-2 border-dashed p-5 flex flex-col items-center justify-center gap-2 cursor-pointer transition-all duration-200',
             dragging ? 'border-primary bg-primary/5 scale-[0.99]' : 'border-border/50 hover:border-primary/40 hover:bg-muted/20',
-            fileName && 'border-success/40 bg-success/5',
+            fileNames.length > 0 && 'border-success/40 bg-success/5',
           )}
           onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
           onDragLeave={() => setDragging(false)}
           onDrop={handleDrop}
           onClick={() => fileRef.current?.click()}
         >
-          {fileName ? (
+          {fileNames.length > 0 ? (
             <>
-              <FileJson className="w-8 h-8 text-success" />
-              <span className="text-xs text-success font-medium text-center break-all">{fileName}</span>
+              {fileNames.some((name) => name.toLowerCase().endsWith('.pdf')) ? (
+                <FileText className="w-8 h-8 text-success" />
+              ) : (
+                <FileJson className="w-8 h-8 text-success" />
+              )}
+              <span className="text-xs text-success font-medium text-center break-all">
+                {fileNames.length === 1 ? fileNames[0] : `${fileNames.length} files selected`}
+              </span>
             </>
           ) : (
             <>
               <UploadCloud className="w-8 h-8 text-muted-foreground/40" />
               <span className="text-xs text-muted-foreground text-center">
-                Drop JSON/PDF file here<br />or click to upload
+                Drop up to 2 JSON/PDF files here<br />or click to upload
               </span>
             </>
           )}
           <input
             ref={fileRef}
             type="file"
+            multiple
             accept=".json,application/json,.pdf,application/pdf"
             className="hidden"
-            onChange={(e) => { const f = e.target.files?.[0]; if (f) void parseFile(f); }}
+            onChange={(e) => {
+              const newFiles = Array.from(e.target.files ?? []);
+              if (newFiles.length > 0) {
+                const combined = [...selectedFiles, ...newFiles].slice(0, 2);
+                void parseFiles(combined);
+              }
+            }}
           />
         </div>
 
@@ -333,13 +375,31 @@ export function InputPanel({ onRun, onLoadSample, onReset, loading, hasResult }:
         <div className="rounded-xl border border-border/60 bg-elevated p-4 space-y-2">
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground/60">Statement Preview</p>
           <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-            {fileName?.toLowerCase().endsWith('.pdf') ? (
+            {fileNames.some((name) => name.toLowerCase().endsWith('.pdf')) ? (
               <FileText className="w-3 h-3" />
             ) : (
               <FileJson className="w-3 h-3" />
             )}
-            <span className="truncate">{fileName}</span>
+            <span className="truncate">
+              {fileNames.length === 0
+                ? 'No file selected'
+                : fileNames.length === 1
+                  ? fileNames[0]
+                  : `${fileNames.length} files merged`}
+            </span>
           </div>
+          {fileNames.length > 1 && (
+            <div className="flex flex-wrap gap-1.5">
+              {fileNames.map((name) => (
+                <span
+                  key={name}
+                  className="text-[10px] px-1.5 py-1 rounded border border-border/50 bg-background/70 text-muted-foreground"
+                >
+                  {name}
+                </span>
+              ))}
+            </div>
+          )}
           {financialData.applicant_id && (
             <div className="flex justify-between">
               <span className="text-xs text-muted-foreground">Applicant</span>

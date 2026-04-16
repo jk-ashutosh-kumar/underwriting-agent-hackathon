@@ -6,6 +6,7 @@ import { AgentLogs } from './AgentLogs';
 import { HITLPanel } from './HITLPanel';
 import { InsightsCharts } from './InsightsCharts';
 import { ParsedDataCharts } from './ParsedDataCharts';
+import { AdvancedVisuals } from './AdvancedVisuals';
 import { Separator } from '@/components/ui/separator';
 
 interface ResultsDashboardProps {
@@ -32,6 +33,7 @@ export function ResultsDashboard({ result, inputData, onHITLSubmit, loading }: R
 
       <InsightsCharts result={result} />
       {inputData && <ParsedDataCharts data={inputData} />}
+      <AdvancedVisuals result={result} inputData={inputData} />
 
       {/* HITL Panel */}
       {result.needs_hitl && result.decision_status === 'FLAGGED' && (

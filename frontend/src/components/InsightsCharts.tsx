@@ -30,7 +30,7 @@ function buildMomentumPoints(profit: number, trend: UnderwritingResult['trend'][
 
 export function InsightsCharts({ result }: InsightsChartsProps) {
   const risk = Math.max(0, Math.min(100, result.risk_score));
-  const safe = 100 - risk;
+  const visibleRisk = risk === 0 ? 1.8 : risk;
   const confidence = getDecisionConfidence(result.decision_status);
   const flags = result.audit.flags.length;
   const highSeverity = Math.min(flags, 3);
@@ -55,15 +55,15 @@ export function InsightsCharts({ result }: InsightsChartsProps) {
           </div>
           <div className="flex items-center gap-4">
             <svg width="78" height="78" viewBox="0 0 42 42" className="-rotate-90">
-              <circle cx="21" cy="21" r="15.915" fill="none" stroke="currentColor" strokeWidth="4" className="text-muted/40" />
+              <circle cx="21" cy="21" r="15.915" fill="none" stroke="currentColor" strokeWidth="4.2" className="text-slate-300" />
               <circle
                 cx="21"
                 cy="21"
                 r="15.915"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="4"
-                strokeDasharray={`${risk} ${safe}`}
+                strokeWidth="4.2"
+                strokeDasharray={`${visibleRisk} ${Math.max(100 - visibleRisk, 0.1)}`}
                 className={cn(risk < 30 ? 'text-success' : risk < 60 ? 'text-warning' : 'text-destructive')}
               />
             </svg>
@@ -118,20 +118,23 @@ export function InsightsCharts({ result }: InsightsChartsProps) {
             <div className="flex items-center gap-2">
               <span className="w-10 text-xs text-muted-foreground">High</span>
               <div className="h-2.5 flex-1 rounded-full bg-muted/40 overflow-hidden">
-                <div className="h-full bg-destructive rounded-full" style={{ width: `${(highSeverity / 3) * 100}%` }} />
+                <div className="h-full bg-destructive rounded-full min-w-[2px]" style={{ width: `${(highSeverity / 3) * 100}%` }} />
               </div>
+              <span className="w-7 text-right text-[10px] text-muted-foreground">{highSeverity}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-10 text-xs text-muted-foreground">Med</span>
               <div className="h-2.5 flex-1 rounded-full bg-muted/40 overflow-hidden">
-                <div className="h-full bg-warning rounded-full" style={{ width: `${(mediumSeverity / 2) * 100}%` }} />
+                <div className="h-full bg-warning rounded-full min-w-[2px]" style={{ width: `${(mediumSeverity / 2) * 100}%` }} />
               </div>
+              <span className="w-7 text-right text-[10px] text-muted-foreground">{mediumSeverity}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-10 text-xs text-muted-foreground">Low</span>
               <div className="h-2.5 flex-1 rounded-full bg-muted/40 overflow-hidden">
-                <div className="h-full bg-primary rounded-full" style={{ width: `${Math.min(lowSeverity, 4) * 25}%` }} />
+                <div className="h-full bg-primary rounded-full min-w-[2px]" style={{ width: `${Math.min(lowSeverity, 4) * 25}%` }} />
               </div>
+              <span className="w-7 text-right text-[10px] text-muted-foreground">{lowSeverity}</span>
             </div>
           </div>
           <p className="text-xs text-muted-foreground">{flags} total flags detected</p>

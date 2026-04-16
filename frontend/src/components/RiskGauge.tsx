@@ -19,6 +19,7 @@ function getRiskLabel(score: number): string {
 export function RiskGauge({ score }: RiskGaugeProps) {
   const color = getRiskColor(score);
   const label = getRiskLabel(score);
+  const displayScore = Math.max(0, Math.min(100, score));
 
   // SVG arc gauge
   const radius = 54;
@@ -27,7 +28,7 @@ export function RiskGauge({ score }: RiskGaugeProps) {
   const startAngle = -210;
   const endAngle = 30;
   const totalAngle = endAngle - startAngle; // 240 degrees
-  const fillAngle = (score / 100) * totalAngle;
+  const fillAngle = (displayScore / 100) * totalAngle;
 
   function polarToCartesian(angle: number) {
     const rad = ((angle - 90) * Math.PI) / 180;
@@ -45,7 +46,7 @@ export function RiskGauge({ score }: RiskGaugeProps) {
   }
 
   const trackPath = describeArc(startAngle, endAngle);
-  const fillPath = score > 0 ? describeArc(startAngle, startAngle + fillAngle) : '';
+  const fillPath = displayScore > 0 ? describeArc(startAngle, startAngle + fillAngle) : '';
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -57,7 +58,7 @@ export function RiskGauge({ score }: RiskGaugeProps) {
           stroke="currentColor"
           strokeWidth="10"
           strokeLinecap="round"
-          className="text-muted/30"
+          className="text-slate-300"
         />
         {/* Fill */}
         {fillPath && (
@@ -81,7 +82,7 @@ export function RiskGauge({ score }: RiskGaugeProps) {
           fontFamily="'JetBrains Mono', monospace"
           style={{ filter: `drop-shadow(0 0 8px ${color}60)` }}
         >
-          {score}
+          {displayScore}
         </text>
         <text x={cx} y={cy + 24} textAnchor="middle" fill="#94A3B8" fontSize="9" fontFamily="inherit">
           / 100
