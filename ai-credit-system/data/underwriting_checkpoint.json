@@ -56,18 +56,49 @@
     "total_outflow": 130000.0
   },
   "region": "India",
-  "risk_score": 23,
+  "risk_score": 75,
   "agent_logs": [
-    "Auditor: I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
-    "Trend: In India, inflow is 365000.00 and outflow is 130000.00, so estimated profit is 235000.00. Growth ratio is 2.81, which I classify as 'growing' for this demo.",
-    "Benchmark: I reviewed 5 memory cases; 1 were high risk. This suggests the current case aligns with 'Risk profile is closer to historically stable partners'.",
-    "Committee: Committee Summary (India): audit risk score is 25/100; growth trend is 'growing' with profit 235000.00; benchmark view: Risk profile is closer to historically stable partners. Accounting signal used: Partner has 95% on-time payments.",
-    "Router: Large transaction 95000.00 above threshold 50000.00 -> FLAGGED.",
-    "HITL: User explanation captured -> No clarification provided",
-    "Resume: User clarified -> No clarification provided",
-    "Resume: Reduced risk score by 2 after clarification. New risk=23.",
-    "Decision: Final risk=23 -> REJECTED."
+    "Auditor: A large transaction of 135000.0 was recorded, exceeding the threshold of 100000.0. Additionally, the transaction amounts of 95000.0 and 73000.0 are close to the threshold, indicating potential manipulation or structuring to avoid detection.",
+    "Trend: The significant difference between total inflow and outflow indicates a strong positive cash flow, suggesting that the business is expanding and effectively managing its expenses.",
+    "Benchmark: Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+    "Committee: Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+    "Router: Large transaction 95000.00 above threshold 50000.00 -> FLAGGED."
   ],
-  "human_input": "No clarification provided",
-  "decision_status": "REJECTED"
+  "human_input": "approved because that transaction is related to a vendor invoice dated 23 march",
+  "decision_status": "FLAGGED",
+  "committee_output": {
+    "audit": {
+      "risk_score": 75,
+      "flags": [
+        "large transaction detected",
+        "repeated exact amounts detected"
+      ],
+      "explanation": "A large transaction of 135000.0 was recorded, exceeding the threshold of 100000.0. Additionally, the transaction amounts of 95000.0 and 73000.0 are close to the threshold, indicating potential manipulation or structuring to avoid detection.",
+      "mode": "llm"
+    },
+    "trend": {
+      "profit": 235000.0,
+      "trend": "growing",
+      "insight": "The significant difference between total inflow and outflow indicates a strong positive cash flow, suggesting that the business is expanding and effectively managing its expenses.",
+      "mode": "llm"
+    },
+    "benchmark": {
+      "benchmark_result": "The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.",
+      "comparison_insight": "Given the historical pattern of late payments associated with ABC Ltd, it is advisable to approach the current underwriting case with caution, potentially requiring stricter payment terms or additional collateral to mitigate the identified risk.",
+      "mode": "llm"
+    },
+    "auditor": {
+      "risk_score": 75,
+      "flags": [
+        "large transaction detected",
+        "repeated exact amounts detected"
+      ],
+      "explanation": "A large transaction of 135000.0 was recorded, exceeding the threshold of 100000.0. Additionally, the transaction amounts of 95000.0 and 73000.0 are close to the threshold, indicating potential manipulation or structuring to avoid detection.",
+      "mode": "llm"
+    },
+    "final_summary": "Committee Summary (India): audit risk score is 75/100; growth trend is 'growing' with profit 235000.00; benchmark view: The current underwriting case presents a high risk similar to historical memory entries, specifically with ABC Ltd, which has a noted history of late payments in December.. Accounting signal used: Partner has 95% on-time payments.",
+    "mode": "llm",
+    "crew_status": "CrewAI import unavailable; running deterministic local committee logic."
+  },
+  "route": "hitl"
 }

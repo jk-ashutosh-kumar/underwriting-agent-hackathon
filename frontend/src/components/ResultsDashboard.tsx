@@ -23,6 +23,7 @@ export function ResultsDashboard({ result, inputData, onHITLSubmit, loading }: R
         {/* Risk Gauge */}
         <div className="rounded-xl border border-border/60 bg-elevated px-6 py-4 flex flex-col items-center justify-center gap-1">
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-semibold">Risk Score</p>
+          <p className="text-[10px] text-muted-foreground/70">Lower is better</p>
           <RiskGauge score={result.risk_score} />
         </div>
         {/* Decision Banner */}

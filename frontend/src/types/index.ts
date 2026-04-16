@@ -55,6 +55,7 @@ export interface AnalyzeRequest {
   data: FinancialData;
   region: string;
   human_response?: string;
+  thread_id?: string;
 }
 
 export interface PersistenceDebug {
@@ -63,4 +64,26 @@ export interface PersistenceDebug {
   last_case_timestamp?: string | null;
   last_checkpoint_decision_status?: string | null;
   last_checkpoint_risk_score?: number | null;
+}
+
+/** NDJSON progress line from ``POST /api/underwrite/stream``. */
+export interface FlowProgressPayload {
+  type: 'progress';
+  phase: string;
+  step: string;
+  label: string;
+  active_index: number;
+  route?: string;
+  skipped_steps?: string[];
+  human_in_loop?: boolean;
+}
+
+export interface LangGraphFlowResponse {
+  status: 'COMPLETED' | 'NEEDS_INPUT';
+  thread_id: string;
+  active_index: number;
+  label: string;
+  logs: string[];
+  decision: DecisionStatus;
+  result?: UnderwritingResult | null;
 }

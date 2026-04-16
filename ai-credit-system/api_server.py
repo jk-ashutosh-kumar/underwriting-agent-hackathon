@@ -45,9 +45,18 @@ logging.basicConfig(
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-from graph.flow import run_underwriting_flow
+from graph.flow import iter_underwriting_flow_events, run_underwriting_flow
+LANGGRAPH_IMPORT_ERROR: Optional[str] = None
+try:
+    # Optional migration path: fallback to legacy flow if LangGraph imports fail.
+    from graph.adapter import iter_langgraph_flow_events, run_langgraph_flow
+except Exception as exc:  # pragma: no cover - safe fallback when langgraph deps are unavailable
+    LANGGRAPH_IMPORT_ERROR = f"{type(exc).__name__}: {exc}"
+    iter_langgraph_flow_events = None  # type: ignore[assignment]
+    run_langgraph_flow = None  # type: ignore[assignment]
 from ingestion.parser import parse_document
 from memory.checkpoint import load_checkpoint
 from memory.store import load_memory
@@ -55,6 +64,8 @@ from memory.store import save_case
 
 app = FastAPI(title="AI Credit Underwriting API", version="1.0.0")
 logger = logging.getLogger(__name__)
+if LANGGRAPH_IMPORT_ERROR:
+    logger.warning("langgraph_import_unavailable error=%s", LANGGRAPH_IMPORT_ERROR)
 
 app.add_middleware(
     CORSMiddleware,
@@ -67,6 +78,74 @@ app.add_middleware(
 SAMPLE_DATA_FILE = ROOT_DIR / "data" / "sample_statement.json"
 REGIONAL_RULES_FILE = ROOT_DIR / "data" / "regional_rules.json"
 CASES_MEMORY_FILE = ROOT_DIR / "data" / "cases_memory.json"
+USE_LANGGRAPH = os.getenv("USE_LANGGRAPH", "false").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _crew_output_from_state(state: Dict[str, Any], data_dict: Dict[str, Any], region: str) -> Dict[str, Any]:
+    """Use committee output cached on state when present to avoid duplicate LLM calls."""
+    cached = state.get("committee_output")
+    if isinstance(cached, dict) and cached:
+        return cached
+    from agents.crew import run_crew
+
+    return run_crew(data_dict, region=region)
+
+
+def _build_underwriting_response(
+    state: Dict[str, Any],
+    data_dict: Dict[str, Any],
+    region: str,
+) -> UnderwritingResponse:
+    """Build API response model from flow state + crew outputs."""
+    crew_out = _crew_output_from_state(state, data_dict, region)
+    audit_data = crew_out.get("audit", crew_out.get("auditor", {}))
+    trend_data = crew_out.get("trend", {})
+    benchmark_data = crew_out.get("benchmark", {})
+
+    decision_status = state.get("decision_status", "PENDING")
+    needs_hitl = decision_status == "FLAGGED"
+
+    case_payload = {
+        "case_id": f"case-{int(datetime.now(timezone.utc).timestamp())}",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "input_data": data_dict,
+        "agent_outputs": crew_out,
+        "decision": decision_status,
+        "region": region,
+        "risk_score": int(state.get("risk_score", audit_data.get("risk_score", 0))),
+    }
+    save_case(case_payload)
+    logger.info("case_saved_to_memory_store")
+
+    return UnderwritingResponse(
+        risk_score=int(state.get("risk_score", audit_data.get("risk_score", 0))),
+        decision_status=decision_status,
+        agent_logs=state.get("agent_logs", []),
+        audit=AuditResult(
+            risk_score=int(audit_data.get("risk_score", 0)),
+            flags=audit_data.get("flags", []),
+            explanation=audit_data.get("explanation", ""),
+            mode=audit_data.get("mode"),
+            llm_error=audit_data.get("llm_error"),
+        ),
+        trend=TrendResult(
+            profit=float(trend_data.get("profit", 0)),
+            trend=trend_data.get("trend", "stable"),
+            insight=trend_data.get("insight", ""),
+            mode=trend_data.get("mode"),
+            llm_error=trend_data.get("llm_error"),
+        ),
+        benchmark=BenchmarkResult(
+            benchmark_result=benchmark_data.get("benchmark_result", ""),
+            comparison_insight=benchmark_data.get("comparison_insight", ""),
+            mode=benchmark_data.get("mode"),
+            llm_error=benchmark_data.get("llm_error"),
+        ),
+        final_summary=crew_out.get("final_summary", ""),
+        crew_status=crew_out.get("crew_status", ""),
+        crew_mode=crew_out.get("mode"),
+        needs_hitl=needs_hitl,
+    )
 
 
 # --------------------------------------------------------------------------- #
@@ -92,6 +171,7 @@ class AnalyzeRequest(BaseModel):
     data: FinancialData
     region: str = "India"
     human_response: Optional[str] = ""
+    thread_id: Optional[str] = None
 
 
 class ParseDocumentRequest(BaseModel):
@@ -133,6 +213,16 @@ class UnderwritingResponse(BaseModel):
     crew_status: str
     crew_mode: Optional[str] = None
     needs_hitl: bool
+
+
+class LangGraphFlowResponse(BaseModel):
+    status: str  # COMPLETED | NEEDS_INPUT
+    thread_id: str
+    active_index: int
+    label: str
+    logs: List[str]
+    decision: str
+    result: Optional[UnderwritingResponse] = None
 
 
 class PersistenceDebugResponse(BaseModel):
@@ -225,75 +315,215 @@ def underwrite(request: AnalyzeRequest) -> UnderwritingResponse:
     """Run the full underwriting flow and return structured results."""
     try:
         data_dict = request.data.model_dump()
+        if USE_LANGGRAPH and run_langgraph_flow is not None:
+            # Keep API response stable by auto-resuming HITL when no explicit input is supplied.
+            lg_result = run_langgraph_flow(
+                data=data_dict,
+                region=request.region,
+                human_input=request.human_response or None,
+                thread_id=request.thread_id,
+                auto_resume=True,
+            )
+            state = lg_result["state"]
+        else:
+            state = run_underwriting_flow(
+                data=data_dict,
+                region=request.region,
+                interactive=False,
+                human_response=request.human_response or "",
+            )
+        return _build_underwriting_response(state, data_dict, request.region)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.post("/api/underwrite/stream")
+def underwrite_stream(request: AnalyzeRequest) -> StreamingResponse:
+    """
+    Run underwriting flow while streaming LangGraph-style progress as NDJSON.
+
+    Each line is one JSON object. Progress lines have ``type: "progress"``.
+    The final line has ``type: "result"`` and includes the full underwriting payload.
+    """
+    data_dict = request.data.model_dump()
+    region = request.region
+    human_response = request.human_response or ""
+
+    def event_generator():
+        final_state: Dict[str, Any] | None = None
+        try:
+            event_iter = (
+                iter_langgraph_flow_events(
+                    data_dict,
+                    region,
+                    human_input=human_response or None,
+                    thread_id=request.thread_id,
+                    auto_resume=True,
+                )
+                if USE_LANGGRAPH and iter_langgraph_flow_events is not None
+                else iter_underwriting_flow_events(
+                    data_dict,
+                    region,
+                    interactive=False,
+                    human_response=human_response,
+                )
+            )
+            logger.info(
+                "underwrite_stream_path mode=%s thread_id=%s",
+                "langgraph" if USE_LANGGRAPH and iter_langgraph_flow_events is not None else "legacy",
+                request.thread_id,
+            )
+            for event in event_iter:
+                if event.get("type") == "complete":
+                    final_state = event.get("state")
+                    continue
+                yield json.dumps(event, ensure_ascii=False) + "\n"
+            if final_state is None:
+                err = {"type": "error", "message": "Flow completed without final state"}
+                yield json.dumps(err, ensure_ascii=False) + "\n"
+                return
+            response = _build_underwriting_response(final_state, data_dict, region)
+            yield json.dumps(
+                {"type": "result", "payload": json.loads(response.model_dump_json())},
+                ensure_ascii=False,
+            ) + "\n"
+        except Exception as exc:
+            yield json.dumps({"type": "error", "message": str(exc)}, ensure_ascii=False) + "\n"
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="application/x-ndjson",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+@app.post("/api/underwrite/langgraph/start", response_model=LangGraphFlowResponse)
+def underwrite_langgraph_start(request: AnalyzeRequest) -> LangGraphFlowResponse:
+    """Start a LangGraph underwriting thread and pause on HITL if needed."""
+    if not USE_LANGGRAPH or run_langgraph_flow is None:
+        logger.warning(
+            "langgraph_start_fallback_to_legacy USE_LANGGRAPH=%s import_error=%s",
+            USE_LANGGRAPH,
+            LANGGRAPH_IMPORT_ERROR or "none",
+        )
+        data_dict = request.data.model_dump()
         state = run_underwriting_flow(
             data=data_dict,
             region=request.region,
             interactive=False,
             human_response=request.human_response or "",
         )
+        result = _build_underwriting_response(state, data_dict, request.region)
+        return LangGraphFlowResponse(
+            status="COMPLETED",
+            thread_id=request.thread_id or "legacy-fallback",
+            active_index=6,
+            label="Completed via legacy flow fallback",
+            logs=state.get("agent_logs", []),
+            decision=str(state.get("decision_status", "PENDING")),
+            result=result,
+        )
 
-        audit = state.get("audit", {})
-        trend = state.get("trend", {})
-        benchmark = state.get("benchmark", {})
-        committee = state.get("committee_output", {})
-
-        # Fallback: extract from agent_logs if direct keys not on state
-        # run_underwriting_flow returns UnderwritingState which may embed
-        # committee output inside agent_logs. Re-run crew directly for structured
-        # agent outputs.
-        from agents.crew import run_crew
-
-        crew_out = run_crew(data_dict, region=request.region)
-        audit_data = crew_out.get("audit", crew_out.get("auditor", {}))
-        trend_data = crew_out.get("trend", {})
-        benchmark_data = crew_out.get("benchmark", {})
-
-        decision_status = state.get("decision_status", "PENDING")
-        needs_hitl = decision_status == "FLAGGED"
-
-        # Persist each API-run case so frontend usage also updates memory store.
-        case_payload = {
-            "case_id": f"case-{int(datetime.now(timezone.utc).timestamp())}",
-            "created_at": datetime.now(timezone.utc).isoformat(),
-            "input_data": data_dict,
-            "agent_outputs": crew_out,
-            "decision": decision_status,
-            "region": request.region,
-            "risk_score": int(state.get("risk_score", audit_data.get("risk_score", 0))),
-        }
-        save_case(case_payload)
-        logger.info("case_saved_to_memory_store")
-
-        return UnderwritingResponse(
-            risk_score=int(state.get("risk_score", audit_data.get("risk_score", 0))),
-            decision_status=decision_status,
-            agent_logs=state.get("agent_logs", []),
-            audit=AuditResult(
-                risk_score=int(audit_data.get("risk_score", 0)),
-                flags=audit_data.get("flags", []),
-                explanation=audit_data.get("explanation", ""),
-                mode=audit_data.get("mode"),
-                llm_error=audit_data.get("llm_error"),
-            ),
-            trend=TrendResult(
-                profit=float(trend_data.get("profit", 0)),
-                trend=trend_data.get("trend", "stable"),
-                insight=trend_data.get("insight", ""),
-                mode=trend_data.get("mode"),
-                llm_error=trend_data.get("llm_error"),
-            ),
-            benchmark=BenchmarkResult(
-                benchmark_result=benchmark_data.get("benchmark_result", ""),
-                comparison_insight=benchmark_data.get("comparison_insight", ""),
-                mode=benchmark_data.get("mode"),
-                llm_error=benchmark_data.get("llm_error"),
-            ),
-            final_summary=crew_out.get("final_summary", ""),
-            crew_status=crew_out.get("crew_status", ""),
-            crew_mode=crew_out.get("mode"),
-            needs_hitl=needs_hitl,
+    data_dict = request.data.model_dump()
+    logger.info("langgraph_start_received region=%s thread_id=%s", request.region, request.thread_id)
+    try:
+        payload = run_langgraph_flow(
+            data=data_dict,
+            region=request.region,
+            human_input=None,
+            thread_id=request.thread_id,
+            auto_resume=False,
+        )
+        state = payload["state"]
+        logger.info(
+            "langgraph_start_executed status=%s thread_id=%s decision=%s",
+            payload["status"],
+            payload["thread_id"],
+            state.get("decision_status"),
+        )
+        result: Optional[UnderwritingResponse] = None
+        if payload["status"] == "COMPLETED":
+            result = _build_underwriting_response(state, data_dict, request.region)
+        return LangGraphFlowResponse(
+            status=payload["status"],
+            thread_id=payload["thread_id"],
+            active_index=int(payload.get("active_index", 3)),
+            label=str(payload.get("label", "LangGraph execution")),
+            logs=list(payload.get("logs", [])),
+            decision=str(payload.get("decision", "PENDING")),
+            result=result,
         )
     except Exception as exc:
+        logger.exception("langgraph_start_failed")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.post("/api/underwrite/langgraph/resume", response_model=LangGraphFlowResponse)
+def underwrite_langgraph_resume(request: AnalyzeRequest) -> LangGraphFlowResponse:
+    """Resume a paused LangGraph underwriting thread with human clarification."""
+    if not USE_LANGGRAPH or run_langgraph_flow is None:
+        logger.warning(
+            "langgraph_resume_fallback_to_legacy USE_LANGGRAPH=%s import_error=%s",
+            USE_LANGGRAPH,
+            LANGGRAPH_IMPORT_ERROR or "none",
+        )
+        data_dict = request.data.model_dump()
+        state = run_underwriting_flow(
+            data=data_dict,
+            region=request.region,
+            interactive=False,
+            human_response=request.human_response or "",
+        )
+        result = _build_underwriting_response(state, data_dict, request.region)
+        return LangGraphFlowResponse(
+            status="COMPLETED",
+            thread_id=request.thread_id or "legacy-fallback",
+            active_index=6,
+            label="Completed via legacy flow fallback",
+            logs=state.get("agent_logs", []),
+            decision=str(state.get("decision_status", "PENDING")),
+            result=result,
+        )
+    if not request.thread_id:
+        raise HTTPException(status_code=400, detail="thread_id is required for LangGraph resume")
+
+    data_dict = request.data.model_dump()
+    clarification = (request.human_response or "").strip()
+    if not clarification:
+        raise HTTPException(status_code=400, detail="human_response is required for LangGraph resume")
+    logger.info("langgraph_resume_received thread_id=%s", request.thread_id)
+    try:
+        payload = run_langgraph_flow(
+            data=data_dict,
+            region=request.region,
+            human_input=clarification,
+            thread_id=request.thread_id,
+            auto_resume=False,
+        )
+        state = payload["state"]
+        logger.info(
+            "langgraph_resume_executed status=%s thread_id=%s decision=%s",
+            payload["status"],
+            payload["thread_id"],
+            state.get("decision_status"),
+        )
+        result: Optional[UnderwritingResponse] = None
+        if payload["status"] == "COMPLETED":
+            result = _build_underwriting_response(state, data_dict, request.region)
+        return LangGraphFlowResponse(
+            status=payload["status"],
+            thread_id=payload["thread_id"],
+            active_index=int(payload.get("active_index", 3)),
+            label=str(payload.get("label", "LangGraph execution")),
+            logs=list(payload.get("logs", [])),
+            decision=str(payload.get("decision", "PENDING")),
+            result=result,
+        )
+    except Exception as exc:
+        logger.exception("langgraph_resume_failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
