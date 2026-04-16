@@ -1,9 +1,9 @@
 services:
   - type: web
     name: underwriting-api
-    runtime: python
-    buildCommand: apt-get install -y poppler-utils && pip install -r ai-credit-system/requirements.txt
-    startCommand: cd ai-credit-system && uvicorn api_server:app --host 0.0.0.0 --port $PORT
+    runtime: docker
+    dockerfilePath: ai-credit-system/Dockerfile
+    dockerContext: ai-credit-system
     envVars:
       - key: PORT
         value: 10000
