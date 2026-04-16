@@ -696,447 +696,57 @@ KeyError: 'tools'
 2026-04-16 11:08:31,396 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-a79c213f5f66 route=hitl decision=REJECTED
 2026-04-16 11:08:31,396 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-a79c213f5f66 decision=REJECTED
 2026-04-16 11:08:31,398 INFO [api_server] case_saved_to_memory_store
-2026-04-16 11:17:35,319 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 11:17:35,319 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-58c92e6e25fa
-2026-04-16 11:17:35,320 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-58c92e6e25fa region=India
-2026-04-16 11:17:38,349 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:17:38,353 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 11:17:39,735 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:17:39,737 INFO [agents.trend] trend_llm_completed
-2026-04-16 11:17:45,955 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:17:45,956 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 11:17:45,957 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-58c92e6e25fa
-2026-04-16 11:17:45,957 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-58c92e6e25fa decision=FLAGGED
-2026-04-16 11:17:50,891 INFO [api_server] langgraph_resume_received thread_id=lg-58c92e6e25fa
-2026-04-16 11:17:50,891 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-58c92e6e25fa
-2026-04-16 11:17:50,891 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-58c92e6e25fa
-2026-04-16 11:17:50,893 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-58c92e6e25fa route=hitl decision=REJECTED
-2026-04-16 11:17:50,893 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-58c92e6e25fa decision=REJECTED
-2026-04-16 11:17:50,897 INFO [api_server] case_saved_to_memory_store
-2026-04-16 11:18:23,614 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 11:18:23,614 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-54dfb28b139f
-2026-04-16 11:18:23,614 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-54dfb28b139f region=India
-2026-04-16 11:18:25,887 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:18:25,901 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 11:18:28,261 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:18:28,262 INFO [agents.trend] trend_llm_completed
-2026-04-16 11:18:28,262 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-54dfb28b139f
-2026-04-16 11:18:28,262 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-54dfb28b139f decision=FLAGGED
-2026-04-16 11:18:51,529 INFO [api_server] langgraph_resume_received thread_id=lg-54dfb28b139f
-2026-04-16 11:18:51,529 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-54dfb28b139f
-2026-04-16 11:18:51,529 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-54dfb28b139f
-2026-04-16 11:18:51,531 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-54dfb28b139f route=hitl decision=REJECTED
-2026-04-16 11:18:51,531 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-54dfb28b139f decision=REJECTED
-2026-04-16 11:18:51,532 INFO [api_server] case_saved_to_memory_store
-2026-04-16 11:19:09,812 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 11:19:09,812 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-356f5aa31eb5
-2026-04-16 11:19:09,812 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-356f5aa31eb5 region=India
-2026-04-16 11:19:12,130 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:19:12,306 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 11:19:13,818 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:19:13,819 INFO [agents.trend] trend_llm_completed
-2026-04-16 11:19:15,097 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:19:15,097 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 11:19:15,098 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-356f5aa31eb5
-2026-04-16 11:19:15,098 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-356f5aa31eb5 decision=FLAGGED
-2026-04-16 11:19:18,684 INFO [api_server] langgraph_resume_received thread_id=lg-356f5aa31eb5
-2026-04-16 11:19:18,684 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-356f5aa31eb5
-2026-04-16 11:19:18,685 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-356f5aa31eb5
-2026-04-16 11:19:18,686 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-356f5aa31eb5 route=hitl decision=REJECTED
-2026-04-16 11:19:18,687 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-356f5aa31eb5 decision=REJECTED
-2026-04-16 11:19:18,688 INFO [api_server] case_saved_to_memory_store
-2026-04-16 11:19:43,997 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 11:19:43,998 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-f4e668dc5c35
-2026-04-16 11:19:43,998 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-f4e668dc5c35 region=India
-2026-04-16 11:19:45,785 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:19:45,787 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 11:19:47,197 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:19:47,202 INFO [agents.trend] trend_llm_completed
-2026-04-16 11:19:48,284 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:19:48,293 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 11:19:48,293 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-f4e668dc5c35 route=approve decision=APPROVED
-2026-04-16 11:19:48,293 INFO [api_server] langgraph_start_executed status=COMPLETED thread_id=lg-f4e668dc5c35 decision=APPROVED
-2026-04-16 11:19:48,294 INFO [api_server] case_saved_to_memory_store
-2026-04-16 11:28:16,903 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 11:28:16,903 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-720267039958
-2026-04-16 11:28:16,903 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-720267039958 region=India
-2026-04-16 11:28:18,692 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:28:18,703 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 11:28:20,259 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:28:20,260 INFO [agents.trend] trend_llm_completed
-2026-04-16 11:28:22,379 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:28:22,380 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 11:28:22,381 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-720267039958 route=approve decision=APPROVED
-2026-04-16 11:28:22,381 INFO [api_server] langgraph_start_executed status=COMPLETED thread_id=lg-720267039958 decision=APPROVED
-2026-04-16 11:28:22,383 INFO [api_server] case_saved_to_memory_store
-2026-04-16 11:30:15,500 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 11:30:15,500 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-a67dd01a22d3
-2026-04-16 11:30:15,500 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-a67dd01a22d3 region=India
-2026-04-16 11:30:17,483 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:30:17,483 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 11:30:18,738 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:30:18,747 INFO [agents.trend] trend_llm_completed
-2026-04-16 11:30:21,518 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:30:21,526 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 11:30:21,526 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-a67dd01a22d3
-2026-04-16 11:30:21,527 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-a67dd01a22d3 decision=FLAGGED
-2026-04-16 11:30:31,621 INFO [api_server] langgraph_resume_received thread_id=lg-a67dd01a22d3
-2026-04-16 11:30:31,621 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-a67dd01a22d3
-2026-04-16 11:30:31,621 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-a67dd01a22d3
-2026-04-16 11:30:31,622 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-a67dd01a22d3 route=hitl decision=REJECTED
-2026-04-16 11:30:31,622 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-a67dd01a22d3 decision=REJECTED
-2026-04-16 11:30:31,623 INFO [api_server] case_saved_to_memory_store
-2026-04-16 11:52:46,832 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 11:52:46,833 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-4e334db35cec
-2026-04-16 11:52:46,833 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-4e334db35cec region=India
-2026-04-16 11:52:50,397 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:52:50,400 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 11:52:52,137 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:52:52,138 INFO [agents.trend] trend_llm_completed
-2026-04-16 11:52:55,052 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:52:55,054 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 11:52:55,054 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-4e334db35cec
-2026-04-16 11:52:55,054 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-4e334db35cec decision=FLAGGED
-2026-04-16 11:52:58,953 INFO [api_server] langgraph_resume_received thread_id=lg-4e334db35cec
-2026-04-16 11:52:58,953 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-4e334db35cec
-2026-04-16 11:52:58,953 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-4e334db35cec
-2026-04-16 11:52:58,956 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-4e334db35cec route=hitl decision=REJECTED
-2026-04-16 11:52:58,956 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-4e334db35cec decision=REJECTED
-2026-04-16 11:52:58,960 INFO [api_server] case_saved_to_memory_store
-2026-04-16 11:59:29,431 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 11:59:29,431 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-02d23907215f
-2026-04-16 11:59:29,431 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-02d23907215f region=India
-2026-04-16 11:59:32,273 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:59:32,287 WARNING [agents.crew] crewai_kickoff_failed: AccountingModuleTool.run() got an unexpected keyword argument 'verbose'
-2026-04-16 11:59:35,912 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:59:35,913 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 11:59:37,846 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:59:37,846 INFO [agents.trend] trend_llm_completed
-2026-04-16 11:59:41,475 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:59:41,479 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 11:59:45,120 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 11:59:45,129 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-02d23907215f
-2026-04-16 11:59:45,129 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-02d23907215f decision=FLAGGED
-2026-04-16 11:59:48,428 INFO [api_server] langgraph_resume_received thread_id=lg-02d23907215f
-2026-04-16 11:59:48,429 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-02d23907215f
-2026-04-16 11:59:48,429 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-02d23907215f
-2026-04-16 11:59:48,430 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-02d23907215f route=hitl decision=REJECTED
-2026-04-16 11:59:48,430 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-02d23907215f decision=REJECTED
-2026-04-16 11:59:48,431 INFO [api_server] case_saved_to_memory_store
-2026-04-16 12:03:01,798 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:03:01,798 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-14ee45556e1c
-2026-04-16 12:03:01,798 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-14ee45556e1c region=India
-2026-04-16 12:03:04,375 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:08,196 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:13,505 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:18,358 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:24,169 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:29,183 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:38,011 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:40,017 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:42,082 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:45,344 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:46,795 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:48,155 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:50,742 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:03:54,497 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:01,969 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:03,579 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:06,118 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:10,969 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:14,682 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:19,565 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:22,069 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:28,752 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:52,832 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:04:52,832 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-ce96d809fc68
-2026-04-16 12:04:52,832 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-ce96d809fc68 region=India
-2026-04-16 12:04:56,505 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:58,038 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:04:59,655 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:02,577 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:04,635 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:07,343 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:13,245 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:16,884 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:20,225 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:25,182 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:30,462 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:34,673 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:40,106 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:43,145 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:47,691 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:51,292 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:53,852 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:05:56,306 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:06:00,006 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:06:02,892 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:06:06,176 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:06:09,300 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:06:13,774 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:06:16,643 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:07:15,302 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:07:15,302 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6cde62f0b909
-2026-04-16 12:07:15,302 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-6cde62f0b909 region=India
-2026-04-16 12:07:15,525 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-6cde62f0b909
-2026-04-16 12:07:15,525 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-6cde62f0b909 decision=FLAGGED
-2026-04-16 12:07:18,126 INFO [api_server] langgraph_resume_received thread_id=lg-6cde62f0b909
-2026-04-16 12:07:18,126 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-6cde62f0b909
-2026-04-16 12:07:18,126 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-6cde62f0b909
-2026-04-16 12:07:18,128 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-6cde62f0b909 route=hitl decision=APPROVED
-2026-04-16 12:07:18,130 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-6cde62f0b909 decision=APPROVED
-2026-04-16 12:07:18,135 INFO [api_server] case_saved_to_memory_store
-2026-04-16 12:08:06,516 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:08:06,516 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-93fa2f787b16
-2026-04-16 12:08:06,516 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-93fa2f787b16 region=India
-2026-04-16 12:08:09,497 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:12,172 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:14,453 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:17,256 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:19,947 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:25,689 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:29,849 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:35,631 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:38,311 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:39,613 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:41,501 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:43,677 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:45,973 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:47,611 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:49,264 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:51,236 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:53,111 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:55,205 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:08:59,914 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:09:02,766 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:09:02,782 WARNING [agents.crew] crewai_kickoff_failed: cannot schedule new futures after interpreter shutdown
-2026-04-16 12:09:05,732 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:09:05,734 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 12:11:45,636 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:11:45,637 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-bb26840bd1e5
-2026-04-16 12:11:45,637 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-bb26840bd1e5 region=India
-2026-04-16 12:11:45,638 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=true
-2026-04-16 12:11:48,929 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:11:51,383 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:11:54,954 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:11:58,126 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:12:00,915 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:12:02,813 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:12:05,421 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:12:13,373 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:12:17,281 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:12:21,710 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:26,056 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:13:26,057 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-246c004ab4ee
-2026-04-16 12:13:26,057 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-246c004ab4ee region=India
-2026-04-16 12:13:26,057 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=true
-2026-04-16 12:13:29,275 WARNING [agents.crew] crewai_kickoff_timeout after 3.0s
-2026-04-16 12:13:30,484 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:32,406 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:32,411 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 12:13:33,573 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:34,088 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:34,088 INFO [agents.trend] trend_llm_completed
-2026-04-16 12:13:37,288 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:37,289 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 12:13:38,795 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:40,586 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:40,589 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-246c004ab4ee
-2026-04-16 12:13:40,589 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-246c004ab4ee decision=FLAGGED
-2026-04-16 12:13:41,304 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:44,377 INFO [api_server] langgraph_resume_received thread_id=lg-246c004ab4ee
-2026-04-16 12:13:44,377 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-246c004ab4ee
-2026-04-16 12:13:44,378 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-246c004ab4ee
-2026-04-16 12:13:44,380 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-246c004ab4ee route=hitl decision=REJECTED
-2026-04-16 12:13:44,381 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-246c004ab4ee decision=REJECTED
-2026-04-16 12:13:44,386 INFO [api_server] case_saved_to_memory_store
-2026-04-16 12:13:46,167 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:48,972 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:50,426 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:52,515 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:55,569 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:13:57,649 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:00,589 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:02,951 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:10,324 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:13,015 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:15,639 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:17,657 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:19,684 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:22,707 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:25,594 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:28,542 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:31,414 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:34,047 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:36,657 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:39,168 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:44,884 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:47,740 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:52,433 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:14:57,988 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:06,940 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:11,590 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:13,359 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:18,271 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:23,005 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:25,605 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:32,361 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:36,329 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:40,838 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:42,564 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:48,162 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:52,705 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:15:59,298 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:16:04,397 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:16:10,750 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:16:19,157 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:16:23,162 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:16:30,917 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:01,736 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:18:01,737 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-5b50a8e728ae
-2026-04-16 12:18:01,737 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-5b50a8e728ae region=India
-2026-04-16 12:18:01,738 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=true
-2026-04-16 12:18:04,785 WARNING [agents.crew] crewai_kickoff_timeout after 3.0s
-2026-04-16 12:18:07,959 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:07,964 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 12:18:09,979 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:09,980 INFO [agents.trend] trend_llm_completed
-2026-04-16 12:18:10,614 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:13,112 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:13,113 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 12:18:13,948 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:17,427 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:17,428 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-5b50a8e728ae
-2026-04-16 12:18:17,428 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-5b50a8e728ae decision=FLAGGED
-2026-04-16 12:18:18,107 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:19,914 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:22,875 INFO [api_server] langgraph_resume_received thread_id=lg-5b50a8e728ae
-2026-04-16 12:18:22,876 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-5b50a8e728ae
-2026-04-16 12:18:22,876 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-5b50a8e728ae
-2026-04-16 12:18:22,877 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-5b50a8e728ae route=hitl decision=REJECTED
-2026-04-16 12:18:22,877 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-5b50a8e728ae decision=REJECTED
-2026-04-16 12:18:22,879 INFO [api_server] case_saved_to_memory_store
-2026-04-16 12:18:23,252 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:25,724 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:29,695 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:31,742 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:33,938 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:36,896 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:39,165 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:42,297 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:43,841 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:46,412 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:53,969 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:54,769 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:18:54,770 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-07adac7fa4df
-2026-04-16 12:18:54,770 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-07adac7fa4df region=India
-2026-04-16 12:18:54,770 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=true
-2026-04-16 12:18:57,135 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:57,577 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:57,813 WARNING [agents.crew] crewai_kickoff_timeout after 3.0s
-2026-04-16 12:18:59,856 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:18:59,858 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 12:19:00,993 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:01,545 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:01,546 INFO [agents.trend] trend_llm_completed
-2026-04-16 12:19:02,587 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:03,738 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:05,651 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:05,672 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:05,677 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 12:19:07,494 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:09,648 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:09,650 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-07adac7fa4df route=approve decision=APPROVED
-2026-04-16 12:19:09,650 INFO [api_server] langgraph_start_executed status=COMPLETED thread_id=lg-07adac7fa4df decision=APPROVED
-2026-04-16 12:19:09,655 INFO [api_server] case_saved_to_memory_store
-2026-04-16 12:19:10,096 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:13,235 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:13,258 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:14,836 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:17,312 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:18,740 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:19,265 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:21,112 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:22,751 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:22,779 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:25,001 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:25,634 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:26,445 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:29,628 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:31,799 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:32,681 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:34,702 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:39,286 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:40,662 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:42,913 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:43,534 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:46,448 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:47,478 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:47,847 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:19:47,847 INFO [openai._base_client] Retrying request to /chat/completions in 1.668000 seconds
-2026-04-16 12:19:50,550 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:50,843 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:19:50,843 INFO [openai._base_client] Retrying request to /chat/completions in 4.416000 seconds
-2026-04-16 12:19:55,842 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:58,765 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:59,096 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:19:59,140 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:19:59,140 INFO [openai._base_client] Retrying request to /chat/completions in 1.650000 seconds
-2026-04-16 12:19:59,343 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:19:59,344 INFO [openai._base_client] Retrying request to /chat/completions in 3.570000 seconds
-2026-04-16 12:20:03,218 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:20:03,219 INFO [openai._base_client] Retrying request to /chat/completions in 1.800000 seconds
-2026-04-16 12:20:03,324 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:20:03,903 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:20:03,903 INFO [openai._base_client] Retrying request to /chat/completions in 0.858000 seconds
-2026-04-16 12:20:07,503 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:20:07,816 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:20:07,816 INFO [openai._base_client] Retrying request to /chat/completions in 2.502000 seconds
-2026-04-16 12:20:10,605 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:20:10,606 INFO [openai._base_client] Retrying request to /chat/completions in 0.900000 seconds
-2026-04-16 12:20:14,262 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:20:14,301 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:20:14,580 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:20:14,581 INFO [openai._base_client] Retrying request to /chat/completions in 5.268000 seconds
-2026-04-16 12:20:16,193 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:20:16,508 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:20:16,508 INFO [openai._base_client] Retrying request to /chat/completions in 1.116000 seconds
-2026-04-16 12:20:20,665 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:20:20,665 INFO [openai._base_client] Retrying request to /chat/completions in 5.226000 seconds
-2026-04-16 12:20:24,373 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:20:26,229 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
-2026-04-16 12:20:31,473 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:20:33,959 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:23:37,192 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:23:37,192 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-4f06f62d3b18
-2026-04-16 12:23:37,192 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-4f06f62d3b18 region=India
-2026-04-16 12:23:37,193 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
-2026-04-16 12:23:39,167 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:23:39,178 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 12:23:41,097 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:23:41,098 INFO [agents.trend] trend_llm_completed
-2026-04-16 12:23:43,596 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:23:43,600 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 12:23:46,709 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:23:46,716 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-4f06f62d3b18 route=approve decision=APPROVED
-2026-04-16 12:23:46,716 INFO [api_server] langgraph_start_executed status=COMPLETED thread_id=lg-4f06f62d3b18 decision=APPROVED
-2026-04-16 12:23:46,719 INFO [api_server] case_saved_to_memory_store
-2026-04-16 12:27:19,724 INFO [api_server] langgraph_start_received region=India thread_id=None
-2026-04-16 12:27:19,725 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-5872a43b2f04
-2026-04-16 12:27:19,725 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-5872a43b2f04 region=India
-2026-04-16 12:27:19,725 INFO [agents.crew] run_crew_start use_llm=True use_crewai_kickoff=false
-2026-04-16 12:27:23,014 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:27:23,016 INFO [agents.auditor] auditor_llm_completed
-2026-04-16 12:27:25,163 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:27:25,167 INFO [agents.trend] trend_llm_completed
-2026-04-16 12:27:27,723 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:27:27,727 INFO [agents.benchmark] benchmark_llm_completed
-2026-04-16 12:27:33,790 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-04-16 12:27:33,794 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-5872a43b2f04
-2026-04-16 12:27:33,794 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-5872a43b2f04 decision=FLAGGED
-2026-04-16 12:27:39,447 INFO [api_server] langgraph_resume_received thread_id=lg-5872a43b2f04
-2026-04-16 12:27:39,447 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-5872a43b2f04
-2026-04-16 12:27:39,447 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-5872a43b2f04
-2026-04-16 12:27:39,449 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-5872a43b2f04 route=hitl decision=REJECTED
-2026-04-16 12:27:39,449 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-5872a43b2f04 decision=REJECTED
-2026-04-16 12:27:39,452 INFO [api_server] case_saved_to_memory_store
+2026-04-16 13:16:30,821 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 13:16:30,822 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-dd3c9da29951
+2026-04-16 13:16:30,822 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-dd3c9da29951 region=India
+2026-04-16 13:16:30,824 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 13:16:33,118 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:16:33,126 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 13:16:34,595 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:16:34,595 INFO [agents.trend] trend_llm_completed
+2026-04-16 13:16:37,373 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:16:37,374 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 13:16:37,375 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-dd3c9da29951
+2026-04-16 13:16:37,375 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-dd3c9da29951 decision=FLAGGED
+2026-04-16 13:16:40,831 INFO [api_server] langgraph_resume_received thread_id=lg-dd3c9da29951
+2026-04-16 13:16:40,832 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-dd3c9da29951
+2026-04-16 13:16:40,832 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-dd3c9da29951
+2026-04-16 13:16:40,833 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-dd3c9da29951 route=hitl decision=REJECTED
+2026-04-16 13:16:40,833 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-dd3c9da29951 decision=REJECTED
+2026-04-16 13:16:40,835 INFO [api_server] case_saved_to_memory_store
+2026-04-16 13:31:57,491 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 13:31:57,491 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-75d310c77f33
+2026-04-16 13:31:57,491 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-75d310c77f33 region=India
+2026-04-16 13:31:57,496 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 13:32:01,021 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:32:01,022 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 13:32:02,855 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:32:02,857 INFO [agents.trend] trend_llm_completed
+2026-04-16 13:32:13,703 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:32:13,705 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 13:32:13,706 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-75d310c77f33
+2026-04-16 13:32:13,706 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-75d310c77f33 decision=FLAGGED
+2026-04-16 13:32:19,232 INFO [api_server] langgraph_resume_received thread_id=lg-75d310c77f33
+2026-04-16 13:32:19,232 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-75d310c77f33
+2026-04-16 13:32:19,232 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-75d310c77f33
+2026-04-16 13:32:19,232 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-75d310c77f33 route=hitl decision=REJECTED
+2026-04-16 13:32:19,232 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-75d310c77f33 decision=REJECTED
+2026-04-16 13:32:19,236 INFO [api_server] case_saved_to_memory_store
+2026-04-16 13:48:36,488 INFO [api_server] langgraph_start_received region=India thread_id=None
+2026-04-16 13:48:36,489 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-53c1bd6e937f
+2026-04-16 13:48:36,489 INFO [graph.langgraph_app] langgraph_invoke_start_legacy thread_id=lg-53c1bd6e937f region=India
+2026-04-16 13:48:36,496 WARNING [agents.crew] crewai_import_failed: unsupported operand type(s) for |: 'type' and 'NoneType'
+2026-04-16 13:48:38,259 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:48:38,261 INFO [agents.auditor] auditor_llm_completed
+2026-04-16 13:48:40,312 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:48:40,312 INFO [agents.trend] trend_llm_completed
+2026-04-16 13:48:47,356 INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-16 13:48:47,364 INFO [agents.benchmark] benchmark_llm_completed
+2026-04-16 13:48:47,365 INFO [graph.langgraph_app] langgraph_paused_for_hitl_legacy thread_id=lg-53c1bd6e937f
+2026-04-16 13:48:47,366 INFO [api_server] langgraph_start_executed status=NEEDS_INPUT thread_id=lg-53c1bd6e937f decision=FLAGGED
+2026-04-16 13:48:59,252 INFO [api_server] langgraph_resume_received thread_id=lg-53c1bd6e937f
+2026-04-16 13:48:59,252 WARNING [graph.langgraph_app] langgraph_state_api_unavailable_using_fallback thread_id=lg-53c1bd6e937f
+2026-04-16 13:48:59,253 INFO [graph.langgraph_app] langgraph_invoke_resume_legacy thread_id=lg-53c1bd6e937f
+2026-04-16 13:48:59,254 INFO [graph.langgraph_app] langgraph_completed thread_id=lg-53c1bd6e937f route=hitl decision=REJECTED
+2026-04-16 13:48:59,254 INFO [api_server] langgraph_resume_executed status=COMPLETED thread_id=lg-53c1bd6e937f decision=REJECTED
+2026-04-16 13:48:59,258 INFO [api_server] case_saved_to_memory_store

@@ -1,34 +1,46 @@
-import type { FinancialData, UnderwritingResult } from '@/types';
-import { RiskGauge } from './RiskGauge';
-import { AuditorCard, TrendCard, BenchmarkCard } from './AgentCard';
-import { DecisionBanner } from './DecisionBanner';
-import { AgentLogs } from './AgentLogs';
-import { HITLPanel } from './HITLPanel';
-import { InsightsCharts } from './InsightsCharts';
-import { ParsedDataCharts } from './ParsedDataCharts';
-import { AdvancedVisuals } from './AdvancedVisuals';
-import { Separator } from '@/components/ui/separator';
+import type { FinancialData, UnderwritingResult } from "@/types"
+import { RiskGauge } from "./RiskGauge"
+import { AuditorCard, TrendCard, BenchmarkCard } from "./AgentCard"
+import { DecisionBanner } from "./DecisionBanner"
+import { AgentLogs } from "./AgentLogs"
+import { HITLPanel } from "./HITLPanel"
+import { InsightsCharts } from "./InsightsCharts"
+import { ParsedDataCharts } from "./ParsedDataCharts"
+import { Separator } from "@/components/ui/separator"
+import { AdvancedVisuals } from "./AdvancedVisuals"
 
 interface ResultsDashboardProps {
-  result: UnderwritingResult;
-  inputData: FinancialData | null;
-  onHITLSubmit: (response: string) => void;
-  loading: boolean;
+  result: UnderwritingResult
+  inputData: FinancialData | null
+  onHITLSubmit: (response: string) => void
+  loading: boolean
 }
 
-export function ResultsDashboard({ result, inputData, onHITLSubmit, loading }: ResultsDashboardProps) {
+export function ResultsDashboard({
+  result,
+  inputData,
+  onHITLSubmit,
+  loading,
+}: ResultsDashboardProps) {
   return (
-    <div className="flex-1 space-y-5 min-w-0">
+    <div className="min-w-0 flex-1 space-y-5">
       {/* Risk + Decision row */}
-      <div className="grid grid-cols-[auto_1fr] gap-4 items-stretch">
+      <div className="grid grid-cols-[auto_1fr] items-stretch gap-4">
         {/* Risk Gauge */}
-        <div className="rounded-xl border border-border/60 bg-elevated px-6 py-4 flex flex-col items-center justify-center gap-1">
-          <p className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-semibold">Risk Score</p>
-          <p className="text-[10px] text-muted-foreground/70">Lower is better</p>
+        <div className="flex flex-col items-center justify-center gap-1 rounded-xl border border-border/60 bg-elevated px-6 py-4">
+          <p className="text-[10px] font-semibold tracking-widest text-muted-foreground/60 uppercase">
+            Risk Score
+          </p>
+          <p className="text-[10px] text-muted-foreground/70">
+            Lower is better
+          </p>
           <RiskGauge score={result.risk_score} />
         </div>
         {/* Decision Banner */}
-        <DecisionBanner status={result.decision_status} finalSummary={result.final_summary} />
+        <DecisionBanner
+          status={result.decision_status}
+          finalSummary={result.final_summary}
+        />
       </div>
 
       <InsightsCharts result={result} />
@@ -36,7 +48,7 @@ export function ResultsDashboard({ result, inputData, onHITLSubmit, loading }: R
       <AdvancedVisuals result={result} inputData={inputData} />
 
       {/* HITL Panel */}
-      {result.needs_hitl && result.decision_status === 'FLAGGED' && (
+      {result.needs_hitl && result.decision_status === "FLAGGED" && (
         <HITLPanel onSubmit={onHITLSubmit} loading={loading} />
       )}
 
@@ -95,10 +107,10 @@ export function ResultsDashboard({ result, inputData, onHITLSubmit, loading }: R
 
       {/* Agent Cards */}
       <div>
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-semibold mb-3">
+        <p className="mb-3 text-[10px] font-semibold tracking-widest text-muted-foreground/60 uppercase">
           Agent Committee Output
         </p>
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 xl:grid-cols-3">
           <AuditorCard data={result.audit} />
           <TrendCard data={result.trend} />
           <BenchmarkCard data={result.benchmark} />
@@ -109,13 +121,13 @@ export function ResultsDashboard({ result, inputData, onHITLSubmit, loading }: R
       <AgentLogs logs={result.agent_logs} />
 
       {/* Orchestration note: backend always sets crew_status; hide the benign "all OK" line. */}
-      {result.crew_status &&
+      {/* {result.crew_status &&
         result.crew_status !== 'CrewAI committee configured with 3 agents and chained tasks.' && (
           <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/40 bg-muted/10">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             <span className="text-xs text-muted-foreground font-mono">{result.crew_status}</span>
           </div>
-        )}
+        )} */}
     </div>
-  );
+  )
 }

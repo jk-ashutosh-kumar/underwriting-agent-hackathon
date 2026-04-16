@@ -101,11 +101,11 @@ export function PipelineFlow({
           );
         })}
       </div>
-      {progressLabel && (
+      {/* {progressLabel && (
         <p className="text-center text-[11px] text-muted-foreground font-mono px-2 truncate" title={progressLabel}>
           {progressLabel}
         </p>
-      )}
+      )} */}
     </div>
   );
 }
