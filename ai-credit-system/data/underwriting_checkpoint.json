@@ -53,27 +53,30 @@
       }
     ],
     "total_inflow": 365000.0,
-    "total_outflow": 130000.0
+    "total_outflow": 130000.0,
+    "invoice_data": null,
+    "credit_report": null
   },
   "region": "India",
   "risk_score": 75,
   "agent_logs": [
-    "Auditor: The analysis reveals a large credit transaction of 135000.0, which exceeds the defined threshold. Additionally, there are multiple transactions close to this threshold, indicating potential manipulation or unusual activity.",
-    "Trend: The business is experiencing a growing trend due to significantly higher inflows compared to outflows, indicating strong cash generation.",
-    "Benchmark: Historically, cases with risk scores above 70 have been predominantly rejected, while those with scores below 30 have been approved. The current case's risk score is above this threshold.",
-    "Committee: The underwriting committee recommends a review of the case due to a high risk score and historical rejection trends associated with similar cases.",
+    "Auditor: The applicant has a large credit transaction of 135000.0 which exceeds the large transaction threshold. Additionally, there is a pending invoice amounting to 53340.0, indicating potential cash flow issues. The presence of 165 legal cases raises concerns about the company's operational stability.",
+    "Trend: The business is experiencing a growing trend due to a significant positive cash flow, with inflows exceeding outflows by a substantial margin.",
+    "Benchmark: With a monthly inflow of 365,000 and outflow of 130,000, the current case demonstrates a positive cash flow, unlike previous cases that were rejected with risk scores averaging above 65.",
+    "Committee: The applicant presents a mixed profile with significant cash inflows and a growing trend, but is also facing substantial risks due to a large transaction, pending invoice, and numerous legal cases.",
     "Router: Large transaction 95000.00 above threshold 50000.00 -> FLAGGED."
   ],
-  "human_input": "bulk order payment",
+  "human_input": "Allow",
   "decision_status": "FLAGGED",
   "committee_output": {
     "audit": {
       "risk_score": 75,
       "flags": [
-        "Large transaction detected: 135000.0",
-        "Multiple transactions around the large transaction threshold"
+        "Large transaction detected",
+        "Pending invoice with significant amount",
+        "High number of legal cases"
       ],
-      "explanation": "The analysis reveals a large credit transaction of 135000.0, which exceeds the defined threshold. Additionally, there are multiple transactions close to this threshold, indicating potential manipulation or unusual activity.",
+      "explanation": "The applicant has a large credit transaction of 135000.0 which exceeds the large transaction threshold. Additionally, there is a pending invoice amounting to 53340.0, indicating potential cash flow issues. The presence of 165 legal cases raises concerns about the company's operational stability.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
@@ -83,7 +86,9 @@
     "trend": {
       "profit": 235000.0,
       "trend": "growing",
-      "insight": "The business is experiencing a growing trend due to significantly higher inflows compared to outflows, indicating strong cash generation.",
+      "estimated_revenue": 96860795.0,
+      "growth_signal": "Strong cash inflow relative to outflow.",
+      "insight": "The business is experiencing a growing trend due to a significant positive cash flow, with inflows exceeding outflows by a substantial margin.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
@@ -91,47 +96,277 @@
       "mode": "llm"
     },
     "benchmark": {
-      "benchmark_result": "The current underwriting case has a risk score that aligns with previous rejected cases, indicating a higher likelihood of rejection based on historical data.",
-      "comparison_insight": "Historically, cases with risk scores above 70 have been predominantly rejected, while those with scores below 30 have been approved. The current case's risk score is above this threshold.",
+      "benchmark_result": "The current case shows a significantly lower risk profile compared to historical entries, which have consistently resulted in rejections due to higher risk scores.",
+      "comparison_insight": "With a monthly inflow of 365,000 and outflow of 130,000, the current case demonstrates a positive cash flow, unlike previous cases that were rejected with risk scores averaging above 65.",
+      "comparison": "With a monthly inflow of 365,000 and outflow of 130,000, the current case demonstrates a positive cash flow, unlike previous cases that were rejected with risk scores averaging above 65.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
       "recommendation": "review",
       "mode": "llm"
+    },
+    "credit_limit": {
+      "min_limit": 0.0,
+      "max_limit": 0.0,
+      "economics_base_limit": 0.0,
+      "nominal_ceiling": 0.0,
+      "nominal_floor": 0.0,
+      "reasoning": "Pending final policy decision \u2014 limit not assigned yet."
+    },
+    "unified_profile": {
+      "bank": {
+        "applicant_id": "SME-1029",
+        "statement_month": "2026-03",
+        "transactions": [
+          {
+            "date": "2026-03-01",
+            "description": "Retail Sales Deposit",
+            "amount": 95000.0,
+            "type": "credit"
+          },
+          {
+            "date": "2026-03-03",
+            "description": "Raw Material Purchase",
+            "amount": 38000.0,
+            "type": "debit"
+          },
+          {
+            "date": "2026-03-06",
+            "description": "Enterprise Contract Payment",
+            "amount": 135000.0,
+            "type": "credit"
+          },
+          {
+            "date": "2026-03-08",
+            "description": "Salary Payout",
+            "amount": 52000.0,
+            "type": "debit"
+          },
+          {
+            "date": "2026-03-12",
+            "description": "Utility Bills",
+            "amount": 12000.0,
+            "type": "debit"
+          },
+          {
+            "date": "2026-03-14",
+            "description": "Online Sales Deposit",
+            "amount": 73000.0,
+            "type": "credit"
+          },
+          {
+            "date": "2026-03-20",
+            "description": "Vendor Repayment",
+            "amount": 28000.0,
+            "type": "debit"
+          },
+          {
+            "date": "2026-03-24",
+            "description": "Channel Partner Collection",
+            "amount": 62000.0,
+            "type": "credit"
+          }
+        ],
+        "total_inflow": 365000.0,
+        "total_outflow": 130000.0,
+        "invoice_data": null,
+        "credit_report": null
+      },
+      "invoices": [
+        {
+          "invoice_id": "1592844520669",
+          "date": "22 June 2020",
+          "amount": 53340.0,
+          "customer": "Kamal Pumps Enterprise",
+          "status": "PENDING",
+          "raw": {
+            "buyer": {
+              "name": "Kamal Pumps Enterprise",
+              "gstin": "04AAERS9818B2A",
+              "state": "Maharashtra",
+              "address": "423 Yeola, Nashik, 423402, Maharashtra",
+              "state_code": null
+            },
+            "seller": {
+              "name": "Indrayani Enterprises",
+              "gstin": "07AAECR2971C1Z",
+              "state": "Maharashtra",
+              "address": "Yeola, Nashik, 423401, Maharashtra",
+              "contact": {
+                "email": null,
+                "phone": "+91 9857234526"
+              },
+              "state_code": null
+            },
+            "consignee": null,
+            "logistics": null,
+            "line_items": [
+              {
+                "unit": "Units",
+                "hsn_sac": null,
+                "quantity": 12,
+                "unit_price": 4095,
+                "description": "Rotary Pump",
+                "total_amount": 49140
+              },
+              {
+                "unit": "Units",
+                "hsn_sac": null,
+                "quantity": 12,
+                "unit_price": 350,
+                "description": "Connection valves",
+                "total_amount": 4200
+              }
+            ],
+            "tax_details": {
+              "cgst_rate": 0,
+              "igst_rate": 0,
+              "sgst_rate": 0,
+              "total_tax": 0,
+              "cgst_amount": 0,
+              "igst_amount": 0,
+              "sgst_amount": 0
+            },
+            "bank_details": {
+              "ifsc": "SBIN0000534",
+              "branch": "Hiranandani",
+              "bank_name": "STATE BANK OF INDIA",
+              "account_number": "203356289317"
+            },
+            "amount_summary": {
+              "subtotal": 53340,
+              "round_off": null,
+              "total_amount": 53340,
+              "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+            },
+            "additional_info": {
+              "remarks": null,
+              "terms_and_conditions": null
+            },
+            "payment_details": {
+              "amount_due": 28340,
+              "amount_paid": 25000,
+              "payment_mode": "CASH",
+              "payment_terms": null
+            },
+            "invoice_metadata": {
+              "irn": null,
+              "ack_date": null,
+              "ack_number": null,
+              "invoice_date": "22 June 2020",
+              "invoice_type": "tax_invoice",
+              "invoice_number": "1592844520669"
+            }
+          }
+        }
+      ],
+      "credit_report": {
+        "legal_cases": 165,
+        "legal_cases_against_company": 0,
+        "gst_filing_status": "regular",
+        "gst_on_time_filing_percent": 100,
+        "gst_has_delay": false,
+        "past_defaults": 0,
+        "report": {
+          "tax_filing": {
+            "has_delay": false,
+            "gst_number": "36AADCC1579Q1Z3",
+            "return_type": "GSTR-3B",
+            "taxpayer_type": "Regular",
+            "registered_state": "Telangana",
+            "on_time_filing_percent": 100,
+            "filing_last_6_months_percent": 100,
+            "filing_last_12_months_percent": 100
+          },
+          "profit_loss": {
+            "pat": 85960595,
+            "ebitda": null,
+            "revenue": 96860795,
+            "net_margin_percent": null
+          },
+          "balance_sheet": {
+            "equity": null,
+            "total_assets": null,
+            "current_assets": null,
+            "current_liabilities": null
+          },
+          "legal_profile": {
+            "cases_by_company": {
+              "civil": 165,
+              "total": 165,
+              "criminal": 0
+            },
+            "cases_against_company": {
+              "civil": 0,
+              "total": 0,
+              "criminal": 0
+            }
+          },
+          "business_summary": {
+            "industry": "Agro - [Agro Products Retailers and Distributors']",
+            "gst_number": "36AADCC1579Q1Z3",
+            "pan_number": "AADCC1579Q",
+            "business_type": "Private Limited Company",
+            "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+            "age_of_business_months": 111,
+            "incorporation_date_pan": "2007-08-27"
+          },
+          "gstr3b_filing_delay": {
+            "summary": {
+              "status": "NO_DELAYS",
+              "total_delays": null,
+              "average_delay_days": null
+            },
+            "delay_records": null
+          }
+        }
+      },
+      "derived_metrics": {
+        "monthly_inflow": 365000.0,
+        "monthly_outflow": 130000.0,
+        "avg_invoice_value": 53340.0,
+        "invoice_frequency": 1,
+        "total_invoice_volume": 53340.0,
+        "gst_compliance": "regular"
+      }
     },
     "auditor": {
       "risk_score": 75,
       "flags": [
-        "Large transaction detected: 135000.0",
-        "Multiple transactions around the large transaction threshold"
+        "Large transaction detected",
+        "Pending invoice with significant amount",
+        "High number of legal cases"
       ],
-      "explanation": "The analysis reveals a large credit transaction of 135000.0, which exceeds the defined threshold. Additionally, there are multiple transactions close to this threshold, indicating potential manipulation or unusual activity.",
+      "explanation": "The applicant has a large credit transaction of 135000.0 which exceeds the large transaction threshold. Additionally, there is a pending invoice amounting to 53340.0, indicating potential cash flow issues. The presence of 165 legal cases raises concerns about the company's operational stability.",
       "risk_drivers": [],
       "positive_signals": [],
       "uncertainties": [],
       "recommendation": "review",
       "mode": "llm"
     },
-    "final_summary": "The underwriting committee recommends a review of the case due to a high risk score and historical rejection trends associated with similar cases.",
+    "final_summary": "The applicant presents a mixed profile with significant cash inflows and a growing trend, but is also facing substantial risks due to a large transaction, pending invoice, and numerous legal cases.",
     "committee_chair": {
-      "final_summary": "The underwriting committee recommends a review of the case due to a high risk score and historical rejection trends associated with similar cases.",
-      "final_verdict_rationale": "The case presents a significant risk due to a large transaction of 135000.0 and multiple transactions near the threshold, which raises concerns about potential manipulation. Additionally, the risk score aligns with previously rejected cases, suggesting a higher likelihood of rejection based on historical data.",
+      "final_summary": "The applicant presents a mixed profile with significant cash inflows and a growing trend, but is also facing substantial risks due to a large transaction, pending invoice, and numerous legal cases.",
+      "final_verdict_rationale": "While the business shows strong cash flow and growth potential, the high risk score and flags related to large transactions and legal issues necessitate a cautious approach. A thorough review is recommended to assess the impact of these risks on the applicant's operational stability.",
       "key_supporting_points": [
-        "Large transaction detected: 135000.0",
-        "Multiple transactions around the large transaction threshold",
-        "Growing trend in profit with inflows significantly exceeding outflows"
+        "Strong cash inflow relative to outflow.",
+        "Growing trend with a profit of 235,000.",
+        "Current case shows a lower risk profile compared to historical entries."
       ],
       "key_risks": [
-        "Potential manipulation or unusual activity indicated by large transactions",
-        "Historical rejection trends for similar risk scores"
+        "Large transaction detected exceeding threshold.",
+        "Pending invoice with significant amount indicating potential cash flow issues.",
+        "High number of legal cases (165) raising concerns about operational stability."
       ],
       "confidence": 70,
       "conditions_if_approved": [
-        "Further investigation into the nature of the large transaction",
-        "Monitoring of future transactions for unusual patterns"
+        "Further investigation into the pending invoice and its impact on cash flow.",
+        "Assessment of the legal cases and their potential implications for business operations.",
+        "Monitoring of future transactions to ensure they remain within acceptable limits."
       ],
       "mode": "llm",
-      "accounting_signal": "Partner has 95% on-time payments"
+      "accounting_signal": "Partner has 95% on-time payments",
+      "credit_limit_reasoning": "Annual credit limit is computed only after final approval, following router / HITL / resume."
     },
     "crew_kickoff_summary": null,
     "mode": "llm",

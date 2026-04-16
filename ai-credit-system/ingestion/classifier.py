@@ -19,6 +19,7 @@ KNOWN_TYPES = [
     "invoice",
     "tax_return",
     "identity_document",
+    "credcheck_report",
     "unknown",
 ]
 

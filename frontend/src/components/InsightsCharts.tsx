@@ -1,18 +1,17 @@
 import { useMemo } from 'react';
 import type { UnderwritingResult } from '@/types';
-import { Activity, ShieldCheck, TrendingUp, TriangleAlert } from 'lucide-react';
+import { Scale, TrendingUp, TriangleAlert, Users } from 'lucide-react';
+import { RiskGauge } from './RiskGauge';
 import {
-  PieChart,
-  Pie,
-  Cell,
   ResponsiveContainer,
   LineChart,
   Line,
-  XAxis,
-  YAxis,
   Tooltip,
   BarChart,
   Bar,
+  XAxis,
+  YAxis,
+  Cell,
 } from 'recharts';
 
 interface InsightsChartsProps {
@@ -28,65 +27,14 @@ const COLORS = {
   muted: 'var(--muted-foreground)',
 };
 
-/* ────────────────────────────────────────────────────────────────────────── */
-
-function RiskDonut({ score }: { score: number }) {
-  const data = useMemo(() => [
-    { name: 'Risk', value: score },
-    { name: 'Safe', value: 100 - score },
-  ], [score]);
-
-  const color = score < 30 ? COLORS.success : score < 60 ? COLORS.warning : COLORS.destructive;
-
-  return (
-    <div className="h-32 w-full relative">
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={38}
-            outerRadius={50}
-            startAngle={90}
-            endAngle={-270}
-            dataKey="value"
-            stroke="none"
-          >
-            <Cell fill={color} />
-            <Cell fill="var(--muted)" opacity={0.2} />
-            {/* <Label
-              value={`${score}%`}
-              position="center"
-              content={({ viewBox }) => {
-                const { cx, cy } = viewBox as { cx: number; cy: number };
-                return (
-                  <text x={cx} y={cy} textAnchor="middle" dominantBaseline="middle">
-                    <tspan x={cx} y={cy} className="text-xl font-mono font-bold">
-                      {score}%
-                    </tspan>
-                  </text>
-                );
-              }}
-            /> */}
-          </Pie>
-          <Tooltip 
-            contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', borderRadius: '8px', fontSize: '10px' }}
-          />
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
-  );
-}
-
 function momentumData(profit: number) {
   const base = [3000, 4500, 4200, 5800, profit];
-  return base.map((v, i) => ({ name: `T-${4-i}`, value: v }));
+  return base.map((v, i) => ({ name: `T-${4 - i}`, value: v }));
 }
 
-function MomentumLine({ profit }: { profit: number; trend: string }) {
+function MomentumLine({ profit }: { profit: number }) {
   const data = useMemo(() => momentumData(profit), [profit]);
-  
+
   return (
     <div className="h-32 w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -144,58 +92,72 @@ function SeverityBars({ flags }: { flags: string[] }) {
 }
 
 export function InsightsCharts({ result }: InsightsChartsProps) {
-  const confidence = result.decision_status === 'APPROVED' ? 86 : result.decision_status === 'REJECTED' ? 12 : 62;
+  const chairConfidence = Math.max(
+    0,
+    Math.min(100, Number(result.committee_chair?.confidence ?? 0)),
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-      {/* Risk Composition */}
       <div className="group rounded-2xl border border-border/40 bg-card p-6 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="p-2 rounded-lg bg-primary/5">
-              <ShieldCheck className="w-4 h-4 text-primary" />
+              <Scale className="w-4 h-4 text-primary" />
             </div>
-            <span className="text-sm font-semibold text-foreground">Risk Composition</span>
+            <span className="text-sm font-semibold text-foreground">Risk snapshot</span>
           </div>
-          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Live Analysis</span>
+          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">0–100</span>
         </div>
-        <RiskDonut score={result.risk_score} />
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <div className="flex shrink-0 justify-center">
+            <RiskGauge score={result.risk_score} />
+          </div>
+          <div className="text-center sm:text-right">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Committee risk score</p>
+            <p className="font-mono text-3xl font-semibold tabular-nums tracking-tight text-foreground">
+              {result.risk_score}
+            </p>
+            <p className="text-[10px] text-muted-foreground">Lower is better</p>
+          </div>
+        </div>
         <p className="text-xs text-muted-foreground leading-relaxed">
-          Aggregated risk factor based on {result.audit.flags.length} audit checkpoints.
+          Model readout from the auditor and flow; not a consumer credit score.
         </p>
       </div>
 
-      {/* Decision Confidence */}
       <div className="group rounded-2xl border border-border/40 bg-card p-6 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="p-2 rounded-lg bg-accent/5">
-              <Activity className="w-4 h-4 text-accent" />
+              <Users className="w-4 h-4 text-accent" />
             </div>
-            <span className="text-sm font-semibold text-foreground">Decision Confidence</span>
+            <span className="text-sm font-semibold text-foreground">Chair synthesis confidence</span>
           </div>
         </div>
         <div className="flex-1 flex flex-col justify-center gap-4">
           <div className="relative h-4 w-full rounded-full bg-muted/30 overflow-hidden">
-            <div 
+            <div
               className="absolute inset-y-0 left-0 bg-linear-to-r from-primary to-accent transition-all duration-1000 ease-out rounded-full"
-              style={{ width: `${confidence}%` }}
+              style={{ width: `${chairConfidence}%` }}
             />
           </div>
-          <div className="flex justify-between items-end">
-            <div>
-              <p className="text-3xl font-mono font-bold text-foreground">{confidence}%</p>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">Confidence Score</p>
-            </div>
-            <div className="text-right">
-              <p className="text-xs font-semibold text-foreground">{result.decision_status}</p>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">Current Status</p>
-            </div>
+          <div>
+            <p className="text-3xl font-mono font-bold text-foreground">{chairConfidence}%</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">
+              Committee chair output
+            </p>
+            {/* <p className="mt-2 text-xs text-muted-foreground">
+              Routing outcome is shown elsewhere; this bar is only how sure the chair is about its narrative.
+            </p> */}
           </div>
         </div>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          This is the chair agent’s self-reported confidence in its written synthesis. It is not the model risk
+          score on the left, and it is not an approval probability.
+        </p>
       </div>
 
-      {/* Profit Momentum */}
       <div className="group rounded-2xl border border-border/40 bg-card p-6 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -205,13 +167,12 @@ export function InsightsCharts({ result }: InsightsChartsProps) {
             <span className="text-sm font-semibold text-foreground">Profit Momentum</span>
           </div>
         </div>
-        <MomentumLine profit={result.trend.profit} trend={result.trend.trend} />
+        <MomentumLine profit={result.trend.profit} />
         <p className="text-xs text-muted-foreground line-clamp-2">
           {result.trend.insight}
         </p>
       </div>
 
-      {/* Flag Severity */}
       <div className="group rounded-2xl border border-border/40 bg-card p-6 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">

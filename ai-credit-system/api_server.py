@@ -45,7 +45,7 @@ logging.basicConfig(
 
 from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel
 
 from graph.flow import iter_underwriting_flow_events, run_underwriting_flow
@@ -58,13 +58,23 @@ except Exception as exc:  # pragma: no cover - safe fallback when langgraph deps
     iter_langgraph_flow_events = None  # type: ignore[assignment]
     run_langgraph_flow = None  # type: ignore[assignment]
 from ingestion.db import (
-    create_document,
+    create_company,
+    delete_company,
+    get_document,
     get_documents_by_case,
     get_or_create_case,
     list_companies_with_cases,
     list_schemas,
+    update_company,
 )
-from ingestion.models import CompanyCaseSummary, DocumentSummary, IngestResponse
+from ingestion.models import (
+    CompanyCaseSummary,
+    CompanyResponse,
+    CreateCompanyRequest,
+    DocumentSummary,
+    IngestResponse,
+    UpdateCompanyRequest,
+)
 from ingestion.pipeline import run_pipeline
 from webhooks import list_webhooks, register, unregister
 from memory.checkpoint import load_checkpoint
@@ -110,6 +120,7 @@ def _build_underwriting_response(
     trend_data = crew_out.get("trend", {})
     benchmark_data = crew_out.get("benchmark", {})
     committee_chair_data = crew_out.get("committee_chair", {})
+    credit_limit_data = crew_out.get("credit_limit", {})
 
     decision_status = state.get("decision_status", "PENDING")
     needs_hitl = decision_status == "FLAGGED"
@@ -141,14 +152,25 @@ def _build_underwriting_response(
             profit=float(trend_data.get("profit", 0)),
             trend=trend_data.get("trend", "stable"),
             insight=trend_data.get("insight", ""),
+            estimated_revenue=trend_data.get("estimated_revenue"),
+            growth_signal=trend_data.get("growth_signal"),
             mode=trend_data.get("mode"),
             llm_error=trend_data.get("llm_error"),
         ),
         benchmark=BenchmarkResult(
             benchmark_result=benchmark_data.get("benchmark_result", ""),
             comparison_insight=benchmark_data.get("comparison_insight", ""),
+            comparison=benchmark_data.get("comparison"),
             mode=benchmark_data.get("mode"),
             llm_error=benchmark_data.get("llm_error"),
+        ),
+        credit_limit=CreditLimitResult(
+            min_limit=float(credit_limit_data.get("min_limit", 0.0)),
+            max_limit=float(credit_limit_data.get("max_limit", 0.0)),
+            economics_base_limit=float(credit_limit_data.get("economics_base_limit", 0.0)),
+            nominal_ceiling=float(credit_limit_data.get("nominal_ceiling", 0.0)),
+            nominal_floor=float(credit_limit_data.get("nominal_floor", 0.0)),
+            reasoning=str(credit_limit_data.get("reasoning", "")),
         ),
         committee_chair=CommitteeChairResult(
             final_verdict_rationale=committee_chair_data.get("final_verdict_rationale", ""),
@@ -183,6 +205,8 @@ class FinancialData(BaseModel):
     transactions: List[Transaction]
     total_inflow: float
     total_outflow: float
+    invoice_data: Optional[Any] = None
+    credit_report: Optional[Dict[str, Any]] = None
 
 
 class AnalyzeRequest(BaseModel):
@@ -209,6 +233,8 @@ class TrendResult(BaseModel):
     profit: float
     trend: str
     insight: str
+    estimated_revenue: Optional[float] = None
+    growth_signal: Optional[str] = None
     mode: Optional[str] = None
     llm_error: Optional[str] = None
 
@@ -216,8 +242,18 @@ class TrendResult(BaseModel):
 class BenchmarkResult(BaseModel):
     benchmark_result: str
     comparison_insight: str
+    comparison: Optional[str] = None
     mode: Optional[str] = None
     llm_error: Optional[str] = None
+
+
+class CreditLimitResult(BaseModel):
+    min_limit: float = 0.0
+    max_limit: float = 0.0
+    economics_base_limit: float = 0.0
+    nominal_ceiling: float = 0.0
+    nominal_floor: float = 0.0
+    reasoning: str = ""
 
 
 class CommitteeChairResult(BaseModel):
@@ -237,6 +273,7 @@ class UnderwritingResponse(BaseModel):
     audit: AuditResult
     trend: TrendResult
     benchmark: BenchmarkResult
+    credit_limit: CreditLimitResult = CreditLimitResult()
     committee_chair: CommitteeChairResult
     final_summary: str
     crew_status: str
@@ -442,6 +479,43 @@ def get_companies() -> List[CompanyCaseSummary]:
     return [CompanyCaseSummary(**r) for r in rows]
 
 
+@app.post("/api/companies", response_model=CompanyResponse, status_code=201)
+def add_company(body: CreateCompanyRequest) -> CompanyResponse:
+    """Create a new company."""
+    try:
+        row = create_company(body.name)
+        return CompanyResponse(**row)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.patch("/api/companies/{company_id}", response_model=CompanyResponse)
+def edit_company(company_id: str, body: UpdateCompanyRequest) -> CompanyResponse:
+    """Update a company's name."""
+    row = update_company(company_id, body.name)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Company not found")
+    return CompanyResponse(**row)
+
+
+@app.delete("/api/companies/{company_id}")
+def remove_company(company_id: str) -> Response:
+    """Delete a company by ID."""
+    deleted = delete_company(company_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Company not found")
+    return Response(status_code=204)
+
+
+
+
+@app.get("/api/case/{case_id}/documents/{document_id}", response_model=DocumentSummary)
+def get_document_output(case_id: str, document_id: str) -> DocumentSummary:
+    """Return the extracted JSON output for a single document."""
+    doc = get_document(case_id, document_id)
+    if doc is None:
+        raise HTTPException(status_code=404, detail="Document not found")
+    return DocumentSummary(**doc)
 
 
 @app.get("/api/case/{case_id}/documents", response_model=List[DocumentSummary])

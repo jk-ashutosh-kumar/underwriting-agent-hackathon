@@ -2,3 +2,5 @@
 .DS_Store
 frontend/node_modules/
 frontend/dist/
+.pycache_tmp
+ai-credit-system/logs/

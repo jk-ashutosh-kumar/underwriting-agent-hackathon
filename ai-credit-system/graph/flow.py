@@ -6,6 +6,10 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Iterator, List
 
+from agents.credit_limit import (
+    credit_limit_agent_log_lines,
+    recommend_credit_limit_with_context,
+)
 from agents.crew import run_crew
 from graph.state import UnderwritingState, create_initial_state
 from memory.checkpoint import save_checkpoint
@@ -277,6 +281,45 @@ def resume_node(state: UnderwritingState) -> UnderwritingState:
     return state
 
 
+def _apply_credit_limit_post_decision(state: UnderwritingState) -> None:
+    """
+    After router / HITL / resume, assign an annual facility band (often conservative).
+
+    Uses ``recommend_credit_limit_with_context`` so REJECTED / flagged / high-risk
+    cases still get a lower explainable range instead of zeros with generic text.
+    """
+    co = state.get("committee_output")
+    if not isinstance(co, dict):
+        return
+
+    audit = co.get("audit", co.get("auditor", {}))
+    trend = co.get("trend", {})
+    unified = co.get("unified_profile")
+    if not isinstance(audit, dict):
+        audit = {}
+    if not isinstance(trend, dict):
+        trend = {}
+    if not isinstance(unified, dict):
+        unified = {}
+
+    chair = co.get("committee_chair")
+    status = str(state.get("decision_status", ""))
+    hitl_override = state.get("hitl_override") if state.get("hitl_override") == "reject" else None
+
+    cl = recommend_credit_limit_with_context(
+        unified,
+        audit,
+        trend,
+        decision_status=status,
+        hitl_override=hitl_override,
+    )
+    co["credit_limit"] = cl
+    if isinstance(chair, dict):
+        chair["credit_limit_reasoning"] = str(cl.get("reasoning", ""))
+    for line in credit_limit_agent_log_lines(cl):
+        state["agent_logs"].append(line)
+
+
 def decision_node(state: UnderwritingState) -> UnderwritingState:
     """Node E: final decision assignment using normalized risk scale."""
     if state.get("hitl_override") == "reject":  # type: ignore[attr-defined]
@@ -284,17 +327,24 @@ def decision_node(state: UnderwritingState) -> UnderwritingState:
         state["agent_logs"].append(
             "Decision: HITL override requested rejection due to negative clarification."
         )
+        _apply_credit_limit_post_decision(state)
         return state
 
     normalized_risk = _normalized_risk_for_rules(int(state["risk_score"]))
     if normalized_risk < 5:
         state["decision_status"] = "APPROVED"
+        state["agent_logs"].append(
+            f"Decision: Final risk(raw={state['risk_score']}, normalized={normalized_risk}) "
+            f"(lower is better) -> APPROVED."
+        )
     else:
         state["decision_status"] = "REJECTED"
-    state["agent_logs"].append(
-        f"Decision: Final risk(raw={state['risk_score']}, normalized={normalized_risk}) "
-        f"(lower is better) -> {state['decision_status']}."
-    )
+        state["agent_logs"].append(
+            f"Decision: Final risk(raw={state['risk_score']}, normalized={normalized_risk}) "
+            f"(lower is better) -> REJECTED."
+        )
+
+    _apply_credit_limit_post_decision(state)
     return state
 
 
