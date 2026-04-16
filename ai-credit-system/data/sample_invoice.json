@@ -1,0 +1,79 @@
+{
+  "buyer": {
+    "name": "Kamal Pumps Enterprise",
+    "gstin": "04AAERS9818B2A",
+    "state": "Maharashtra",
+    "address": "423 Yeola, Nashik, 423402, Maharashtra",
+    "state_code": null
+  },
+  "seller": {
+    "name": "Indrayani Enterprises",
+    "gstin": "07AAECR2971C1Z",
+    "state": "Maharashtra",
+    "address": "Yeola, Nashik, 423401, Maharashtra",
+    "contact": {
+      "email": null,
+      "phone": "+91 9857234526"
+    },
+    "state_code": null
+  },
+  "consignee": null,
+  "logistics": null,
+  "line_items": [
+    {
+      "unit": "Units",
+      "hsn_sac": null,
+      "quantity": 12,
+      "unit_price": 4095,
+      "description": "Rotary Pump",
+      "total_amount": 49140
+    },
+    {
+      "unit": "Units",
+      "hsn_sac": null,
+      "quantity": 12,
+      "unit_price": 350,
+      "description": "Connection valves",
+      "total_amount": 4200
+    }
+  ],
+  "tax_details": {
+    "cgst_rate": 0,
+    "igst_rate": 0,
+    "sgst_rate": 0,
+    "total_tax": 0,
+    "cgst_amount": 0,
+    "igst_amount": 0,
+    "sgst_amount": 0
+  },
+  "bank_details": {
+    "ifsc": "SBIN0000534",
+    "branch": "Hiranandani",
+    "bank_name": "STATE BANK OF INDIA",
+    "account_number": "203356289317"
+  },
+  "amount_summary": {
+    "subtotal": 53340,
+    "round_off": null,
+    "total_amount": 53340,
+    "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+  },
+  "additional_info": {
+    "remarks": null,
+    "terms_and_conditions": null
+  },
+  "payment_details": {
+    "amount_due": 28340,
+    "amount_paid": 25000,
+    "payment_mode": "CASH",
+    "payment_terms": null
+  },
+  "invoice_metadata": {
+    "irn": null,
+    "ack_date": null,
+    "ack_number": null,
+    "invoice_date": "22 June 2020",
+    "invoice_type": "tax_invoice",
+    "invoice_number": "1592844520669"
+  }
+}

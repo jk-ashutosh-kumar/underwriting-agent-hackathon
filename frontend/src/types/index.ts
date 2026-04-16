@@ -11,6 +11,84 @@ export interface FinancialData {
   transactions: Transaction[];
   total_inflow: number;
   total_outflow: number;
+  invoice_data?: Array<{
+    invoice_id?: string;
+    date?: string;
+    amount?: number;
+    customer?: string;
+    status?: string;
+    [key: string]: unknown;
+  }> | {
+    buyer?: { name?: string; gstin?: string; state?: string; address?: string; state_code?: string | null };
+    seller?: {
+      name?: string;
+      gstin?: string;
+      state?: string;
+      address?: string;
+      state_code?: string | null;
+      contact?: { email?: string | null; phone?: string | null };
+    };
+    line_items?: Array<{
+      description?: string;
+      quantity?: number;
+      unit?: string;
+      unit_price?: number;
+      total_amount?: number;
+      hsn_sac?: string | null;
+    }>;
+    amount_summary?: {
+      subtotal?: number;
+      total_amount?: number;
+      round_off?: number | null;
+      amount_in_words?: string;
+    };
+    payment_details?: {
+      amount_due?: number;
+      amount_paid?: number;
+      payment_mode?: string;
+      payment_terms?: string | null;
+    };
+    invoice_metadata?: {
+      invoice_number?: string;
+      invoice_date?: string;
+      invoice_type?: string;
+      irn?: string | null;
+      ack_number?: string | null;
+      ack_date?: string | null;
+    };
+    [key: string]: unknown;
+  };
+  credit_report?: {
+    legal_cases?: number;
+    gst_filing_status?: string;
+    past_defaults?: number;
+    credcheck_report?: {
+      tax_filing?: {
+        has_delay?: boolean;
+        gst_number?: string;
+        return_type?: string;
+        taxpayer_type?: string;
+        registered_state?: string;
+        on_time_filing_percent?: number;
+        filing_last_6_months_percent?: number;
+        filing_last_12_months_percent?: number;
+      };
+      legal_profile?: {
+        cases_by_company?: { civil?: number; total?: number; criminal?: number };
+        cases_against_company?: { civil?: number; total?: number; criminal?: number };
+      };
+      business_summary?: {
+        industry?: string;
+        gst_number?: string;
+        pan_number?: string;
+        business_type?: string;
+        business_trade_name?: string;
+        age_of_business_months?: number;
+        incorporation_date_pan?: string;
+      };
+      [key: string]: unknown;
+    };
+  };
 }
 
 export interface AuditResult {
@@ -25,6 +103,8 @@ export interface TrendResult {
   profit: number;
   trend: 'growing' | 'stable' | 'shrinking';
   insight: string;
+  estimated_revenue?: number;
+  growth_signal?: string;
   mode?: 'llm' | 'deterministic_fallback' | 'deterministic';
   llm_error?: string | null;
 }
@@ -32,8 +112,18 @@ export interface TrendResult {
 export interface BenchmarkResult {
   benchmark_result: string;
   comparison_insight: string;
+  comparison?: string;
   mode?: 'llm' | 'deterministic_fallback' | 'deterministic';
   llm_error?: string | null;
+}
+
+export interface CreditLimitResult {
+  min_limit: number;
+  max_limit: number;
+  economics_base_limit?: number;
+  nominal_ceiling?: number;
+  nominal_floor?: number;
+  reasoning: string;
 }
 
 export interface CommitteeChairResult {
@@ -55,6 +145,7 @@ export interface UnderwritingResult {
   audit: AuditResult;
   trend: TrendResult;
   benchmark: BenchmarkResult;
+  credit_limit?: CreditLimitResult;
   committee_chair: CommitteeChairResult;
   final_summary: string;
   crew_status: string;

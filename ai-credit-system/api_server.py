@@ -111,6 +111,7 @@ def _build_underwriting_response(
     trend_data = crew_out.get("trend", {})
     benchmark_data = crew_out.get("benchmark", {})
     committee_chair_data = crew_out.get("committee_chair", {})
+    credit_limit_data = crew_out.get("credit_limit", {})
 
     decision_status = state.get("decision_status", "PENDING")
     needs_hitl = decision_status == "FLAGGED"
@@ -142,14 +143,25 @@ def _build_underwriting_response(
             profit=float(trend_data.get("profit", 0)),
             trend=trend_data.get("trend", "stable"),
             insight=trend_data.get("insight", ""),
+            estimated_revenue=trend_data.get("estimated_revenue"),
+            growth_signal=trend_data.get("growth_signal"),
             mode=trend_data.get("mode"),
             llm_error=trend_data.get("llm_error"),
         ),
         benchmark=BenchmarkResult(
             benchmark_result=benchmark_data.get("benchmark_result", ""),
             comparison_insight=benchmark_data.get("comparison_insight", ""),
+            comparison=benchmark_data.get("comparison"),
             mode=benchmark_data.get("mode"),
             llm_error=benchmark_data.get("llm_error"),
+        ),
+        credit_limit=CreditLimitResult(
+            min_limit=float(credit_limit_data.get("min_limit", 0.0)),
+            max_limit=float(credit_limit_data.get("max_limit", 0.0)),
+            economics_base_limit=float(credit_limit_data.get("economics_base_limit", 0.0)),
+            nominal_ceiling=float(credit_limit_data.get("nominal_ceiling", 0.0)),
+            nominal_floor=float(credit_limit_data.get("nominal_floor", 0.0)),
+            reasoning=str(credit_limit_data.get("reasoning", "")),
         ),
         committee_chair=CommitteeChairResult(
             final_verdict_rationale=committee_chair_data.get("final_verdict_rationale", ""),
@@ -184,6 +196,8 @@ class FinancialData(BaseModel):
     transactions: List[Transaction]
     total_inflow: float
     total_outflow: float
+    invoice_data: Optional[Any] = None
+    credit_report: Optional[Dict[str, Any]] = None
 
 
 class AnalyzeRequest(BaseModel):
@@ -210,6 +224,8 @@ class TrendResult(BaseModel):
     profit: float
     trend: str
     insight: str
+    estimated_revenue: Optional[float] = None
+    growth_signal: Optional[str] = None
     mode: Optional[str] = None
     llm_error: Optional[str] = None
 
@@ -217,8 +233,18 @@ class TrendResult(BaseModel):
 class BenchmarkResult(BaseModel):
     benchmark_result: str
     comparison_insight: str
+    comparison: Optional[str] = None
     mode: Optional[str] = None
     llm_error: Optional[str] = None
+
+
+class CreditLimitResult(BaseModel):
+    min_limit: float = 0.0
+    max_limit: float = 0.0
+    economics_base_limit: float = 0.0
+    nominal_ceiling: float = 0.0
+    nominal_floor: float = 0.0
+    reasoning: str = ""
 
 
 class CommitteeChairResult(BaseModel):
@@ -238,6 +264,7 @@ class UnderwritingResponse(BaseModel):
     audit: AuditResult
     trend: TrendResult
     benchmark: BenchmarkResult
+    credit_limit: CreditLimitResult = CreditLimitResult()
     committee_chair: CommitteeChairResult
     final_summary: str
     crew_status: str

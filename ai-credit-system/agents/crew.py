@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import logging
 import os
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -14,6 +13,7 @@ logger = logging.getLogger(__name__)
 from agents.auditor import run_auditor
 from agents.benchmark import run_benchmark
 from agents.trend import run_trend_analysis
+from data.unified_schema import build_financial_profile
 from llm.client import ask_llm_json
 from memory.store import load_memory
 from tools.accounting_tool import AccountingModuleTool
@@ -21,6 +21,8 @@ from tools.accounting_tool import AccountingModuleTool
 ROOT_DIR = Path(__file__).resolve().parents[1]
 REGIONAL_RULES_FILE = ROOT_DIR / "data" / "regional_rules.json"
 SAMPLE_DATA_FILE = ROOT_DIR / "data" / "sample_statement.json"
+SAMPLE_INVOICE_FILE = ROOT_DIR / "data" / "sample_invoice.json"
+SAMPLE_CREDIT_FILE = ROOT_DIR / "data" / "sample_credit.json"
 
 
 def _load_regional_rules() -> Dict[str, Any]:
@@ -150,35 +152,14 @@ def _build_crewai_committee(region_context: Dict[str, Any], use_llm: bool) -> Di
         }
 
     if use_crewai_kickoff and use_llm:
-        kickoff_timeout_s = float(os.getenv("CREWAI_KICKOFF_TIMEOUT_SECONDS", "8"))
-        ex = ThreadPoolExecutor(max_workers=1)
-        try:
-            future = ex.submit(crew_obj.kickoff)
-            kickoff_result = future.result(timeout=kickoff_timeout_s)
-            ex.shutdown(wait=False, cancel_futures=True)
-            return {
-                "status": "CrewAI kickoff executed successfully with chained tasks.",
-                "kickoff_summary": str(kickoff_result)[:500],
-            }
-        except FuturesTimeoutError:
-            # Important: do NOT wait for completion after timeout, otherwise request still blocks.
-            ex.shutdown(wait=False, cancel_futures=True)
-            logger.warning("crewai_kickoff_timeout after %.1fs", kickoff_timeout_s)
-            return {
-                "status": (
-                    "CrewAI configured but kickoff timed out; using direct orchestration fallback. "
-                    f"Timeout: {kickoff_timeout_s:.1f}s"
-                )
-            }
-        except Exception as exc:
-            ex.shutdown(wait=False, cancel_futures=True)
-            logger.warning("crewai_kickoff_failed: %s", exc)
-            return {
-                "status": (
-                    "CrewAI configured but kickoff failed; using direct orchestration fallback. "
-                    f"Error: {exc}"
-                )
-            }
+        # API-safe mode: do not execute kickoff in request path to avoid
+        # runaway background provider calls.
+        return {
+            "status": (
+                "CrewAI kickoff requested but skipped in API-safe mode; "
+                "using direct orchestration path."
+            )
+        }
     return {"status": "CrewAI committee configured with 3 agents and chained tasks."}
 
 
@@ -270,7 +251,8 @@ def _committee_chair_deterministic(
     final_summary = (
         f"Committee Summary ({region}): {final_verdict_rationale} "
         f"Top supports: {', '.join(key_supporting_points[:2]) or 'N/A'}. "
-        f"Top risks: {', '.join(key_risks[:2]) or 'N/A'}."
+        f"Top risks: {', '.join(key_risks[:2]) or 'N/A'}. "
+        "Annual credit limit is computed only after final approval (post router / HITL when applicable)."
     )
 
     return {
@@ -332,6 +314,27 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
     crew_meta = _build_crewai_committee(region_context, use_llm=use_llm)
     committee_mode = "LLM (USE_LLM)" if use_llm else "rules (USE_LLM off)"
 
+    # Build unified multi-source profile (bank + invoices + credit report).
+    invoice_data = data.get("invoice_data")
+    credit_data = data.get("credit_report")
+    if invoice_data is None and SAMPLE_INVOICE_FILE.exists():
+        try:
+            with SAMPLE_INVOICE_FILE.open("r", encoding="utf-8") as f:
+                invoice_data = json.load(f)
+        except Exception:
+            invoice_data = []
+    if not isinstance(credit_data, dict) and SAMPLE_CREDIT_FILE.exists():
+        try:
+            with SAMPLE_CREDIT_FILE.open("r", encoding="utf-8") as f:
+                credit_data = json.load(f)
+        except Exception:
+            credit_data = {}
+    unified_profile = build_financial_profile(
+        bank_data=data,
+        invoice_data=invoice_data,
+        credit_data=credit_data if isinstance(credit_data, dict) else {},
+    )
+
     # Tool output is included in context so the committee appears integrated with
     # external accounting information, even in deterministic demo mode.
     accounting_tool = AccountingModuleTool()
@@ -339,16 +342,16 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
     region_context["accounting_tool_signal"] = accounting_signal
 
     # Task 1: Auditor
-    audit = run_auditor(data, region_context, use_llm=use_llm)
+    audit = run_auditor(unified_profile, region_context, use_llm=use_llm)
 
     # Task 2: Trend (receives context from audit)
     trend_context = {**region_context, "audit_result": audit}
-    trend = run_trend_analysis(data, trend_context, use_llm=use_llm)
+    trend = run_trend_analysis(unified_profile, trend_context, use_llm=use_llm)
 
     # Task 3: Benchmark (receives prior outputs + memory)
     memory_entries = load_memory()
     benchmark_context = {**trend_context, "trend_result": trend}
-    benchmark = run_benchmark(data, benchmark_context, memory_entries, use_llm=use_llm)
+    benchmark = run_benchmark(unified_profile, benchmark_context, memory_entries, use_llm=use_llm)
     # Committee Chair: synthesizes committee outputs into explainable verdict bundle.
     chair = _committee_chair_deterministic(
         audit,
@@ -375,6 +378,9 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
             chair["mode"] = "deterministic_fallback"
             chair["llm_error"] = str(exc)
     chair["accounting_signal"] = accounting_signal
+    chair["credit_limit_reasoning"] = (
+        "Annual credit limit is computed only after final approval, following router / HITL / resume."
+    )
 
     crew_status = crew_meta["status"]
     if "import failed" in crew_status or "import unavailable" in crew_status:
@@ -384,6 +390,16 @@ def run_crew(data: Dict[str, Any], region: str = "India") -> Dict[str, Any]:
         "audit": audit,
         "trend": trend,
         "benchmark": benchmark,
+        # Placeholder until flow.decision_node assigns limits post HITL / final decision.
+        "credit_limit": {
+            "min_limit": 0.0,
+            "max_limit": 0.0,
+            "economics_base_limit": 0.0,
+            "nominal_ceiling": 0.0,
+            "nominal_floor": 0.0,
+            "reasoning": "Pending final policy decision — limit not assigned yet.",
+        },
+        "unified_profile": unified_profile,
         # Backward-compatible keys for existing UI/CLI references.
         "auditor": audit,
         "final_summary": chair.get("final_summary", ""),

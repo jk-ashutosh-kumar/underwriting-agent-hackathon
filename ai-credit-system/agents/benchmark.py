@@ -60,7 +60,9 @@ def _run_benchmark_deterministic(
     data: Dict[str, Any], context: Dict[str, Any], memory: List[Dict[str, Any]]
 ) -> Dict[str, Any]:
     """Current deterministic implementation kept as safe fallback."""
-    _ = data
+    metrics = data.get("derived_metrics", {})
+    current_inflow = float(metrics.get("monthly_inflow", 0))
+    current_invoice_avg = float(metrics.get("avg_invoice_value", 0))
     _ = context
 
     if not memory:
@@ -86,12 +88,14 @@ def _run_benchmark_deterministic(
 
     comparison_insight = (
         f"I reviewed {total_cases} memory cases; {high_risk_count} were high risk. "
+        f"Current monthly inflow={current_inflow:.2f}, avg invoice={current_invoice_avg:.2f}. "
         f"This suggests the current case aligns with '{benchmark_result}'."
     )
 
     return _with_handoff({
         "benchmark_result": benchmark_result,
         "comparison_insight": comparison_insight,
+        "comparison": comparison_insight,
         "risk_drivers": (
             ["High proportion of risky historical cases."]
             if high_risk_ratio >= 0.5
@@ -111,7 +115,7 @@ def _run_benchmark_llm(
     data: Dict[str, Any], context: Dict[str, Any], memory: List[Dict[str, Any]]
 ) -> Dict[str, Any]:
     """LLM-assisted benchmark analysis with strict output schema."""
-    _ = data
+    metrics = data.get("derived_metrics", {})
     region = context.get("region", "Unknown")
     if not memory:
         return _with_handoff({
@@ -142,9 +146,15 @@ def _run_benchmark_llm(
         }
         for entry in memory[-25:]
     ]
+    metrics_for_prompt = {
+        k: v
+        for k, v in (metrics or {}).items()
+        if k != "credit_score"
+    }
     user_prompt = (
         "Compare a current underwriting case against historical memory entries.\n"
         f"Region: {region}\n"
+        f"Current case metrics: {metrics_for_prompt}\n"
         f"Memory entries (last {len(memory_snapshot)}): {memory_snapshot}\n"
         "Provide concise, explainable benchmark judgement."
     )
@@ -160,6 +170,7 @@ def _run_benchmark_llm(
     return _with_handoff({
         "benchmark_result": benchmark_result,
         "comparison_insight": comparison_insight,
+        "comparison": comparison_insight,
     })
 
 
