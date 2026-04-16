@@ -248,8 +248,6 @@ export function useUnderwriting() {
           return;
         }
 
-        let hitlTransitionTimer: number | null = null;
-
         const onProgress = (ev: FlowProgressPayload) => {
           setState((s) => {
             const merged = new Set(s.pipelineSkippedIds);
