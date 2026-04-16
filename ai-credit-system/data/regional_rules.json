@@ -1,8 +1,20 @@
 {
   "India": {
     "dscr_threshold": 1.2,
-    "large_txn_threshold": 100000,
-    "keywords": ["UPI", "GST"]
+    "large_txn_threshold": 1000000,
+    "keywords": ["UPI", "GST"],
+    "credcheck_rules": {
+      "min_on_time_filing_for_green": 95,
+      "treat_irregular_when_total_delays_present": true
+    },
+    "invoice_rules": {
+      "max_pending_ratio_before_flag": 0.35,
+      "max_concentration_ratio_single_buyer": 0.4
+    },
+    "legal_rules": {
+      "max_cases_by_company_before_flag": 5,
+      "max_cases_against_company_before_red": 1
+    }
   },
   "Philippines": {
     "dscr_threshold": 1.5,

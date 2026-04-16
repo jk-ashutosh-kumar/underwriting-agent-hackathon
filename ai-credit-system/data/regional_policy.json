@@ -1,7 +1,20 @@
 {
   "India": {
-    "cash_threshold": 50000,
-    "flag_keywords": ["UPI", "GST"]
+    "cash_threshold": 500000,
+    "flag_keywords": ["UPI", "GST"],
+    "gst_policy": {
+      "on_time_filing_good_min_percent": 95,
+      "on_time_filing_watch_min_percent": 75,
+      "treat_status_irregular_when_delay": true
+    },
+    "invoice_policy": {
+      "pending_vs_inflow_watch_ratio": 0.35,
+      "max_single_invoice_concentration_ratio": 0.4
+    },
+    "legal_policy": {
+      "cases_by_company_soft_cap": 5,
+      "cases_against_company_hard_cap": 1
+    }
   },
   "Philippines": {
     "cash_threshold": 40000,
