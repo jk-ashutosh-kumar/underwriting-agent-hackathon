@@ -66,6 +66,7 @@ from ingestion.db import (
 )
 from ingestion.models import CompanyCaseSummary, DocumentSummary, IngestResponse
 from ingestion.pipeline import run_pipeline
+from webhooks import list_webhooks, register, unregister
 from memory.checkpoint import load_checkpoint
 from memory.store import load_memory
 from memory.store import save_case
@@ -289,6 +290,36 @@ def get_regions() -> List[str]:
             rules = json.load(f)
         return list(rules.keys())
     return ["India", "Philippines"]
+
+
+# --------------------------------------------------------------------------- #
+# Webhook endpoints
+# --------------------------------------------------------------------------- #
+
+class WebhookRequest(BaseModel):
+    url: str
+
+
+@app.post("/api/webhooks/register", status_code=201)
+def register_webhook(body: WebhookRequest) -> Dict[str, Any]:
+    """Register a URL to receive document.extraction.completed events."""
+    added = register(body.url)
+    return {"url": body.url, "registered": added}
+
+
+@app.delete("/api/webhooks/unregister")
+def unregister_webhook(body: WebhookRequest) -> Dict[str, Any]:
+    """Remove a previously registered webhook URL."""
+    removed = unregister(body.url)
+    if not removed:
+        raise HTTPException(status_code=404, detail="URL not found in registry")
+    return {"url": body.url, "unregistered": True}
+
+
+@app.get("/api/webhooks")
+def get_webhooks() -> Dict[str, Any]:
+    """List all registered webhook URLs."""
+    return {"webhooks": list_webhooks()}
 
 
 @app.get("/api/debug/persistence", response_model=PersistenceDebugResponse)

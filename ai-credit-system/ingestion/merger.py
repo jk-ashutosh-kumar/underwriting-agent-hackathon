@@ -5,6 +5,7 @@ from __future__ import annotations
 from ingestion.db import update_document
 from ingestion.parser.bank_statement_parser import validate_bank_statement
 from ingestion.state import DocumentState
+from webhooks import fire_extraction_completed
 
 
 def deep_merge(pages: list[dict]) -> dict:
@@ -42,6 +43,8 @@ async def merge_node(state: DocumentState) -> DocumentState:
             extracted_data=merged,
             status="done",
         )
+
+        await fire_extraction_completed(state["case_id"], state["document_id"])
 
         return {
             **state,
