@@ -4378,5 +4378,333 @@
     "decision": "REJECTED",
     "region": "India",
     "risk_score": 65
+  },
+  {
+    "case_id": "case-1776406401",
+    "created_at": "2026-04-17T06:13:21.875599+00:00",
+    "input_data": {
+      "applicant_id": null,
+      "statement_month": null,
+      "transactions": [
+        {
+          "date": "2024-04-02",
+          "description": "NEFT Transfer Received",
+          "amount": 120000.0,
+          "type": "credit"
+        },
+        {
+          "date": "2024-04-05",
+          "description": "RTGS Payment",
+          "amount": 100000.0,
+          "type": "debit"
+        },
+        {
+          "date": "2024-04-08",
+          "description": "IMPS - Bulk Payment",
+          "amount": 1100000.0,
+          "type": "debit"
+        }
+      ],
+      "total_inflow": 120000.0,
+      "total_outflow": 1200000.0,
+      "invoice_data": null,
+      "credit_report": null
+    },
+    "agent_outputs": {
+      "audit": {
+        "risk_score": 37,
+        "flags": [
+          "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+          "Credit report shows 165 legal case(s)."
+        ],
+        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+        "risk_drivers": [
+          "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+          "Credit report shows 165 legal case(s)."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Limited historical transaction behavior context."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1046. Please try again in 313ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "trend": {
+        "profit": -1080000.0,
+        "trend": "shrinking",
+        "estimated_revenue": 120000.0,
+        "growth_signal": "shrinking (invoice_frequency=1/month)",
+        "insight": "In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo.",
+        "risk_drivers": [
+          "Shrinking cashflow trend detected"
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Single-period cashflow may hide seasonality effects."
+        ],
+        "recommendation": "reject",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1029. Please try again in 308ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "benchmark": {
+        "benchmark_result": "Risk profile is closer to historically higher-risk partners",
+        "comparison_insight": "I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+        "comparison": "I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+        "risk_drivers": [
+          "High proportion of risky historical cases."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Historical memory size and distribution may be limited."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 528. Please try again in 158ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "credit_limit": {
+        "min_limit": 76349.05,
+        "max_limit": 114523.57,
+        "economics_base_limit": 160020.0,
+        "nominal_ceiling": 182422.8,
+        "nominal_floor": 121615.2,
+        "reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 121615 up to 182423; we treat 182423 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 76349 to 114524. \n\nCompared with that nominal ceiling, the quoted band is tighter because the auditor raised 2 issue(s) (for example: Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).); the auditor asked for review rather than a clean approve; cashflow looks weak or shrinking."
+      },
+      "unified_profile": {
+        "bank": {
+          "applicant_id": null,
+          "statement_month": null,
+          "transactions": [
+            {
+              "date": "2024-04-02",
+              "description": "NEFT Transfer Received",
+              "amount": 120000.0,
+              "type": "credit"
+            },
+            {
+              "date": "2024-04-05",
+              "description": "RTGS Payment",
+              "amount": 100000.0,
+              "type": "debit"
+            },
+            {
+              "date": "2024-04-08",
+              "description": "IMPS - Bulk Payment",
+              "amount": 1100000.0,
+              "type": "debit"
+            }
+          ],
+          "total_inflow": 120000.0,
+          "total_outflow": 1200000.0,
+          "invoice_data": null,
+          "credit_report": null
+        },
+        "invoices": [
+          {
+            "invoice_id": "1592844520669",
+            "date": "22 June 2020",
+            "amount": 53340.0,
+            "customer": "Kamal Pumps Enterprise",
+            "status": "PENDING",
+            "raw": {
+              "buyer": {
+                "name": "Kamal Pumps Enterprise",
+                "gstin": "04AAERS9818B2A",
+                "state": "Maharashtra",
+                "address": "423 Yeola, Nashik, 423402, Maharashtra",
+                "state_code": null
+              },
+              "seller": {
+                "name": "Indrayani Enterprises",
+                "gstin": "07AAECR2971C1Z",
+                "state": "Maharashtra",
+                "address": "Yeola, Nashik, 423401, Maharashtra",
+                "contact": {
+                  "email": null,
+                  "phone": "+91 9857234526"
+                },
+                "state_code": null
+              },
+              "consignee": null,
+              "logistics": null,
+              "line_items": [
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 4095,
+                  "description": "Rotary Pump",
+                  "total_amount": 49140
+                },
+                {
+                  "unit": "Units",
+                  "hsn_sac": null,
+                  "quantity": 12,
+                  "unit_price": 350,
+                  "description": "Connection valves",
+                  "total_amount": 4200
+                }
+              ],
+              "tax_details": {
+                "cgst_rate": 0,
+                "igst_rate": 0,
+                "sgst_rate": 0,
+                "total_tax": 0,
+                "cgst_amount": 0,
+                "igst_amount": 0,
+                "sgst_amount": 0
+              },
+              "bank_details": {
+                "ifsc": "SBIN0000534",
+                "branch": "Hiranandani",
+                "bank_name": "STATE BANK OF INDIA",
+                "account_number": "203356289317"
+              },
+              "amount_summary": {
+                "subtotal": 53340,
+                "round_off": null,
+                "total_amount": 53340,
+                "amount_in_words": "Fifty-three Thousand Three Hundred And Forty only"
+              },
+              "additional_info": {
+                "remarks": null,
+                "terms_and_conditions": null
+              },
+              "payment_details": {
+                "amount_due": 28340,
+                "amount_paid": 25000,
+                "payment_mode": "CASH",
+                "payment_terms": null
+              },
+              "invoice_metadata": {
+                "irn": null,
+                "ack_date": null,
+                "ack_number": null,
+                "invoice_date": "22 June 2020",
+                "invoice_type": "tax_invoice",
+                "invoice_number": "1592844520669"
+              }
+            }
+          }
+        ],
+        "credit_report": {
+          "legal_cases": 165,
+          "legal_cases_against_company": 0,
+          "gst_filing_status": "regular",
+          "gst_on_time_filing_percent": 100,
+          "gst_has_delay": false,
+          "past_defaults": 0,
+          "report": {
+            "tax_filing": {
+              "has_delay": false,
+              "gst_number": "36AADCC1579Q1Z3",
+              "return_type": "GSTR-3B",
+              "taxpayer_type": "Regular",
+              "registered_state": "Telangana",
+              "on_time_filing_percent": 100,
+              "filing_last_6_months_percent": 100,
+              "filing_last_12_months_percent": 100
+            },
+            "profit_loss": {
+              "pat": 85960595,
+              "ebitda": null,
+              "revenue": 96860795,
+              "net_margin_percent": null
+            },
+            "balance_sheet": {
+              "equity": null,
+              "total_assets": null,
+              "current_assets": null,
+              "current_liabilities": null
+            },
+            "legal_profile": {
+              "cases_by_company": {
+                "civil": 165,
+                "total": 165,
+                "criminal": 0
+              },
+              "cases_against_company": {
+                "civil": 0,
+                "total": 0,
+                "criminal": 0
+              }
+            },
+            "business_summary": {
+              "industry": "Agro - [Agro Products Retailers and Distributors']",
+              "gst_number": "36AADCC1579Q1Z3",
+              "pan_number": "AADCC1579Q",
+              "business_type": "Private Limited Company",
+              "business_trade_name": "M S Coromandal Agri Sciences Private Limited",
+              "age_of_business_months": 111,
+              "incorporation_date_pan": "2007-08-27"
+            },
+            "gstr3b_filing_delay": {
+              "summary": {
+                "status": "NO_DELAYS",
+                "total_delays": null,
+                "average_delay_days": null
+              },
+              "delay_records": null
+            }
+          }
+        },
+        "derived_metrics": {
+          "monthly_inflow": 120000.0,
+          "monthly_outflow": 1200000.0,
+          "avg_invoice_value": 53340.0,
+          "invoice_frequency": 1,
+          "total_invoice_volume": 53340.0,
+          "gst_compliance": "regular"
+        }
+      },
+      "auditor": {
+        "risk_score": 37,
+        "flags": [
+          "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+          "Credit report shows 165 legal case(s)."
+        ],
+        "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+        "risk_drivers": [
+          "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+          "Credit report shows 165 legal case(s)."
+        ],
+        "positive_signals": [],
+        "uncertainties": [
+          "Limited historical transaction behavior context."
+        ],
+        "recommendation": "review",
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1046. Please try again in 313ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      "final_summary": "Committee Summary (India): Committee chair view (India): audit risk is 37/100, trend is 'shrinking', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=16. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo., I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00)., Credit report shows 165 legal case(s).. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
+      "committee_chair": {
+        "final_summary": "Committee Summary (India): Committee chair view (India): audit risk is 37/100, trend is 'shrinking', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=16. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo., I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00)., Credit report shows 165 legal case(s).. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
+        "final_verdict_rationale": "Committee chair view (India): audit risk is 37/100, trend is 'shrinking', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=16. Overall posture is balanced.",
+        "key_supporting_points": [
+          "In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo.",
+          "I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'."
+        ],
+        "key_risks": [
+          "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+          "Credit report shows 165 legal case(s).",
+          "Shrinking cashflow trend detected"
+        ],
+        "confidence": 60,
+        "conditions_if_approved": [
+          "Monthly statement monitoring",
+          "No single undocumented transfer above policy threshold"
+        ],
+        "mode": "deterministic_fallback",
+        "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 871. Please try again in 261ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+        "accounting_signal": "Partner has 95% on-time payments",
+        "credit_limit_reasoning": "The economics base anchor is 160020 (roughly one quarter of modeled annual flow). Before final underwriting, the economics-only band ran from 121615 up to 182423; we treat 182423 as the nominal ceiling from the model before policy haircuts. The quoted annual facility that matches the cards above is 76349 to 114524. \n\nCompared with that nominal ceiling, the quoted band is tighter because the auditor raised 2 issue(s) (for example: Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).); the auditor asked for review rather than a clean approve; cashflow looks weak or shrinking."
+      },
+      "crew_kickoff_summary": null,
+      "mode": "llm",
+      "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
+    },
+    "decision": "APPROVED",
+    "region": "India",
+    "risk_score": 37
   }
 ]

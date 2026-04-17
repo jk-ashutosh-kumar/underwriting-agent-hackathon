@@ -17,6 +17,7 @@ from memory.checkpoint import save_checkpoint
 ROOT_DIR = Path(__file__).resolve().parents[1]
 SAMPLE_DATA_FILE = ROOT_DIR / "data" / "sample_statement.json"
 REGIONAL_POLICY_FILE = ROOT_DIR / "data" / "regional_policy.json"
+REGIONAL_RULES_FILE = ROOT_DIR / "data" / "regional_rules.json"
 
 # UI pipeline indices (ingest → committee → router → HITL → resume → decision → checkpoint)
 _PROGRESS_INDEX = {
@@ -50,6 +51,14 @@ def _load_regional_policy() -> Dict[str, Any]:
     if not REGIONAL_POLICY_FILE.exists():
         return {"India": {"cash_threshold": 50000, "flag_keywords": []}}
     with REGIONAL_POLICY_FILE.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _load_regional_rules() -> Dict[str, Any]:
+    """Load region-aware rules (e.g. large_txn_threshold) with safe fallback."""
+    if not REGIONAL_RULES_FILE.exists():
+        return {"India": {"large_txn_threshold": 1000000}}
+    with REGIONAL_RULES_FILE.open("r", encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -102,11 +111,11 @@ def router_node(state: UnderwritingState) -> str:
     - large amount above regional threshold
     - "Transfer 00921" style trigger
     """
-    policy = _load_regional_policy()
+    rules = _load_regional_rules()
     # Reset per-run HITL context. When set, UI can show flagged transaction details.
     state["hitl_context"] = None  # type: ignore[assignment]
-    region_policy = policy.get(state["region"], policy.get("India", {}))
-    amount_threshold = float(region_policy.get("cash_threshold", 50000))
+    region_rules = rules.get(state["region"], rules.get("India", {}))
+    amount_threshold = float(region_rules.get("large_txn_threshold", 1000000))
     transactions: List[Dict[str, Any]] = state["applicant_data"].get("transactions", [])
 
     for txn in transactions:

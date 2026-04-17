@@ -4,100 +4,91 @@
     "statement_month": null,
     "transactions": [
       {
-        "date": "2025-11-02",
-        "description": "NEFT - DHANA CROP SCIENCES",
-        "amount": 3850000.0,
+        "date": "2024-04-02",
+        "description": "NEFT Transfer Received",
+        "amount": 120000.0,
         "type": "credit"
       },
       {
-        "date": "2025-11-03",
-        "description": "RTGS - DHARMAJ CROP",
-        "amount": 2500000.0,
+        "date": "2024-04-05",
+        "description": "RTGS Payment",
+        "amount": 100000.0,
         "type": "debit"
       },
       {
-        "date": "2025-11-04",
-        "description": "GST Payment",
-        "amount": 1275000.0,
-        "type": "debit"
-      },
-      {
-        "date": "2025-11-05",
-        "description": "IMPS - SRI ADITYA",
-        "amount": 840000.0,
-        "type": "credit"
-      },
-      {
-        "date": "2025-11-10",
-        "description": "RTGS - SRI RASAYAN",
-        "amount": 1850000.0,
-        "type": "debit"
-      },
-      {
-        "date": "2025-11-20",
-        "description": "NEFT - SRI VENKATESHWARA",
-        "amount": 920000.0,
-        "type": "credit"
-      },
-      {
-        "date": "2025-11-27",
-        "description": "Loan EMI",
-        "amount": 1050000.0,
+        "date": "2024-04-08",
+        "description": "IMPS - Bulk Payment",
+        "amount": 1100000.0,
         "type": "debit"
       }
     ],
-    "total_inflow": 5610000.0,
-    "total_outflow": 6675000.0,
+    "total_inflow": 120000.0,
+    "total_outflow": 1200000.0,
     "invoice_data": null,
     "credit_report": null
   },
   "region": "India",
-  "risk_score": 75,
+  "risk_score": 37,
   "agent_logs": [
-    "Auditor: The financial case shows significant inflows and outflows with large transactions exceeding the threshold. Additionally, there are 165 legal cases associated with the entity, which raises concerns about its operational integrity. The average invoice value is low compared to the total inflow, indicating potential discrepancies.",
-    "Trend: The business is experiencing a negative cash flow with total outflows exceeding inflows, indicating financial strain.",
-    "Benchmark: The current case metrics reflect a higher risk profile compared to historical entries, which have all been rejected. The average invoice value and frequency do not mitigate the negative cash flow situation.",
-    "Committee: The underwriting committee recommends a review of the case due to significant financial risks, including negative cash flow and a high volume of legal cases.",
-    "Router: Large transaction 3850000.00 above threshold 500000.00 -> FLAGGED."
+    "Auditor: I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+    "Trend: In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo.",
+    "Benchmark: I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+    "Committee: Committee Summary (India): Committee chair view (India): audit risk is 37/100, trend is 'shrinking', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=16. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo., I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00)., Credit report shows 165 legal case(s).. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
+    "Router: Large transaction 1100000.00 above threshold 1000000.00 -> FLAGGED."
   ],
-  "human_input": "appoved",
+  "human_input": "just baught a nice car",
   "decision_status": "FLAGGED",
   "committee_output": {
     "audit": {
-      "risk_score": 75,
+      "risk_score": 37,
       "flags": [
-        "large transaction amounts",
-        "high volume of legal cases",
-        "invoice volume vs bank inflow mismatch"
+        "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+        "Credit report shows 165 legal case(s)."
       ],
-      "explanation": "The financial case shows significant inflows and outflows with large transactions exceeding the threshold. Additionally, there are 165 legal cases associated with the entity, which raises concerns about its operational integrity. The average invoice value is low compared to the total inflow, indicating potential discrepancies.",
-      "risk_drivers": [],
+      "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+      "risk_drivers": [
+        "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+        "Credit report shows 165 legal case(s)."
+      ],
       "positive_signals": [],
-      "uncertainties": [],
+      "uncertainties": [
+        "Limited historical transaction behavior context."
+      ],
       "recommendation": "review",
-      "mode": "llm"
+      "mode": "deterministic_fallback",
+      "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1046. Please try again in 313ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
     },
     "trend": {
-      "profit": -1065000.0,
+      "profit": -1080000.0,
       "trend": "shrinking",
-      "estimated_revenue": 96860795.0,
-      "growth_signal": "negative cash flow",
-      "insight": "The business is experiencing a negative cash flow with total outflows exceeding inflows, indicating financial strain.",
-      "risk_drivers": [],
+      "estimated_revenue": 120000.0,
+      "growth_signal": "shrinking (invoice_frequency=1/month)",
+      "insight": "In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo.",
+      "risk_drivers": [
+        "Shrinking cashflow trend detected"
+      ],
       "positive_signals": [],
-      "uncertainties": [],
-      "recommendation": "review",
-      "mode": "llm"
+      "uncertainties": [
+        "Single-period cashflow may hide seasonality effects."
+      ],
+      "recommendation": "reject",
+      "mode": "deterministic_fallback",
+      "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1029. Please try again in 308ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
     },
     "benchmark": {
-      "benchmark_result": "The current case shows a negative cash flow with monthly inflow of 5,610,000 and outflow of 6,675,000, indicating potential liquidity issues. Historical cases in India with risk scores above 60 have consistently been rejected, suggesting a high-risk environment.",
-      "comparison_insight": "The current case metrics reflect a higher risk profile compared to historical entries, which have all been rejected. The average invoice value and frequency do not mitigate the negative cash flow situation.",
-      "comparison": "The current case metrics reflect a higher risk profile compared to historical entries, which have all been rejected. The average invoice value and frequency do not mitigate the negative cash flow situation.",
-      "risk_drivers": [],
+      "benchmark_result": "Risk profile is closer to historically higher-risk partners",
+      "comparison_insight": "I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+      "comparison": "I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.",
+      "risk_drivers": [
+        "High proportion of risky historical cases."
+      ],
       "positive_signals": [],
-      "uncertainties": [],
+      "uncertainties": [
+        "Historical memory size and distribution may be limited."
+      ],
       "recommendation": "review",
-      "mode": "llm"
+      "mode": "deterministic_fallback",
+      "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 528. Please try again in 158ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
     },
     "credit_limit": {
       "min_limit": 0.0,
@@ -113,50 +104,26 @@
         "statement_month": null,
         "transactions": [
           {
-            "date": "2025-11-02",
-            "description": "NEFT - DHANA CROP SCIENCES",
-            "amount": 3850000.0,
+            "date": "2024-04-02",
+            "description": "NEFT Transfer Received",
+            "amount": 120000.0,
             "type": "credit"
           },
           {
-            "date": "2025-11-03",
-            "description": "RTGS - DHARMAJ CROP",
-            "amount": 2500000.0,
+            "date": "2024-04-05",
+            "description": "RTGS Payment",
+            "amount": 100000.0,
             "type": "debit"
           },
           {
-            "date": "2025-11-04",
-            "description": "GST Payment",
-            "amount": 1275000.0,
-            "type": "debit"
-          },
-          {
-            "date": "2025-11-05",
-            "description": "IMPS - SRI ADITYA",
-            "amount": 840000.0,
-            "type": "credit"
-          },
-          {
-            "date": "2025-11-10",
-            "description": "RTGS - SRI RASAYAN",
-            "amount": 1850000.0,
-            "type": "debit"
-          },
-          {
-            "date": "2025-11-20",
-            "description": "NEFT - SRI VENKATESHWARA",
-            "amount": 920000.0,
-            "type": "credit"
-          },
-          {
-            "date": "2025-11-27",
-            "description": "Loan EMI",
-            "amount": 1050000.0,
+            "date": "2024-04-08",
+            "description": "IMPS - Bulk Payment",
+            "amount": 1100000.0,
             "type": "debit"
           }
         ],
-        "total_inflow": 5610000.0,
-        "total_outflow": 6675000.0,
+        "total_inflow": 120000.0,
+        "total_outflow": 1200000.0,
         "invoice_data": null,
         "credit_report": null
       },
@@ -310,8 +277,8 @@
         }
       },
       "derived_metrics": {
-        "monthly_inflow": 5610000.0,
-        "monthly_outflow": 6675000.0,
+        "monthly_inflow": 120000.0,
+        "monthly_outflow": 1200000.0,
         "avg_invoice_value": 53340.0,
         "invoice_frequency": 1,
         "total_invoice_volume": 53340.0,
@@ -319,57 +286,61 @@
       }
     },
     "auditor": {
-      "risk_score": 75,
+      "risk_score": 37,
       "flags": [
-        "large transaction amounts",
-        "high volume of legal cases",
-        "invoice volume vs bank inflow mismatch"
+        "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+        "Credit report shows 165 legal case(s)."
       ],
-      "explanation": "The financial case shows significant inflows and outflows with large transactions exceeding the threshold. Additionally, there are 165 legal cases associated with the entity, which raises concerns about its operational integrity. The average invoice value is low compared to the total inflow, indicating potential discrepancies.",
-      "risk_drivers": [],
+      "explanation": "I flagged this because high-value movements and/or repeated identical amounts are common warning signs for layered or circular transaction behavior.",
+      "risk_drivers": [
+        "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+        "Credit report shows 165 legal case(s)."
+      ],
       "positive_signals": [],
-      "uncertainties": [],
+      "uncertainties": [
+        "Limited historical transaction behavior context."
+      ],
       "recommendation": "review",
-      "mode": "llm"
+      "mode": "deterministic_fallback",
+      "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 1046. Please try again in 313ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
     },
-    "final_summary": "The underwriting committee recommends a review of the case due to significant financial risks, including negative cash flow and a high volume of legal cases.",
+    "final_summary": "Committee Summary (India): Committee chair view (India): audit risk is 37/100, trend is 'shrinking', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=16. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo., I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00)., Credit report shows 165 legal case(s).. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
     "committee_chair": {
-      "final_summary": "The underwriting committee recommends a review of the case due to significant financial risks, including negative cash flow and a high volume of legal cases.",
-      "final_verdict_rationale": "The entity exhibits a concerning financial profile with large transaction amounts, a negative cash flow trend, and a high number of legal cases, all of which contribute to a high risk score. Historical data suggests that similar cases have been rejected, indicating a need for caution.",
+      "final_summary": "Committee Summary (India): Committee chair view (India): audit risk is 37/100, trend is 'shrinking', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=16. Overall posture is balanced. Top supports: In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo., I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'.. Top risks: Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00)., Credit report shows 165 legal case(s).. Annual credit limit is computed only after final approval (post router / HITL when applicable).",
+      "final_verdict_rationale": "Committee chair view (India): audit risk is 37/100, trend is 'shrinking', benchmark indicates 'Risk profile is closer to historically higher-risk partners', memory cases reviewed=16. Overall posture is balanced.",
       "key_supporting_points": [
-        "Negative cash flow with total outflows exceeding inflows.",
-        "High volume of legal cases (165) raises operational integrity concerns.",
-        "Large transaction amounts exceeding thresholds indicate potential discrepancies."
+        "In India, inflow is 120000.00 and outflow is 1200000.00, so estimated profit is -1080000.00. Growth ratio is 0.10, which I classify as 'shrinking' for this demo.",
+        "I reviewed 16 memory cases; 14 were high risk. Current monthly inflow=120000.00, avg invoice=53340.00. This suggests the current case aligns with 'Risk profile is closer to historically higher-risk partners'."
       ],
       "key_risks": [
-        "Liquidity issues due to negative cash flow.",
-        "Operational integrity concerns from numerous legal cases.",
-        "Potential discrepancies in financial reporting indicated by invoice vs bank inflow mismatch."
+        "Large transaction flagged: IMPS - Bulk Payment for 1100000.00 (threshold 1000000.00).",
+        "Credit report shows 165 legal case(s).",
+        "Shrinking cashflow trend detected"
       ],
-      "confidence": 70,
+      "confidence": 60,
       "conditions_if_approved": [
-        "Further investigation into the legal cases and their impact on operations.",
-        "Detailed analysis of transaction discrepancies and financial reporting.",
-        "Monitoring of cash flow trends over the next quarter."
+        "Monthly statement monitoring",
+        "No single undocumented transfer above policy threshold"
       ],
-      "mode": "llm",
+      "mode": "deterministic_fallback",
+      "llm_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o-mini in organization org-tan5KcSF3z6K5fbPFKIfpc3O on tokens per min (TPM): Limit 200000, Used 200000, Requested 871. Please try again in 261ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
       "accounting_signal": "Partner has 95% on-time payments",
       "credit_limit_reasoning": "Annual credit limit is computed only after final approval, following router / HITL / resume."
     },
     "crew_kickoff_summary": null,
     "mode": "llm",
-    "crew_status": "CrewAI package import failed (orchestration skipped); auditor/trend/benchmark still run via direct calls \u2014 see each agent's mode from USE_LLM. Active committee path: LLM (USE_LLM)."
+    "crew_status": "CrewAI committee configured with 3 agents and chained tasks."
   },
   "hitl_context": {
     "reason": "large_transaction",
     "transaction": {
-      "date": "2025-11-02",
-      "description": "NEFT - DHANA CROP SCIENCES",
-      "amount": 3850000.0,
-      "type": "credit"
+      "date": "2024-04-08",
+      "description": "IMPS - Bulk Payment",
+      "amount": 1100000.0,
+      "type": "debit"
     },
-    "threshold": 500000.0,
-    "message": "Amount 3850000.00 exceeds threshold 500000.00."
+    "threshold": 1000000.0,
+    "message": "Amount 1100000.00 exceeds threshold 1000000.00."
   },
   "route": "hitl"
 }
